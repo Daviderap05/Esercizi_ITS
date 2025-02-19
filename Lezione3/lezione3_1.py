@@ -65,7 +65,7 @@
 # print("Greate news... we can invite more people (I request a new answers)")
 
 # names.insert(0, "Federico")
-# names.insert(2, "Lorenzo")
+# names.insert((len(names) // 2), "Lorenzo")
 # names.append("Francesco")
 
 # for name in names:
