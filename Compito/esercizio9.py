@@ -24,7 +24,7 @@ while abs(pi - 3.141) > 0.001:
     segno *= -1
     count += 1
 
-print(f"Termini necessari per ottenere il valore di π ≈ 3.14: {count}")
+print(f"Termini necessari per ottenere il valore di π ≈ 3.141: {count}")
 
 pi: float = 4.0
 count = 0
@@ -38,7 +38,7 @@ while abs(pi - 3.1415) > 0.0001:
     segno *= -1
     count += 1
 
-print(f"Termini necessari per ottenere il valore di π ≈ 3.14: {count}")
+print(f"Termini necessari per ottenere il valore di π ≈ 3.1415: {count}")
 
 pi: float = 4.0
 count = 0
@@ -52,4 +52,4 @@ while abs(pi - 3.14159) > 0.00001:
     segno *= -1
     count += 1
 
-print(f"Termini necessari per ottenere il valore di π ≈ 3.14: {count}")
+print(f"Termini necessari per ottenere il valore di π ≈ 3.14159: {count}")
