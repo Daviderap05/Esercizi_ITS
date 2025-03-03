@@ -120,7 +120,6 @@ match scelte:
 
         print(f"Non ho mai visto l'animale '{nome_animale}' vivere nell'habitat '{habitat_animale}'")
     
-    
     #pesci
     
     case {"nome_animale" : nome_animale, "animal_type" : "pesci", "habitat_animale" : "acqua"}:
