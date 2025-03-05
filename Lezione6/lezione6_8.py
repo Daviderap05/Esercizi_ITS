@@ -3,7 +3,7 @@ from typing import Any
 
 #variabile per contenere la categoria dell'animale scelto
 
-animal_type: str = ""
+animal_type: str
 
 #dizionario delle categorie animali e dei vari habitat
 
@@ -100,7 +100,7 @@ match scelte:
         
     case {"nome_animale" : nome_animale, "animal_type" : "mammiferi", "habitat_animale" : "acqua"} if nome_animale in animali["categoria"]["mammiferi"][-2 : ]:
         
-        print(f"L'animale '{nome_animale}' è uno dei {animal_type} che può vivere sulla {habitat_animale}!")
+        print(f"L'animale '{nome_animale}' è uno dei {animal_type} che può vivere in {habitat_animale}!")
         
     case {"nome_animale" : nome_animale, "animal_type" : "mammiferi", "habitat_animale" : habitat_animale} if habitat_animale in animali["habitat"]:
         
@@ -114,7 +114,7 @@ match scelte:
         
     case {"nome_animale" : nome_animale, "animal_type" : "rettili", "habitat_animale" : "acqua"} if nome_animale in animali["categoria"]["rettili"][-1]:
 
-        print(f"L'animale '{nome_animale}' è uno dei {animal_type} che può vivere sulla {habitat_animale}!")
+        print(f"L'animale '{nome_animale}' è uno dei {animal_type} che può vivere in {habitat_animale}!")
         
     case {"nome_animale" : nome_animale, "animal_type" : "rettili", "habitat_animale" : habitat_animale} if habitat_animale in animali["habitat"]:
 
@@ -124,7 +124,7 @@ match scelte:
     
     case {"nome_animale" : nome_animale, "animal_type" : "pesci", "habitat_animale" : "acqua"}:
 
-        print(f"L'animale '{nome_animale}' è uno dei {animal_type} che può vivere sulla {habitat_animale}!")
+        print(f"L'animale '{nome_animale}' è uno dei {animal_type} che può vivere in {habitat_animale}!")
         
     case {"nome_animale" : nome_animale, "animal_type" : "pesci", "habitat_animale" : habitat_animale} if habitat_animale in animali["habitat"]:
 
@@ -132,17 +132,17 @@ match scelte:
     
     #uccelli
     
-    case {"nome_animale" : nome_animale, "animal_type" : "uccelli", "habitat_animale" : "aria"} if nome_animale in animali["categoria"]["uccelli"][ : 3]:
+    case {"nome_animale" : nome_animale, "animal_type" : "uccelli", "habitat_animale" : "aria"} if nome_animale in animali["categoria"]["uccelli"][ : 4]:
 
-        print(f"L'animale '{nome_animale}' è uno degli {animal_type} che può vivere sulla {habitat_animale}!")
+        print(f"L'animale '{nome_animale}' è uno degli {animal_type} che può vivere in {habitat_animale}!")
         
     case {"nome_animale" : nome_animale, "animal_type" : "uccelli", "habitat_animale" : "terra"} if nome_animale in animali["categoria"]["uccelli"][-4 : ]:
 
         print(f"L'animale '{nome_animale}' è uno degli {animal_type} che può vivere sulla {habitat_animale}!")
         
-    case {"nome_animale" : nome_animale, "animal_type" : "uccelli", "habitat_animale" : "acqua"} if nome_animale in animali["categoria"]["uccelli"][4 : 5]:
+    case {"nome_animale" : nome_animale, "animal_type" : "uccelli", "habitat_animale" : "acqua"} if nome_animale in animali["categoria"]["uccelli"][4 : 6]:
 
-        print(f"L'animale '{nome_animale}' è uno degli {animal_type} che può vivere sulla {habitat_animale}!")
+        print(f"L'animale '{nome_animale}' è uno degli {animal_type} che può vivere sull'{habitat_animale}!")
         
     case {"nome_animale" : nome_animale, "animal_type" : "uccelli", "habitat_animale" : habitat_animale} if habitat_animale in animali["habitat"]:
 
