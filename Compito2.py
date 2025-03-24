@@ -180,38 +180,38 @@
 
 
 
-# def check_parentheses(expression: str) -> bool:
+def check_parentheses(expression: str) -> bool:
     
-#     cont: int = 0
+    cont: int = 0
 
-#     if expression:
+    if expression:
         
-#         for i in expression:
+        for i in expression:
             
-#             if i == "(":
+            if i == "(":
                 
-#                 cont += 1
+                cont += 1
                 
-#             elif i == ")":
+            elif i == ")":
                 
-#                 cont -= 1
+                cont -= 1
                 
-#                 if cont < 0:
+                if cont < 0:
                     
-#                     return False
+                    return False
                 
                 
-#         if cont == 0:
+        if cont == 0:
             
-#             return True
+            return True
         
-#         else:
+        else:
             
-#             return False
+            return False
     
-#     else:
+    else:
         
-#         return False
+        return False
             
 # def check_parentheses(expression: str) -> bool:
 #     count = 0  # Contatore per le parentesi aperte
@@ -232,24 +232,24 @@
             
             
             
-def count_isolated(lista: list[int]) -> int:
+# def count_isolated(lista: list[int]) -> int:
     
-    cont: int = 0
+#     cont: int = 0
     
-    if lista:
+#     if lista:
         
-        for i in range(0, len(lista) + 1):
+#         for i in range(0, len(lista) + 1):
             
-            if i == 0 and lista[i] != lista[i + 1]:
+#             if i == 0 and lista[i] != lista[i + 1]:
             
-                cont += 1
+#                 cont += 1
                 
-            elif i == (len(lista) - 1) and lista[i] != lista[i - 1]: 
+#             elif i == (len(lista) - 1) and lista[i] != lista[i - 1]: 
                 
-                cont += 1  
+#                 cont += 1  
                 
-            elif 0 < i < (len(lista) - 1) and lista[i] != lista[i + 1] and lista[i] != lista[i - 1]:
+#             elif 0 < i < (len(lista) - 1) and lista[i] != lista[i + 1] and lista[i] != lista[i - 1]:
                     
-                    cont += 1
+#                     cont += 1
         
-    return cont
+#     return cont
