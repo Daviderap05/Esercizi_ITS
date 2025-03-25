@@ -8,17 +8,41 @@ class Restaurant:   #esercizio 1, 2 e 4
         
     def describe_restaurant(self):
         
-        print(f"Il nome del ristorante è: {self.restaurant_name}. Il suo tipo di cucina è: {self.cuisine_type}")
-    
+        print(
+            
+            f"Il nome del ristorante è: {self.restaurant_name}. "
+            f"Il suo tipo di cucina è: {self.cuisine_type}. "
+            f"Il numero dei clienti serviti è: {self.number_served}."
+        )
+        
+    def describe_number_served(self):
+        
+        print(f"Il ristorante {self.restaurant_name} ha servito {self.number_served} persone. ")
+        
+    def set_number_served(self):
+        
+        n: int = int(input("Inserisci il numero dei clienti serviti: "))
+
+        self.number_served = n
+        
+        return self.number_served
     
     def open_restaurant(self):
         
         print(f"Il ristorante {self.restaurant_name} è aperto")
         
+    def increment_number_served(self):
+        
+        n: int = int(input("Inserisci il numero dei nbuovi clienti da incrementare: "))
+
+        self.number_served += n
+        
+        return self.number_served
+    
 restaurant: Restaurant = Restaurant("Stella", "Italiano")
 
 print(restaurant.restaurant_name)
-print(restaurant.cuisine_type   )
+print(restaurant.cuisine_type)
 
 print("")
 
@@ -27,10 +51,20 @@ restaurant.open_restaurant()
 
 print("")
 
-restaurant1 = Restaurant("Stella", "Italiano")
-restaurant2 = Restaurant("Sakura", "Giapponese")
-restaurant3 = Restaurant("El Sol", "Messicano")
+restaurant1: Restaurant = Restaurant("Stella", "Italiano")
+restaurant2: Restaurant = Restaurant("Sakura", "Giapponese")
+restaurant3: Restaurant = Restaurant("El Sol", "Messicano")
 
 restaurant1.describe_restaurant()
 restaurant2.describe_restaurant()
 restaurant3.describe_restaurant()
+
+print("")
+
+restaurant4: Restaurant = Restaurant("Macigno", "Indiano")
+restaurant4.describe_number_served()
+restaurant4.set_number_served()
+restaurant4.describe_number_served()
+restaurant4.describe_restaurant()
+restaurant4.increment_number_served()
+restaurant4.describe_number_served()
