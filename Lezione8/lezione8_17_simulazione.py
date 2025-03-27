@@ -1,123 +1,202 @@
-import time
 import random
-import os
+import time
+from sys import exit
 
-def tartaruga(pos: int = 1):
-    
-    mossa: int = random.randint(1, 10)
-            
-    if mossa <= 5:
-            
-        # aumenta 3 quadrati passo veloce
-                    
-        pos += 3
-            
-    elif mossa >= 6 and mossa <= 7:
-            
-        #scivolata arretra 6 quadrati (no sotto l'1)
-                    
-        pos -= 6
-        
-        if pos < 1:
-                
-            pos = 1
-    
-    elif mossa >= 8:
-            
-        # aumenta 1 quadrato passo lento
-                    
-        pos += 1
-            
-    return pos
-            
-    
-def lepre(pos: int = 1):
-    
-    mossa: int = random.randint(1, 10)
-        
-    if mossa >= 3 and mossa <= 4:
-            
-        #Grande balzo avanza di 9 quadrati.
-                    
-        pos += 9
-        
-    if mossa == 5:
-            
-        # Grande scivolata arretra di 12 quadrati. (no sotto l'1)
-                    
-        pos -= 12
-            
-        if pos < 1:
-                
-            pos = 1
-            
-    if mossa >= 6 and mossa <= 8:
-            
-        #Piccolo balzo avanza di 1 quadrato.
-                
-        pos += 1
-        
-    if mossa >= 8 and mossa <= 10:
-            
-        #Piccola scivolata arretra di 2 quadrati. (no sotto l'1)
-                    
-        pos -= 2
-            
-        if pos < 1:
-            
-            pos = 1
-                
-    return pos
-            
-    
-# def visualizza_posizioni(lista: list[str]):
-    
-#     lista_HL: list[str] = []
-        
-#     for i in range(71):
-        
-#         lista_HL.append("_")
-        
-#     for j in lista:
-        
-#         if 
+#> <
 
-def gara(pos_t, pos_l):
+def tartaruga(pos: int, cont: int, meteo: str):
     
-    pista: list[str] = ["_"] * 70
+    lancio: int = random.randint(1, 10)
+    
+    if (cont % 20) < 10:
         
-    for i in range(len(pista)):
+        meteo = "Soleggiato"
         
-        if pos_t != pos_l:
+        if lancio <= 5:
             
-            pista[pos_t - 1] = "T"
-            pista[pos_l - 1] = "L"
+            pos += 3
         
+        elif lancio == 6 or lancio == 7:
+            
+            pos -= 6
+            
+            if pos < 1:
+                
+                pos = 1
+                
         else:
             
-            pista[pos_l - 1] = "OUCH!!!"
+            pos += 1
             
+    else:
+        
+        meteo = "Pioggia"
+        
+        if lancio <= 5:
+            
+            pos += 3 - 1
+        
+        elif lancio == 6 or lancio == 7:
+            
+            pos -= 6 - 1
+            
+            if pos < 1:
+                
+                pos = 1
+                
+        else:
+            
+            pos += 1 - 1
+        
+    return pos, meteo
+
+
+def lepre(pos: int, cont: int, meteo: str):
+    
+    lancio: int = random.randint(1, 10)
+    
+    if (cont % 20) < 10:
+        
+        meteo = "Soleggiato"
+    
+        if lancio == 3 or lancio == 4:
+            
+            pos += 9
+        
+        elif lancio == 5:
+            
+            pos -= 12
+            
+            if pos < 1:
+                
+                pos = 1
+                
+        elif 6 <= lancio <= 8:
+            
+            pos += 1
+                
+        else:
+            
+            pos -= 2
+            
+            if pos < 1:
+                
+                pos = 1
+                
+    else:
+        
+        meteo = "Pioggia"
+        
+        if lancio == 3 or lancio == 4:
+            
+            pos += 9 - 1
+        
+        elif lancio == 5:
+            
+            pos -= 12 - 1
+            
+            if pos < 1:
+                
+                pos = 1
+                
+        elif 6 <= lancio <= 8:
+            
+            pos += 1 - 1
+                
+        else:
+            
+            pos -= 2 - 1
+            
+            if pos < 1:
+                
+                pos = 1
+        
+    return pos, meteo
+
+
+def gara(pos_t: int, pos_l: int, cicli: int, meteo: str):
+    
+    pista: list[str] = ["_"] * 70
+    
+    if pos_t >= 70 and pos_l >= 70:
+        
+        pos_t = pos_l = 70
+        pista[-1] = "OUCH!!!"
+        
+        print(*pista)
+        
+        print(f"\nPosizione tartaruga = {pos_t}               Posizione lepre = {pos_l}                Cicli = {cicli}                 Meteo = {meteo}  {'☀️' if meteo == 'Soleggiato' else '🌧️'}")
+        
+        print("\n\nIT'S A TIE.\n")
+    
+    elif pos_t >= 70:
+        
+        pos_t = 70
+        pista[-1] = "T"
+        pista[pos_l - 1] = "L"
+        
+        print(*pista)
+        
+        print(f"\nPosizione tartaruga = {pos_t}               Posizione lepre = {pos_l}                Cicli = {cicli}                 Meteo = {meteo}  {'☀️' if meteo == 'Soleggiato' else '🌧️'}")
+        
+        print("\n\nTORTOISE WINS! || VAY!!!\n")
+    
+    elif pos_l >= 70:
+        
+        pos_l = 70
+        pista[-1] = "L"
+        pista[pos_t - 1] = "T"
+        
+        print(*pista)
+        
+        print(f"\nPosizione tartaruga = {pos_t}               Posizione lepre = {pos_l}                Cicli = {cicli}                 Meteo = {meteo}  {'☀️' if meteo == 'Soleggiato' else '🌧️'}")
+            
+        print("\n\nHARE WINS || YUCH!!!\n")
+    
+    elif pos_l == pos_t:
+        
+        pista[pos_t - 1] = "OUCH!!!"
+        
         print(*pista)
     
+        print(f"\nPosizione tartaruga = {pos_t}               Posizione lepre = {pos_l}                Cicli = {cicli}                 Meteo = {meteo}  {'☀️' if meteo == 'Soleggiato' else '🌧️'}")
+        
+    else:
+        
+        pista[pos_t - 1] = "T"
+        pista[pos_l - 1] = "L"
+        
+        print(*pista)
+        
+        print(f"\nPosizione tartaruga = {pos_t}               Posizione lepre = {pos_l}                Cicli = {cicli}                 Meteo = {meteo}  {'☀️' if meteo == 'Soleggiato' else '🌧️'}")
     
+
 if __name__ == "__main__":
 
-    print("'BANG !!!!! AND THEY'RE OFF !!!!!'")
-   
-
-    while True:
+    print("\n'BANG !!!!! AND THEY'RE OFF !!!!!'\n")
+    
+    pos_t: int = 1
+    pos_l: int = 1
+    cicli: int = 1
+    risultato: bool = False
+    meteo: str = "Soleggiato"
+    
+    gara(pos_t, pos_l, cicli, meteo)
+    print("\n" + "#" * 140 + "\n")
+    
+    while risultato == False:
         
         time.sleep(1)
         
-        pos_t: int = tartaruga()
+        cicli += 1
         
-        pos_l: int = lepre()
+        pos_t, meteo = tartaruga(pos_t, cicli, meteo)
+        pos_l, meteo = lepre(pos_l, cicli, meteo) 
         
-        gara(pos_t, pos_l)
+        gara(pos_t, pos_l, cicli, meteo)
         
-        print("\n##############################################################################\n")
+        print("\n" + "#" * 140 + "\n")
         
-        #time.sleep(1)
-        #os.system('clear')
-        
-        
+        if pos_t >= 70 or pos_l >= 70:
+            
+            risultato = True
