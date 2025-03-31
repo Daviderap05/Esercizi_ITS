@@ -64,6 +64,8 @@ def tartaruga(pos: int, cont: int, meteo: str, energia: int):
             
     else:
         
+        meteo = "Piovoso"
+        
         match lancio:
             
             case lancio if lancio <= 5:
@@ -173,6 +175,8 @@ def lepre(pos: int, cont: int, meteo: str, energia: int):
                         pos = 1
                 
     else:
+        
+        meteo = "Piovoso"
         
         match lancio:
             
