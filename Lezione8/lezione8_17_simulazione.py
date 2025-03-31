@@ -315,33 +315,31 @@ def gara(pos_t: int, pos_l: int, cicli: int, meteo: str, energia_t: int, energia
         
     else:
         
-        for key, value in dizionario_malus.items():
-                
-            if pos_t == key:
+        for key, value in {**dizionario_malus, **dizionario_bonus}.items():
             
-                pos_t -= value
-
-                messaggio_bonus = f"MALUS alla casella {key}! Tartaruga arretra di {value} posizioni"
+            if pos_t == key:
                 
-            elif pos_l == key:
-                
-                pos_l -= value
-
-                messaggio_bonus = f"MALUS alla casella {key}! Lepre arretra di {value} posizioni"
+                if key in dizionario_malus:
                     
-        for key, value in dizionario_bonus.items():
+                    pos_t -= value
+                    messaggio_bonus = f"MALUS alla casella {key}! Tartaruga arretra di {value} posizioni"
+                    
+                elif key in dizionario_bonus:
+                    
+                    pos_t += value
+                    messaggio_bonus = f"BONUS alla casella {key}! Tartaruga avanza di {value} posizioni"
+                    
+            if pos_l == key:
                 
-            if pos_t == key:
-            
-                pos_t += value
-
-                messaggio_bonus = f"BONUS alla casella {key}! Tartaruga avanza di {value} posizioni"
-                
-            elif pos_l == key:
-                
-                pos_l += value
-
-                messaggio_bonus = f"BONUS alla casella {key}! Lepre avanza di {value} posizioni"
+                if key in dizionario_malus:
+                    
+                    pos_l -= value
+                    messaggio_bonus = f"MALUS alla casella {key}! Lepre arretra di {value} posizioni"
+                    
+                elif key in dizionario_bonus:
+                    
+                    pos_l += value
+                    messaggio_bonus = f"BONUS alla casella {key}! Lepre avanza di {value} posizioni"
         
         pista[pos_t - 1] = "T"
         pista[pos_l - 1] = "L"
@@ -363,7 +361,7 @@ if __name__ == "__main__":
     
     pos_t: int = 1
     pos_l: int = 1
-    cicli: int = 1
+    cicli: int = 0
     energia_t: int = 100
     energia_l: int = 100
     risultato: bool = False

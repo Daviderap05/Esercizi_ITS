@@ -38,33 +38,35 @@ class Restaurant:   #esercizio 1, 2 e 4
         self.number_served += n
         
         return self.number_served
-    
-restaurant: Restaurant = Restaurant("Stella", "Italiano")
 
-print(restaurant.restaurant_name)
-print(restaurant.cuisine_type)
+if __name__ == "__main__":
 
-print("")
+    restaurant: Restaurant = Restaurant("Stella", "Italiano")
 
-restaurant.describe_restaurant()
-restaurant.open_restaurant()
+    print(restaurant.restaurant_name)
+    print(restaurant.cuisine_type)
 
-print("")
+    print("")
 
-restaurant1: Restaurant = Restaurant("Stella", "Italiano")
-restaurant2: Restaurant = Restaurant("Sakura", "Giapponese")
-restaurant3: Restaurant = Restaurant("El Sol", "Messicano")
+    restaurant.describe_restaurant()
+    restaurant.open_restaurant()
 
-restaurant1.describe_restaurant()
-restaurant2.describe_restaurant()
-restaurant3.describe_restaurant()
+    print("")
 
-print("")
+    restaurant1: Restaurant = Restaurant("Stella", "Italiano")
+    restaurant2: Restaurant = Restaurant("Sakura", "Giapponese")
+    restaurant3: Restaurant = Restaurant("El Sol", "Messicano")
 
-restaurant4: Restaurant = Restaurant("Macigno", "Indiano")
-restaurant4.describe_number_served()
-restaurant4.set_number_served()
-restaurant4.describe_number_served()
-restaurant4.describe_restaurant()
-restaurant4.increment_number_served()
-restaurant4.describe_number_served()
+    restaurant1.describe_restaurant()
+    restaurant2.describe_restaurant()
+    restaurant3.describe_restaurant()
+
+    print("")
+
+    restaurant4: Restaurant = Restaurant("Macigno", "Indiano")
+    restaurant4.describe_number_served()
+    restaurant4.set_number_served()
+    restaurant4.describe_number_served()
+    restaurant4.describe_restaurant()
+    restaurant4.increment_number_served()
+    restaurant4.describe_number_served()
