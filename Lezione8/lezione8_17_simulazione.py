@@ -351,6 +351,8 @@ def gara(pos_t: int, pos_l: int, cicli: int, meteo: str, energia_t: int, energia
         if messaggio_bonus:
         
             print(f"\n{messaggio_bonus}")
+            
+    return pos_l, pos_t
 
 
 if __name__ == "__main__":
@@ -379,7 +381,7 @@ if __name__ == "__main__":
         pos_t, meteo, energia_t = tartaruga(pos_t, cicli, meteo, energia_t)
         pos_l, meteo, energia_l = lepre(pos_l, cicli, meteo, energia_l) 
         
-        gara(pos_t, pos_l, cicli, meteo, energia_t, energia_l)
+        pos_t, pos_l = gara(pos_t, pos_l, cicli, meteo, energia_t, energia_l)
         print("\n" + "#" * 155 + "\n")
         
         if pos_t >= 70 or pos_l >= 70:
