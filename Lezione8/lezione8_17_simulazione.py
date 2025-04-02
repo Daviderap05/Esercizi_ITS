@@ -235,6 +235,7 @@ def gara(pos_t: int, pos_l: int, cicli: int, meteo: str, energia_t: int, energia
     dizionario_bonus: dict[int, int] = {5 : 5, 20 : 3, 50 : 10}
 
     messaggio_bonus: str = ""
+    messaggio_malus: str = ""
     
     for pos in dizionario_bonus:
         
@@ -316,7 +317,7 @@ def gara(pos_t: int, pos_l: int, cicli: int, meteo: str, energia_t: int, energia
     else:
         
         for key, value in {**dizionario_malus, **dizionario_bonus}.items():
-            
+                
             if pos_t == key:
                 
                 if key in dizionario_malus:
@@ -334,12 +335,12 @@ def gara(pos_t: int, pos_l: int, cicli: int, meteo: str, energia_t: int, energia
                 if key in dizionario_malus:
                     
                     pos_l -= value
-                    messaggio_bonus = f"MALUS alla casella {key}! Lepre arretra di {value} posizioni"
+                    messaggio_malus = f"MALUS alla casella {key}! Lepre arretra di {value} posizioni"
                     
                 elif key in dizionario_bonus:
                     
                     pos_l += value
-                    messaggio_bonus = f"BONUS alla casella {key}! Lepre avanza di {value} posizioni"
+                    messaggio_malus = f"BONUS alla casella {key}! Lepre avanza di {value} posizioni"
         
         pista[pos_t - 1] = "T"
         pista[pos_l - 1] = "L"
@@ -348,11 +349,19 @@ def gara(pos_t: int, pos_l: int, cicli: int, meteo: str, energia_t: int, energia
         
         print(f"\nPosizione tartaruga = {pos_t} (energia = {energia_t})               Posizione lepre = {pos_l} (energia = {energia_l})                Meteo = {meteo} {'☀️' if meteo == 'Soleggiato' else '🌧️'}                {cicli} Secondi")
         
-        if messaggio_bonus:
+        if messaggio_bonus and messaggio_malus:
+        
+            print(f"\n{messaggio_bonus}\n{messaggio_malus}")
+            
+        elif messaggio_bonus:
         
             print(f"\n{messaggio_bonus}")
             
-    return pos_l, pos_t
+        elif messaggio_malus:
+        
+            print(f"\n{messaggio_malus}")
+
+    return pos_t, pos_l
 
 
 if __name__ == "__main__":
@@ -363,14 +372,11 @@ if __name__ == "__main__":
     
     pos_t: int = 1
     pos_l: int = 1
-    cicli: int = 0
+    cicli: int = 1
     energia_t: int = 100
     energia_l: int = 100
     risultato: bool = False
     meteo: str = "Soleggiato"
-    
-    # gara(pos_t, pos_l, cicli, meteo, energia_t, energia_l)
-    # print("\n" + "#" * 155 + "\n")
     
     while risultato == False:
         
