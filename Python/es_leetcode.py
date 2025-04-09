@@ -47,69 +47,126 @@
 
 
 
-class Solution:
+# class Solution:
 
-    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:
+#     def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:
 
-        if 0 < len(nums1) <= 1000 and 0 < len(nums2) <= 1000:
+#         if 0 < len(nums1) <= 1000 and 0 < len(nums2) <= 1000:
             
-            list3: list[int] = nums1 + nums2
-            list3.sort()
+#             list3: list[int] = nums1 + nums2
+#             list3.sort()
         
-            if len(list3) == 2:
+#             if len(list3) == 2:
                 
-                m: float = sum(list3) / 2   
+#                 m: float = sum(list3) / 2   
             
-            elif len(list3) % 2 == 0:
+#             elif len(list3) % 2 == 0:
                 
-                n: int = int(len(list3) / 2)
+#                 n: int = int(len(list3) / 2)
                 
-                m: float = (list3[n] + list3[n-1]) / 2
+#                 m: float = (list3[n] + list3[n-1]) / 2
                 
-            else:
+#             else:
                 
-                n: int = int(len(list3) / 2)
+#                 n: int = int(len(list3) / 2)
                 
-                m: float = list3[n]
+#                 m: float = list3[n]
                 
-        elif not nums1:
+#         elif not nums1:
             
-            if len(nums2) == 2:
+#             if len(nums2) == 2:
                 
-                m: float = sum(nums2) / 2
+#                 m: float = sum(nums2) / 2
             
-            elif len(nums2) % 2 == 0:
+#             elif len(nums2) % 2 == 0:
                 
-                n: int = int(len(nums2) / 2)
+#                 n: int = int(len(nums2) / 2)
                 
-                m: float = (nums2[n] + nums2[n-1]) / 2
+#                 m: float = (nums2[n] + nums2[n-1]) / 2
                 
-            else:
+#             else:
                 
-                n: int = int(len(nums2) / 2)
+#                 n: int = int(len(nums2) / 2)
                 
-                m: float = nums2[n]
+#                 m: float = nums2[n]
                 
-        elif not nums2:
+#         elif not nums2:
             
-            if len(nums1) == 2:
+#             if len(nums1) == 2:
                 
-                m: float = sum(nums1) / 2
+#                 m: float = sum(nums1) / 2
             
-            elif len(nums1) % 2 == 0:
+#             elif len(nums1) % 2 == 0:
                 
-                n: int = int(len(nums1) / 2)
+#                 n: int = int(len(nums1) / 2)
                 
-                m: float = (nums1[n] + nums1[n-1]) / 2
+#                 m: float = (nums1[n] + nums1[n-1]) / 2
                 
-            else:
+#             else:
                 
-                n: int = int(len(nums1) / 2)
+#                 n: int = int(len(nums1) / 2)
                 
-                m: float = nums1[n]
+#                 m: float = nums1[n]
                 
-        else:
+#         else:
             
-            m: float = 0.0        
+#             m: float = 0.0        
     
-        return m
+#         return m
+
+
+
+# class Solution:
+    
+#     def reverse(self, x: int) -> int:
+       
+            
+#             if x > 0:
+                
+#                 x = ''.join(reversed(str(x)))   
+                
+#                 return int(x)
+            
+#             else:
+                
+#                 x = ''.join(reversed(str(abs(x))))
+                
+#                 x_s: str = "-" + x
+                
+#                 if (-2)**31 <= int(x_s) <= (2**31) - 1:
+                
+#                     return int(x_s)
+            
+#                 else:
+                    
+#                     return 0
+            
+
+        
+# n: Solution = Solution()
+# n.reverse(0)
+
+
+
+# class Solution:
+    
+#     def twoSum(self, nums: list[int], target: int) -> list[int]:
+        
+#         if 2 <= len(nums) <= 10**4 and -10**9 <= target <= 10**9:
+        
+#             lista_t: list[int] = []
+            
+#             for j in range(0, len(nums) + 1):
+            
+#                 for i in range(j, len(nums) + 1):
+                
+#                     if i != len(nums):
+                    
+#                         if nums[i] + nums[i + 1] == target:
+                            
+#                             lista_t += [i, i+1]
+#                     else:
+                        
+#                         break
+
+#             return lista_t
