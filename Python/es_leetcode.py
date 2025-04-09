@@ -51,11 +51,11 @@ class Solution:
 
     def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:
 
-        list3: list[int] = list(set(nums1 + nums2))
-        list3.sort()
-
-        if 0 < len(nums1) <= 1000 and 0 < len(nums2) <= 1000 and 1 <= len(list3) <= 1000:
+        if 0 < len(nums1) <= 1000 and 0 < len(nums2) <= 1000:
             
+            list3: list[int] = nums1 + nums2
+            list3.sort()
+        
             if len(list3) == 2:
                 
                 m: float = sum(list3) / 2   
@@ -74,39 +74,42 @@ class Solution:
                 
         elif not nums1:
             
-            if len(list3) == 2:
+            if len(nums2) == 2:
                 
-                m: float = sum(list3) / 2
+                m: float = sum(nums2) / 2
             
-            elif len(list3) % 2 == 0:
+            elif len(nums2) % 2 == 0:
                 
-                n: int = int(len(list3) / 2)
+                n: int = int(len(nums2) / 2)
                 
-                m: float = (list3[n] + list3[n-1]) / 2
+                m: float = (nums2[n] + nums2[n-1]) / 2
                 
             else:
                 
-                n: int = int(len(list3) / 2)
+                n: int = int(len(nums2) / 2)
                 
-                m: float = list3[n]
+                m: float = nums2[n]
                 
         elif not nums2:
             
-            if len(list3) == 2:
+            if len(nums1) == 2:
                 
-                m: float = sum(list3) / 2
+                m: float = sum(nums1) / 2
             
-            elif len(list3) % 2 == 0:
+            elif len(nums1) % 2 == 0:
                 
-                n: int = int(len(list3) / 2)
+                n: int = int(len(nums1) / 2)
                 
-                m: float = (list3[n] + list3[n-1]) / 2
+                m: float = (nums1[n] + nums1[n-1]) / 2
                 
             else:
                 
-                n: int = int(len(list3) / 2)
+                n: int = int(len(nums1) / 2)
                 
-                m: float = list3[n]     
+                m: float = nums1[n]
+                
+        else:
             
-                
+            m: float = 0.0        
+    
         return m
