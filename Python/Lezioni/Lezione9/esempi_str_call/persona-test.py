@@ -1,21 +1,23 @@
-'''# dal file persona.py impoprta la classe Persona
+'''
+dal file persona.py impoprta la classe Persona
 from persona import Persona
 
-# creo una persona
+creo una persona
 fm:Persona = Persona("Federico", "March", 29)
 
-# prima di aver definito la funzione __str__ nella classe Persona
-#print(fm)
-
-#print(fm.name, fm.lastname, fm.age)
-
-# dopo aver definito la funzione __str__ nella classe Persona
+prima di aver definito la funzione __str__ nella classe Persona
 print(fm)
+
+print(fm.name, fm.lastname, fm.age)
+
+dopo aver definito la funzione __str__ nella classe Persona
+print(fm)
+
 '''
 # dal file persona2 importa la classe Persona
 from persona2 import Persona
 
-fm:Persona = Persona()
+fm:Persona = Persona("Federico", "March", 29)
 
 # richiamo il metodo __str__ della classe Persona per mostrare in output le informazioni relative all'oggetto fm 
 print(fm)
@@ -26,23 +28,28 @@ msg = str(fm)
 print(msg)
 
 # modifico il nome della persona fm 
-fm.setName("Federico")
+fm.setName("Davide")
 
 print("--------------")
 
 print(fm)
 
 # modifico il cognome della persona fm
-fm.setLastname("March")
+fm.setLastname("Raponi")
+
+print("--------------")
+
+print(fm)
 
 # modifico l'età della persona fm
-fm.setAge(29)
+fm.setAge(19)
 
 print("--------------")
 
 print(fm)
 
 print("--------------")
+
 print(fm.getName(), fm.getLastname(), fm.getAge())
 
 # provo a chiamare l'oggetto fm come una funzione (prima di aver creato il metodo __call__ nella classe persona) 

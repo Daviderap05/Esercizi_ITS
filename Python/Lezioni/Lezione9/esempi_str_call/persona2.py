@@ -1,8 +1,9 @@
 class Persona:
-    def __init__(self):
-        self.name:str = ""
-        self.lastname:str = ""
-        self.age:int = 0
+    def __init__(self, name: str, lastname: str, age: int):
+        
+        self.setName(name)
+        self.setLastname(lastname)
+        self.setAge(age)
     
     
     # metodo speciale che ritorna una stringa e che viene chiamata automaticamente quando si usa l'istruzione print(obj),
@@ -29,11 +30,17 @@ class Persona:
 
     # funzione che mi consenta di impostare il valore di self.name 
     def setName(self, name:str) -> None:
-        self.name = name
+        if name:
+            self.name = name
+        else:
+            print("Errore... Il campo nome non puo essere vuoto")
     
     # funzione che mi consenta di impostare il valore di self.lastname
     def setLastname(self,lastname:str) -> None:
-        self.lastname = lastname
+        if lastname:
+            self.lastname = lastname
+        else:
+            print("Errore... Il campo cognome non puo essere vuoto")
     
     # funzione che mi consenta di impostare il valore di self.age
     def setAge(self, age:int) -> None:
