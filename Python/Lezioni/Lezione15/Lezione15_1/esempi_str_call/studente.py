@@ -1,4 +1,4 @@
-from Python.Lezioni.Lezione9.esempi_str_call.persona2 import Persona
+from persona2 import Persona
 
 '''
 
@@ -31,6 +31,10 @@ class Studente(Persona):
         return self.matricola
     
     #ridefinire il metodo __str__
-    def __str__(self):
+    def __str__(self) -> str:
         
         return super().__str__() + f"\nMatricola: {self.getMatricola()}"
+    
+    def speak(self) -> str:
+        
+        print(f"Hello my name is: {self.getName()}")
