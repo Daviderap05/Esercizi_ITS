@@ -1,4 +1,4 @@
-from Str_Call.persona2 import Persona
+from persona2 import Persona
 from alieno import Alieno
 
 p: Persona = Persona("Davide", "Raponi", 19)
