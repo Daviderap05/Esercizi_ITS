@@ -1,4 +1,4 @@
-from Python.Lezioni.Lezione9.esempi_str_call.persona2 import Persona
+from persona2 import Persona
 from studente import Studente
 
 # Creo un oggetto della classe Persona
