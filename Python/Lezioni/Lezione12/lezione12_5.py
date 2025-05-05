@@ -1,4 +1,4 @@
-class date:
+class Date:
     
     def __init__(self, giorno: int = 0, mese: int = 0, anno: int = 0):
         
@@ -7,19 +7,23 @@ class date:
         self.anno = anno
         self.listaDate: list[str] = []
         
+        
     def displayDate(self):
         
         if not self.listaDate:
             
-            print("Nessuna data disponibile da modificare.\n")
+            print("Nessuna data inserita.\n")
+            return False
             
         else:
             
             for i in range(len(self.listaDate)):
                 
                 print(f"{i + 1}° data: {self.listaDate[i]}")
-                
+            
             print("")
+            
+            return True
         
                 
     def createDate(self):
@@ -57,7 +61,7 @@ class date:
                 data: str = f"{self.giorno:02d} / {self.mese:02d} / {self.anno}"
                 self.listaDate.append(data)
                 
-                print(f"\nData creata: {data}\n")
+                print(f"\nOperazione effettuata con successo\n")
                 
             except ValueError as e:
                 
@@ -72,26 +76,26 @@ class date:
         
         while True:
             
-            self.displayDate()
+            if not self.displayDate():
+                
+                break
                     
             try:
                 
-                d: int = int(input("\nInserisci il numero della data da eliminare: "))
-                
-                print("")
+                d: int = int(input("Inserisci il numero della data da eliminare: "))
                 
                 if 1 <= d <= len(self.listaDate):
                     
-                    print(f"Data rimossa{self.listaDate[d-1]}\n")
+                    print(f"\nData rimossa: {self.listaDate[d-1]}\n")
                     self.listaDate.pop(d-1)
                     
                 else:
                     
-                    raise ValueError("\nIndice non valido... riprovare\n")
+                    raise ValueError("Indice non valido... riprovare")
                                 
-            except ValueError:
+            except ValueError as e:
             
-                print("Inserimento non valido... riprovare\n")
+                print(e, end="\n\n")
                 
             else:
                 
@@ -102,75 +106,95 @@ class date:
         
         while True:
             
-            self.displayDate()
+            if not self.displayDate():
+                
+                break
                     
             try:
                 
-                m: int = int(input("\nInserisci il numero della data da modificare: "))
-                
-                print("")
+                m: int = int(input("Inserisci il numero della data da modificare: "))
                 
                 if 1 <= m <= len(self.listaDate):
                     
+                    print("")
                     self.createDate()
                     
                 else:
                     
-                    raise ValueError("\nIndice non valido... riprovare\n")
+                    raise ValueError("Indice non valido... riprovare")
                 
                 self.listaDate[m-1] = self.listaDate[-1]
                 self.listaDate.pop()
                 
-                print(f"Data modificata: {self.listaDate[m-1]}")
+                print(f"Data modificata: {self.listaDate[m-1]}\n")
                 
-            except ValueError:
+            except ValueError as e:
             
-                print("Inserimento non valido... riprovare\n")
+                print(e, end="\n\n")
                 
             else:
                 
                 break
+     
+    
+    @classmethod
+    def main(self):
+    
+        opzione: int = 0
+        o_data: Date = Date()
+        
+        while opzione != 5:
+        
+            print("1 --> Visualizza le date inserite")
+            print("2 --> Inserisci una data")
+            print("3 --> Modifica una data")
+            print("4 --> Elimina una data")
+            print("5 --> Esci dal programma\n")
+            
+            while True:
+            
+                try:
+                    
+                    opzione: int = int(input("Scegliere il numero dell'operazione da effettuare: "))
+                        
+                except ValueError:
+                    
+                    print("Opzione non valida... riprova.\n")
+                    
+                else:
+                    
+                    break        
+            
+            print("")
+
+            match opzione:
                 
+                case 1:
+                    
+                    o_data.displayDate()
+                        
+                case 2:
+                    
+                    o_data.createDate()
+                        
+                case 3:
+                    
+                    o_data.editDate()
+                    
+                case 4:
+                    
+                    o_data.deleteDate()
+                    
+                case 5:
+                    
+                    print("Addio")
+                    
+                case _:
+                    
+                    print("Numero non valido... riprova\n")
+                    
+    
+    
 if __name__ == "__main__":
     
-    opzione: int = 0
-    o_data: date = date()
-    
-    while opzione != 4:
-    
-        print("1 --> Visualizza le date inserite")
-        print("2 --> Inserisci una data")
-        print("3 --> Modifica una data")
-        print("4 --> Elimina una data")
-        print("5 --> Esci dal programma\n")
-        
-        opzione: int = int(input("scegliere il numero dell'operazione da effettuare: "))
-        
-        print("")
-
-        match opzione:
-            
-            case 1:
-                
-                o_data.displayDate()
-                    
-            case 2:
-                
-               o_data.createDate()
-                    
-            case 3:
-                
-                o_data.editDate()
-                
-            case 4:
-                
-               o_data.deleteDate()
-                
-            case 5:
-                
-                print("Addio")
-                break
-                
-            case _:
-                
-                print("Numero non valido... riprova\n")
+    Date.main()

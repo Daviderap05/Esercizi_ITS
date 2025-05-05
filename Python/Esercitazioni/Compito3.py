@@ -34,14 +34,14 @@
 
 
 
-def find_disappeared_numbers(nums: list[int]) -> list[int]:
+# def find_disappeared_numbers(nums: list[int]) -> list[int]:
     
-    num: set[int] = set(range(1, len(nums) + 1))
-    nums_set: set[int] = set(nums)
+#     num: set[int] = set(range(1, len(nums) + 1))
+#     nums_set: set[int] = set(nums)
     
-    numeri_mancanti: list[int] = num - nums_set
+#     numeri_mancanti: list[int] = num - nums_set
     
-    return sorted(list(numeri_mancanti))
+#     return sorted(list(numeri_mancanti))
 
 
 

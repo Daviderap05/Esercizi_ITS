@@ -1,5 +1,5 @@
 #dal modulo lezione17_1_1 importare la classe MovieCatalog
-from lezione17_1_1 import MovieCatalog
+from lezione17_1 import MovieCatalog
 
 #creare un oggetto della classe MovieCatalog
 catalog: MovieCatalog = MovieCatalog()
@@ -11,7 +11,7 @@ catalog.add_movie("Steven Spielberg", ["Casper", "Ritorno al futuro"])
 print(catalog.getCatalog())
 
 #visualizziamo il catalogo con metodo __set__
-print(catalog)
+#print(catalog)
 
 #aggiungere un altro film di Steven Spealberg al catalogo
 catalog.add_movie("Steven Spielberg", ["E.T"])
@@ -20,7 +20,7 @@ catalog.add_movie("Steven Spielberg", ["E.T"])
 print(catalog.getCatalog())
 
 #visualizziamo il catalogo con metodo __set__
-print(catalog)
+#print(catalog)
 
 #aggiungere un nuovo regista
 catalog.add_movie("Quentin Tarantino", ["Pulp Fiction", "Kill Bill"])
@@ -29,7 +29,7 @@ catalog.add_movie("Quentin Tarantino", ["Pulp Fiction", "Kill Bill"])
 print(catalog.getCatalog())
 
 #visualizziamo il catalogo con metodo __set__
-print(catalog)
+#print(catalog)
 
 #rimuovere il film E.T dal catalogo
 catalog.remove_movie("Steven Spielberg", "E.T")
@@ -38,8 +38,9 @@ catalog.remove_movie("Steven Spielberg", "E.T")
 print(catalog.getCatalog())
 
 #visualizziamo il catalogo con metodo __set__
-print(catalog)
+#print(catalog)
 
+#rimuoviamo tutti i film di Steven Spielberg dal catalogo
 catalog.remove_movie("Steven Spielberg", "Ritorno al futuro")
 catalog.remove_movie("Steven Spielberg", "Casper")
 
@@ -47,7 +48,21 @@ catalog.remove_movie("Steven Spielberg", "Casper")
 print(catalog.getCatalog())
 
 #visualizziamo il catalogo con metodo __set__
-print(catalog)
+#print(catalog)
 
 #visualizzare solo una lista dei registi
 print(catalog.list_director())
+
+#visualizziamo il catalogo con metodo getter
+print(catalog.getCatalog())
+
+#visualizziamo il catalogo con metodo __set__
+#print(catalog)
+
+#Visualizziamo i film di un regista specifico
+catalog.get_movies_by_director("Quentin Tarantino")
+
+catalog.add_movie("Steven Spielberg", ["Casper", "Ritorno al futuro"])
+print(catalog.getCatalog())
+
+print(catalog.search_movies_by_title("l"))

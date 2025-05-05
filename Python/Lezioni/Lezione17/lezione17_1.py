@@ -1,3 +1,7 @@
+#importazione librerie per usare le regex e per restituire più di un tipo in una funzione
+import re
+from typing import Union
+
 class MovieCatalog:
     
     '''
@@ -88,7 +92,7 @@ class MovieCatalog:
     #metodo che rimuove un film dal catalogo
     def remove_movie(self, director_name: str, movie: str) -> None:
     
-    #check valore valido di director_name 
+        #check valore valido di director_name 
         if not director_name:
             
             print("Fornire un nome valido per il regista")
@@ -113,8 +117,69 @@ class MovieCatalog:
                 
                 #rimuoviamo il regista dal catalogo
                 del self.catalog[director_name]
+                 
                       
     #metodo per visualizzare una lista di registi del catalogo
     def list_director(self) -> list[str]:
         
         return list(self.catalog.keys())
+    
+    
+    #metodo per troare tutti i film di un regista specifico
+    def get_movies_by_director(self, director_name: str) -> None:
+        
+        #check valore valido di director_name 
+        if not director_name:
+            
+            print("Fornire un nome valido per il regista")
+            
+        #se i dati inseriti sono validi
+        else:
+            
+            #se il regista è presente nel catalogo
+            if director_name in self.catalog:
+                
+                print(f"Film del regista {director_name}: {self.catalog[director_name]}")
+            
+            #se il regista non è presente nel catalogo    
+            else:
+                
+                print("Regista sconosciuto")
+              
+                
+    #metodo per trovare tutti i film che contengono una certa parola nel titolo  
+    def search_movies_by_title(self, title: str) -> Union[list[tuple[str, str]], str]:
+        
+        #controlla se il titolo fornito è valido
+        if not title:
+            
+            #se il titolo è vuoto o None, restituisce un messaggio di errore
+            return "Fornire un titolo valido per la ricerca"
+        
+        #se i dati inseriti sono validi
+        else:    
+            
+            #inizializza una lista per memorizzare i risultati della ricerca
+            result: list[str] = []
+             
+            #itera su tutti i registi e i loro film nel catalogo
+            for director, movies in self.catalog.items():
+                
+                #itera su ogni film della lista di film del regista
+                for movie in movies:
+                    
+                    #utilizza una regex per verificare se il titolo cercato è presente nel nome del film
+                    if (re.search(title, movie, re.IGNORECASE)):
+                        
+                        #se il titolo corrisponde, aggiunge una tupla (regista, film) alla lista dei risultati
+                        result.append((director, movie))
+                    
+            #se ci sono risultati, li restituisce
+            if result:
+                
+                return result
+            
+            #se non ci sono risultati, restituisce un messaggio di errore
+            else:
+                
+                return "Nessun film trovato con la parola cercata"

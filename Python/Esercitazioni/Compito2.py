@@ -180,38 +180,38 @@
 
 
 
-def check_parentheses(expression: str) -> bool:
+# def check_parentheses(expression: str) -> bool:
     
-    cont: int = 0
+#     cont: int = 0
 
-    if expression:
+#     if expression:
         
-        for i in expression:
+#         for i in expression:
             
-            if i == "(":
+#             if i == "(":
                 
-                cont += 1
+#                 cont += 1
                 
-            elif i == ")":
+#             elif i == ")":
                 
-                cont -= 1
+#                 cont -= 1
                 
-                if cont < 0:
+#                 if cont < 0:
                     
-                    return False
+#                     return False
                 
                 
-        if cont == 0:
+#         if cont == 0:
             
-            return True
+#             return True
         
-        else:
+#         else:
             
-            return False
+#             return False
     
-    else:
+#     else:
         
-        return False
+#         return False
             
 # def check_parentheses(expression: str) -> bool:
 #     count = 0  # Contatore per le parentesi aperte
