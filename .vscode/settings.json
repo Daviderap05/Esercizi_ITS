@@ -1,3 +1,10 @@
 {
-    "livePreview.defaultPreviewPath": "/web_html/Lezione3/pagina.html"
+    "livePreview.defaultPreviewPath": "/web_html/Lezione3/pagina.html",
+    "python.analysis.autoImportCompletions": false,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }
