@@ -17,15 +17,15 @@ def school_grading(name:str, scores: list[int]) -> str:
         return f"{name} fail the exam with an average of {average:.2f}"
     
     
-students: list[(str, list[int])] = [
+students: dict[str, list[int]] = {
     
-    ("Alice", [70, 80, 90]),
-    ("Bob", [50, 40, 55]),
-    ("Charlie", [60, 65, 70])
+    "Alice" : [70, 80, 90],
+    "Bob" : [50, 40, 55],
+    "Charlie" : [60, 65, 70]
     
-]
+}
 
-for name, scores in students:
+for name, scores in students.items():
     
     result: str = school_grading(name, scores)
     print(result)
