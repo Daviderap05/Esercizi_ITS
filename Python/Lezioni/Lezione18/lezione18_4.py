@@ -1,26 +1,25 @@
-def text_analysis(paragraph: str):
+import re
+
+def text_analysis(paragraph: str) -> None:
     
     occurrences: dict[str, int] = {}
     word: str = ""
     
-    for c in paragraph:
-        
-        if c != " " or c != "," or c != ".":
+    words: list[str] = re.findall(r'\b\w+\b', paragraph.lower())
+    
+    for word in words:
+           
+        if word not in occurrences:
             
-            word += c.lower()
-        
+            occurrences[word] = 1
+            
         else:
             
-            if word not in occurrences:
-                
-                occurrences[word] = 1
-                
-            else:
-                
-                occurrences[word] += 1
-        
-    print(occurrences)
-    
+            occurrences[word] += 1
+
+    print(dict(sorted(occurrences.items(), key=lambda item: item[1], reverse=True)))
+
+
             
-p: str = "Nel pattinaggio artistico su ghiaccio, nome di alcuni esercizi facenti parte delle 17 figure obbligatorie di scuola, che vengono eseguiti prima su uno e poi sull'altro piede, descrivendo un tracciato simile a due cerchi giustapposti."  
+p: str = "nel nel ciao ciao ciao a 9... ma p"  
 text_analysis(p)
