@@ -1,5 +1,6 @@
 from curses.ascii import isalnum
 from multiprocessing import Value
+from os import name
 from typing import Any
 
 from networkx import expected_degree_graph
@@ -7,7 +8,13 @@ from networkx import expected_degree_graph
 
 def item(code: str, name: str, quantity: int, price: float) -> dict:
     
-    return {"code" : code, "name" : name, "quantity": quantity, "price" : price}
+    if quantity > 0 and price >= 0:
+        
+        return {"code" : code, "name" : name, "quantity": quantity, "price" : price}
+    
+    else:
+        
+        print("Valori non validi.")
 
 
 def add_item(items: list[dict[str, Any]], new_item: dict[str, Any]) -> None:
@@ -37,17 +44,22 @@ def remove_item(items: list[dict[str, Any]], item_to_remove: str) -> None:
     
     if items:
         
-        for product in items[:]:
+        if item_to_remove:
             
-            if product["name"] == item_to_remove:
+            for product in items[:]:
                 
-                items.remove(product)
-                print(f"Prodotto '{item_to_remove}' rimosso dal carrello.\n")
+                if product["name"] == item_to_remove:
+                    
+                    items.remove(product)
+                    print(f"Prodotto '{item_to_remove}' rimosso dal carrello.\n")
+                    
+                    return
                 
-                return
+            print(f"Prodotto '{item_to_remove}' non trovato nel carrello.\n")
+        
+        else:
             
-        print(f"Prodotto '{item_to_remove}' non trovato nel carrello.\n")\
-                
+            print("Il campo deve essere pieno")        
     else:
         
         print("Il carrello è vuoto")
@@ -55,6 +67,8 @@ def remove_item(items: list[dict[str, Any]], item_to_remove: str) -> None:
         
         
 def view_items(items: list[dict[str, Any]]) -> None:
+    
+    cont: int = 1
     
     if not items:
         
@@ -66,7 +80,8 @@ def view_items(items: list[dict[str, Any]]) -> None:
         
         for item in items:
             
-            print(f"- {item['name']} ({item['code']}): €{item['price']:.2f} x {item['quantity']}")
+            print(f"{cont}) {item['name']} ({item['code']}): €{item['price']:.2f} x {item['quantity']}")
+            cont += 1
             
         print("")
         
@@ -85,67 +100,79 @@ def search_item(items: list[dict[str, Any]]):
                 
                 code: str = input("Inserire il codice dell'elemento da ricercare nell'inventario: ")
                 
-                if not code.isalnum():
+                if not code.isalnum() or len(code) > 6:
                     
-                    raise ValueError("Il codice deve essere alfanumerico... riprova")
+                    raise ValueError("Il codice deve essere un alfanumerico di massimo 6 cifre... riprova")
                 
                 else:
                     
-                    ris: str = input("\nVuoi inserire anche il nome per una ricerca più accurata? [s/n]: ")
+                    break
+                
+            except ValueError as e:
+        
+                print(e)
+        
+        while True:
+                
+            ris: str = input("\nVuoi inserire anche il nome per una ricerca più accurata? [s/n]: ")
+            match: bool = False
+            
+            match ris.lower():
+                
+                case "n":
                     
-                    match ris.lower():
+                    for item in items:
+                    
+                        if item["code"] == code:
+                            
+                            print(f"- {item['name']} ({item['code']}): €{item['price']:.2f} x {item['quantity']}")
+                            match = True
+                            
+                    if not match:
                         
-                        case "n":
+                        print("Nessuna corrispondenza")
+                        
+                    break
+                                
+                case "s": 
+                    
+                    try:
+                        
+                        name: str = input("\nInserire il nome dell'elemento da ricercare nell'inventario: ")
+            
+                        if not name.isalpha():
+                
+                            raise ValueError("Il nome deve contenere solo caratteri... riprova")
+                        
+                        else:
                             
                             for item in items:
-                
-                                for key in item.keys():
                             
-                                    if key == code:
-                                        
-                                        print(f"- {item['name']} ({item['code']}): €{item['price']:.2f} x {item['quantity']}")
-                                        
-                                    else:
-                                        
-                                        print("Nessuna corrispondenza")
-                                        
+                                if item["code"] == code and item["name"].lower() == name.lower():
+                                    
+                                    print(f"- {item['name']} ({item['code']}): €{item['price']:.2f} x {item['quantity']}")
+                                    match = True
+                                    
+                            if not match:
+                        
+                                print("Nessuna corrispondenza")
+                                    
                             break
-                            
-                        case "s": 
-                            
-                            nome: str = input("Inserire il nome dell'elemento da ricercare nell'inventario: ")
-                
-                            if not nome.isalpha():
-                    
-                                raise ValueError("Il nome deve contenere solo caratteri... riprova")
-                            
-                            else:
-                                
-                                for item in items:
-                    
-                                    for key in item.keys():
-                                
-                                        if key == code and key == nome:
-                                            
-                                            print(f"- {item['name']} ({item['code']}): €{item['price']:.2f} x {item['quantity']}")
-                                            
-                                        else:
-                                            
-                                            print("Nessuna corrispondenza")
                                         
-                            
-                            
-                        case _:
-                            
-                            print("Scelta non valida... riprova")   
-                    
-                    break         
-                    
-                            
-            except ValueError as e:
+                    except ValueError as e:
             
-                print(e)
-                
+                        print(e) 
+                    
+                case _:
+                    
+                    print("Scelta non valida... riprova")
+                    
+                    
+def update_item(items: list[dict[str, Any]]):
+    
+    view_items(items):
+    
+    
             
         
              
