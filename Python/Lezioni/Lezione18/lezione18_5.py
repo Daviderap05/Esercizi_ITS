@@ -1,7 +1,5 @@
 from typing import Any
 
-from more_itertools import quantify
-
 
 def item(code: str, name: str, quantity: int, price: float) -> dict[str, Any]:
     
@@ -33,8 +31,7 @@ def add_item(items: list[dict[str, Any]], new_item: dict[str, Any]) -> None:
                 return
                   
         items.append(new_item)
-        print("Prodotto inserito nel carrello")
-        
+        print("Prodotto inserito nel carrello")       
         
 
 def remove_item(items: list[dict[str, Any]], item_to_remove: str) -> None:
@@ -59,8 +56,7 @@ def remove_item(items: list[dict[str, Any]], item_to_remove: str) -> None:
             print("Il campo deve essere pieno")        
     else:
         
-        print("Il carrello è vuoto")
-        
+        print("Il carrello è vuoto")      
         
         
 def view_items(items: list[dict[str, Any]]) -> None:
@@ -263,3 +259,62 @@ def update_item(items: list[dict[str, Any]]):
             print("Inserire un valore valido... riprova")
             
     print(f"Prodotto aggiornato: {item['name']} ({item['code']}): €{item['price']:.2f} x {item['quantity']}")
+    
+def main():
+    # Lista per memorizzare i prodotti del carrello
+    items: list[dict[str, Any]] = []
+
+    # Creazione di oggetti di esempio
+    print("Creazione di oggetti di esempio...")
+    
+    item1 = item("ABC123", "Prodotto1", 5, 10.50)
+    item2 = item("ABC123", "Prodotto2", 3, 20.00)
+    item3 = item("GHI789", "Prodotto3", 10, 5.00)
+
+    # Aggiunta degli oggetti al carrello
+    if item1:
+        
+        add_item(items, item1)
+        
+    if item2:
+        
+        add_item(items, item2)
+        
+    if item3:
+        
+        add_item(items, item3)
+
+    # Visualizzazione degli oggetti nel carrello
+    print("\nVisualizzazione degli oggetti nel carrello:")
+    view_items(items)
+
+    # Ricerca di un prodotto per codice
+    print("\nRicerca di un prodotto per codice:")
+    search_item(items)
+
+    # Modifica di un prodotto
+    print("\nModifica di un prodotto:")
+    update_item(items)
+
+    # Visualizzazione degli oggetti dopo la modifica
+    print("\nVisualizzazione degli oggetti dopo la modifica:")
+    view_items(items)
+
+    # Rimozione di un prodotto
+    print("\nRimozione di un prodotto:")
+    remove_item(items, "Prodotto2")
+
+    # Visualizzazione degli oggetti dopo la rimozione
+    print("\nVisualizzazione degli oggetti dopo la rimozione:")
+    view_items(items)
+
+    # Test con carrello vuoto
+    print("\nTest con carrello vuoto:")
+    remove_item(items, "Prodotto2")  # Prova a rimuovere un prodotto non presente
+    search_item(items)  # Prova a cercare un prodotto con carrello vuoto
+    update_item(items)  # Prova a modificare un prodotto con carrello vuoto
+    view_items(items)  # Visualizza il carrello vuoto
+
+
+if __name__ == "__main__":
+    main()
