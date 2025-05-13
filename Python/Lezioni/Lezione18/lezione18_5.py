@@ -1,16 +1,13 @@
-from curses.ascii import isalnum
-from multiprocessing import Value
-from os import name
 from typing import Any
 
-from networkx import expected_degree_graph
+from more_itertools import quantify
 
 
-def item(code: str, name: str, quantity: int, price: float) -> dict:
+def item(code: str, name: str, quantity: int, price: float) -> dict[str, Any]:
     
     if quantity > 0 and price >= 0:
         
-        return {"code" : code, "name" : name, "quantity": quantity, "price" : price}
+        return {"code" : code, "name" : name, "quantity" : quantity, "price" : price}
     
     else:
         
@@ -170,29 +167,85 @@ def search_item(items: list[dict[str, Any]]):
                     
 def update_item(items: list[dict[str, Any]]):
     
-    view_items(items):
+    view_items(items)
     
-    
+    while True:
+        
+        try:
             
-        
-             
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+            select: int = int(input("\nInserisci il numero corrispondente all'oggetto da modificare: "))
             
-# def update_item(items: list[dict[str, Any]], code: str, name: str, quantity: int, price: float):
-    
-#     if not items:
+            if not 1 <= select <= len(items):
+                
+                print("Il numero inserito non corrisponde a nessun oggetto")
+                continue
+            
+            break
+                
+        except ValueError:
+            
+            print("Inserire un valore valido... riprova")
+            
+    while True:
         
-#         print("Il carrello è vuoto")
+        try:
+            
+            code: str = str(input("\nInserisci il nuovo codice: "))
+            
+            if not code.isalnum() or len(code) > 6:
+                
+                raise ValueError("Il codice deve essere un alfanumerico di massimo 6 cifre... riprova")
+                
+            break
+                
+        except ValueError as e:
+            
+            print(e)
+            
+    while True:
         
-#     else:
+        try:
+            
+            name: str = str(input("\nInserisci il nuovo nome: "))
+            
+            if not name.isalpha():
+                
+                raise ValueError("Il nome deve contenere solo caratteri... riprova")
+                
+            break
+                
+        except ValueError as e:
+            
+            print(e)
+            
+    while True:
         
+        try:
+            
+            prezzo: float = float(input("\nInserisci il nuovo prezzo: "))
+            
+            if prezzo < 0:
+                
+                print("Il prezzo non può essere negativo")
+                
+            break
+        
+        except ValueError:
+            
+            print("Inserire un valore valido... riprova")
+            
+    while True:
+        
+        try:
+            
+            quantity: int = int(input("\nInserisci la nuova quantità: "))
+            
+            if quantity < 0:
+                
+                print("La quantità non può essere negativa")
+                
+            break   
+         
+        except ValueError:
+            
+            print("Inserire un valore valido... riprova")
