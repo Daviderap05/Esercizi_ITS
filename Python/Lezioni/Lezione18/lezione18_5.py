@@ -179,12 +179,14 @@ def update_item(items: list[dict[str, Any]]):
                 
                 print("Il numero inserito non corrisponde a nessun oggetto")
                 continue
-            
+    
             break
                 
         except ValueError:
             
             print("Inserire un valore valido... riprova")
+    
+    item = items[select - 1]
             
     while True:
         
@@ -195,7 +197,9 @@ def update_item(items: list[dict[str, Any]]):
             if not code.isalnum() or len(code) > 6:
                 
                 raise ValueError("Il codice deve essere un alfanumerico di massimo 6 cifre... riprova")
-                
+            
+            item['code'] = code
+            
             break
                 
         except ValueError as e:
@@ -211,7 +215,9 @@ def update_item(items: list[dict[str, Any]]):
             if not name.isalpha():
                 
                 raise ValueError("Il nome deve contenere solo caratteri... riprova")
-                
+            
+            item['name'] = name
+            
             break
                 
         except ValueError as e:
@@ -222,12 +228,15 @@ def update_item(items: list[dict[str, Any]]):
         
         try:
             
-            prezzo: float = float(input("\nInserisci il nuovo prezzo: "))
+            price: float = float(input("\nInserisci il nuovo prezzo: "))
             
-            if prezzo < 0:
+            if price < 0:
                 
                 print("Il prezzo non può essere negativo")
-                
+                continue
+            
+            item['price'] = price
+            
             break
         
         except ValueError:
@@ -243,9 +252,14 @@ def update_item(items: list[dict[str, Any]]):
             if quantity < 0:
                 
                 print("La quantità non può essere negativa")
-                
+                continue
+            
+            item['quantity'] = quantity
+            
             break   
          
         except ValueError:
             
             print("Inserire un valore valido... riprova")
+            
+    print(f"Prodotto aggiornato: {item['name']} ({item['code']}): €{item['price']:.2f} x {item['quantity']}")
