@@ -5,7 +5,7 @@ def item(code: str, name: str, quantity: int, price: float) -> dict[str, Any]:
     
     if quantity > 0 and price >= 0:
         
-        return {"code" : code, "name" : name, "quantity" : quantity, "price" : price}
+        return {"code" : code.lower(), "name" : name.lower(), "quantity" : quantity, "price" : price}
     
     else:
         
@@ -91,7 +91,7 @@ def search_item(items: list[dict[str, Any]]):
             
             try:
                 
-                code: str = input("Inserire il codice dell'elemento da ricercare nell'inventario: ")
+                code: str = input("Inserire il codice dell'elemento da ricercare nell'inventario: ").lower()
                 
                 if not code.isalnum() or len(code) > 6:
                     
@@ -107,7 +107,7 @@ def search_item(items: list[dict[str, Any]]):
         
         while True:
                 
-            ris: str = input("\nVuoi inserire anche il nome per una ricerca più accurata? [s/n]: ")
+            ris: str = input("\nVuoi inserire anche il nome per una ricerca più accurata? [s/n]: ").lower()
             match: bool = False
             
             match ris.lower():
@@ -131,7 +131,7 @@ def search_item(items: list[dict[str, Any]]):
                     
                     try:
                         
-                        name: str = input("\nInserire il nome dell'elemento da ricercare nell'inventario: ")
+                        name: str = input("\nInserire il nome dell'elemento da ricercare nell'inventario: ").lower()
             
                         if not name.isalpha():
                 
@@ -261,15 +261,16 @@ def update_item(items: list[dict[str, Any]]):
     print(f"Prodotto aggiornato: {item['name']} ({item['code']}): €{item['price']:.2f} x {item['quantity']}")
     
 def main():
+    
     # Lista per memorizzare i prodotti del carrello
     items: list[dict[str, Any]] = []
 
     # Creazione di oggetti di esempio
     print("Creazione di oggetti di esempio...")
     
-    item1 = item("ABC123", "Prodotto1", 5, 10.50)
-    item2 = item("ABC123", "Prodotto2", 3, 20.00)
-    item3 = item("GHI789", "Prodotto3", 10, 5.00)
+    item1 = item("ABC123", "MartelloA", 5, 10.50)
+    item2 = item("ABC123", "MartelloB", 3, 20.00)
+    item3 = item("GHI789", "Cacciavite", 10, 5.00)
 
     # Aggiunta degli oggetti al carrello
     if item1:
@@ -310,7 +311,7 @@ def main():
 
     # Test con carrello vuoto
     print("\nTest con carrello vuoto:")
-    remove_item(items, "Prodotto2")  # Prova a rimuovere un prodotto non presente
+    remove_item(items, "Cacciavite")  # Prova a rimuovere un prodotto non presente
     search_item(items)  # Prova a cercare un prodotto con carrello vuoto
     update_item(items)  # Prova a modificare un prodotto con carrello vuoto
     view_items(items)  # Visualizza il carrello vuoto
