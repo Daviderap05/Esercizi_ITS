@@ -138,7 +138,7 @@ class Date:
      
     
     @classmethod
-    def main(self):
+    def main(cls):
     
         opzione: int = 0
         o_data: Date = Date()

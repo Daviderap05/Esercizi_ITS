@@ -24,7 +24,7 @@ persons: list[Person] = ([alice, bob, charlie, diana, edward])
 
 #persons.extend comodo quando si voglino aggiungere più cose nella lista
 
-age_p: str
+age_p: str = ""
 age_min: int = persons[0].age
 
 for person in persons:

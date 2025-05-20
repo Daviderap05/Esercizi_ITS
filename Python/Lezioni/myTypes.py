@@ -1,5 +1,5 @@
 from typing import Self, Any
-from enum import *
+from enum import * 
 
 
 class Genere(StrEnum):
