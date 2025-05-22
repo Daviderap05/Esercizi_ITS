@@ -17,3 +17,15 @@ class CodiceIATA:
     def __str__(self):
         
         return self.codice
+    
+    def __eq__(self, other):
+        
+        if isinstance(other, CodiceIATA):
+            
+            return self.codice == other.codice
+        
+        return False
+
+    def __hash__(self):
+        
+        return hash(self.codice)
