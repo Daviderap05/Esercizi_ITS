@@ -5,7 +5,8 @@
         "*": false,
         "plaintext": false,
         "markdown": false,
-        "scminput": false
+        "scminput": false,
+        "python": false
     },
     "python.analysis.typeCheckingMode": "standard"
 }
