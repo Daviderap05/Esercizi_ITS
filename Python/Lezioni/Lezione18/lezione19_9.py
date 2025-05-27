@@ -1,39 +1,45 @@
 import string
 
-def encryption(text: str):
+
+def encryption(text: str, key: int = 3) -> str:
     
-    if text and text.isalpha():
+    if text:
         
-        while True:
-            
-            try:
-                
-                num: int = int(input("Inserire la chiave: "))
-                
-            except ValueError:
-                
-                print("inseirire un numero... riprova\n")
-                
-            break
-        
-        alphabet_dict: dict[str, int] = {letter: index for index, letter in enumerate(string.ascii_lowercase, start=1)}
+        #text = text.replace(" ", "").lower()   comodo per sostituire a volte per eliminare gli spazi
+        alphabet: str = string.ascii_lowercase
         text_c: str = ""
         
-        # prima trasforma in list il text
-        #poi uso 2 for
-        #uno per i caratteri del text
-        #l'altro per entrare nel dizionario e con qualche if criptare
-        list(text)
+        for letter in text:
+            
+            if letter in alphabet:
+                
+                index_c: int = (alphabet.index(letter) + key) % 26   #modulo permette di ricominciare la lista
+                text_c += alphabet[index_c]
         
-        #print(text_c)
+        return f"Testo cifrato: {text_c}"
         
     else:
         
-        print("Inserire un testo valido con solamente lettere")
+        return "Inserire un testo valido con solamente lettere"
 
 
-def decryption():
+def decryption(text: str, key: int = 3) -> str:
     
-    pass   
+    alphabet: str = string.ascii_lowercase   
+    text_dc: str = ""
+    
+    for letter in text:
+            
+            if letter in alphabet:
+                
+                index_dc: int = (alphabet.index(letter) - key) % 26
+                text_dc += alphabet[index_dc]
+                
+            else:
+                
+                text_dc += letter
+        
+    return f"Testo decifrato: {text_dc}"
 
-encryption("ciao")
+print(encryption("ciao ho 9 anni"))
+print(decryption("fldrkrdqql"))

@@ -24,3 +24,17 @@ else:
     x = int(s)
     print(x)
     
+    
+#comoda la regex per togliere tutto ciò che non è alfabetico anche spazi    
+import re
+text = "ciao mondo 9 "
+text = re.sub(r'[^a-zA-Z]', '', text).lower() 
+print(text)
+
+
+
+#index_c: str = (alphabet.index(letter) + key) % 26   #modulo permette di ricominciare la lista
+
+
+
+#text = text.replace(" ", "").lower()   comodo per sostituire a volte per eliminare gli spazi
