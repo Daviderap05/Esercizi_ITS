@@ -7,7 +7,7 @@ class Dipartimento:
     _telefono: set[Telefono]
     _indirizzo: Indirizzo
 
-    def __init__(self, nome: str, telefono: set[Telefono], indirizzo: Indirizzo|None) -> None:
+    def __init__(self, nome: str, telefono: set[Telefono], indirizzo: Indirizzo|None = None) -> None:
     
         self._nome = nome
 
@@ -85,3 +85,13 @@ class Dipartimento:
     def get_indirizzo(self) -> Indirizzo|None:
         
         return self._indirizzo
+    
+
+d = Dipartimento("Bianco", {Telefono("+393493218793"), Telefono("333498793")}, Indirizzo("Viale Guglielmo Marconi", "451", CAP("00146")))
+print(d)
+
+d.add_telefono(Telefono("33333333333"))
+print(d)
+
+d.remove_telefono(Telefono("33333333333"))
+print(d)

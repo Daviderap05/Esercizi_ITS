@@ -36,3 +36,7 @@ class Progetto():
     def get_budget(self) -> RealGEZ:
         
         return self._budget
+    
+    
+p: Progetto = Progetto("Bianco", RealGEZ("2000"))
+print(p)

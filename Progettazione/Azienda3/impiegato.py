@@ -56,3 +56,6 @@ class Impiegato():
     def get_stipendio(self) -> RealGEZ:
         
         return self._stipendio
+    
+i = Impiegato("Davide", "Raponi", date(2023, 12, 12), RealGEZ("2000.23"))
+print(i)
