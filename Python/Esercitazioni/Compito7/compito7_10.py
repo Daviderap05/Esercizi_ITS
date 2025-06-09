@@ -51,5 +51,5 @@ def ricerca_binaria(num: int, lista_n: list[int] = []) -> None|str:
             
         
         
-lista1 = [15, 3, 8, 20, 1, 12, 7, 18, 5, 10, 2, 14, 6, 19, 4, 11, 9, 17, 13, 16]
-print(ricerca_binaria(lista1))
+lista1: list[int] = [15, 3, 8, 20, 1, 12, 7, 18, 5, 10, 2, 14, 6, 19, 4, 11, 9, 17, 13, 16]
+print(ricerca_binaria(2, lista1))
