@@ -9,7 +9,7 @@ class CodiceVolo:
             
             raise TypeError("Il codice volo deve essere una stringa.")
         
-        if not re.fullmatch(r"[A-Z]{2} \d{1,4}", codice):
+        if not re.fullmatch(r"[A-Z]{2} \d{1,4}", codice.upper().strip()):
             
             raise ValueError("Codice volo non valido, deve essere composto da 2 lettere maiuscole seguite da uno spazio e da 1 a 4 cifre.")
         
