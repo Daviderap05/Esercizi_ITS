@@ -8,7 +8,7 @@ def encryption(text: str, key: int = 3) -> str:
         alphabet: str = string.ascii_lowercase
         text_c: str = ""
         
-        for letter in text:
+        for letter in text.lower():
             
             if letter in alphabet:
                 
@@ -27,7 +27,7 @@ def decryption(text: str, key: int = 3) -> str:
     alphabet: str = string.ascii_lowercase   
     text_dc: str = ""
     
-    for letter in text:
+    for letter in text.lower():
             
             if letter in alphabet:
                 
