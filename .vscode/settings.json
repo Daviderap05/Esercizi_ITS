@@ -2,12 +2,12 @@
     "livePreview.defaultPreviewPath": "/web_html/Lezione3/pagina.html",
     "python.analysis.autoImportCompletions": true,
     "github.copilot.enable": {
-        "*": true,
+        "*": false,
         "plaintext": false,
         "markdown": false,
         "scminput": false,
         "html": true,
-        "python": true
+        "python": false
     },
     "python.analysis.typeCheckingMode": "standard"
 }

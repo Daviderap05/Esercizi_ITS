@@ -1,4 +1,4 @@
-def merge_intervals(intervals: list[list[int]] = []) -> list[list[int]]|list[None]:
+def merge_intervals(intervals: list[list[int]] = []):
     
     if intervals == []:
         
@@ -6,36 +6,54 @@ def merge_intervals(intervals: list[list[int]] = []) -> list[list[int]]|list[Non
         
     elif len(intervals) == 1:
         
-        for lis in intervals:
+        if len(intervals[0]) == 2:
+            
+            if intervals[0][0] > intervals[0][1]:
+                
+                intervals[0][0], intervals[0][1] = intervals[0][1], intervals[0][0]
+            
+        return intervals
+    
+    for lis in intervals:
+        
+        if len(lis) == 2:
         
             if lis[0] > lis[1]:
                 
                 lis[0], lis[1] = lis[1], lis[0]
+                
+        else:
             
-        return intervals
-    
+            raise Exception ("Inserire solo UNA lista contenente SOLO intervalli di due numeri")
+            
     intervals.sort(key=lambda x: x[0])
-    
-    for lis in intervals:
-        
-        if lis[0] > lis[1]:
             
-            lis[0], lis[1] = lis[1], lis[0]
-    
     lista_intervalli: list[list[int]] = []
     
-    max: int = intervals[0][0][0]
-    min: int = intervals[0][0][1]
-    
-    # for i in range(1, len(intervals)):
+    min: int = intervals[0][0]
+    max: int = intervals[0][1]
         
-    #     if intervals[0][i][0] > min:
+    for i in range(1, len(intervals)):
+
+        for j in range(len(intervals[i])):
             
-    #         min = intervals[0][i][0]
+            if min <= intervals[i][j] <= max and intervals[i][j+1] >= max:
+                
+                min = intervals[i][j]
+                max = intervals[i][j+1]
+                
+                lista_intervalli.append([min, max])
+                break
             
-    #     elif intervals[0][i][0] > min
+            elif intervals[i][j] > max: #ricodati se due liste sono uguali o se il seondo elemento di una è minore del secondo della seconda lista cioè la precedente
             
-            
+                min = intervals[i][j]
+                max = intervals[i][j+1]
+                
+                lista_intervalli.append([min, max])
+                break
+        
+        
         
     
 
