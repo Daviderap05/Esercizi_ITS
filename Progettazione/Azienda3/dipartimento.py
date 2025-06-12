@@ -1,97 +1,69 @@
-from custom_types import Telefono, Indirizzo, CAP
-
+from custom_types import Indirizzo
+from citta import Citta
 
 class Dipartimento:
-    
-    _nome: str
-    _telefono: set[Telefono]
-    _indirizzo: Indirizzo
 
-    def __init__(self, nome: str, telefono: set[Telefono], indirizzo: Indirizzo|None = None) -> None:
-    
-        self._nome = nome
+    _nome: str # noto alla nascita
+    _telefoni: set[str] # [1..*] (e quindi noto alla nascita)
+    _indirizzo: Indirizzo # mutabile, [0..1], certamente noto alla nascita
+    _citta: Citta # noto alla nascita
 
-        if len(telefono) >= 1:
-    
-            self._telefono = telefono
-    
-        else:
-    
-            raise ValueError("Deve avere 1 o più numeri")
-        
-        if isinstance(indirizzo, Indirizzo):
-            
-            self._indirizzo = indirizzo
+    def __init__(self, nome: str, telefono: str, indirizzo: Indirizzo,
+                 c: Citta) -> None:
+        self.set_nome(nome)
 
+        self._telefoni = set()
+        self.add_telefono(telefono)
 
-    def __str__(self) -> str:
+        self.set_indirizzo(indirizzo)
+        self.set_citta(c)
 
-        return f"Nome: {self._nome}, Telefono: {self._telefono}, Indirizzo: {self._indirizzo}"
-
-
-    def set_nome(self, new_nome: str) -> None:
-    
-        self._nome = new_nome
-        
-        
-    def get_nome(self) -> str:
-        
+    def nome(self) -> str:
         return self._nome
     
-    
-    def set_telefono(self, new_telefono: set[Telefono]) -> None:
-        
-        if len(new_telefono) >= 1:
-            
-            self._telefono = new_telefono
-            
-        else:
-            
-            raise ValueError("Deve avere 1 o più numeri")
-        
-        
-    def get_telefono(self) -> set[Telefono]:
-        
-        return self._telefono
-    
-    
-    def add_telefono(self, telefono: Telefono) -> None:
+    def set_nome(self, nome: str) -> None:
+        self._nome = nome
 
-        self._telefono.add(telefono)
-
-
-    def remove_telefono(self, telefono: Telefono) -> None:
-        
-        if telefono in self._telefono:
-            
-            self._telefono.remove(telefono)
-            
-        else:
-            
-            raise ValueError("Il numero di telefono non esiste nel set")
+    def telefoni(self) -> frozenset[str]:
+        return frozenset(self._telefoni)
     
-    
-    def set_indirizzo(self, new_indirizzo: Indirizzo) -> None:
-        
-        if isinstance(new_indirizzo, Indirizzo):
-            
-            self._indirizzo = new_indirizzo
-            
-        else:
-            
-            raise TypeError("Indirizzo non valido")
-        
-        
-    def get_indirizzo(self) -> Indirizzo|None:
-        
+    def add_telefono(self, telefono: str) -> None:
+        self._telefoni.add(telefono)
+
+    def remove_telefono(self, t: str) -> None:
+        if len(self.telefoni()) == 1:
+            raise RuntimeError('Il dipartimento deve avere almeno un numero di telefono')
+        elif t not in self.telefoni():
+            raise KeyError(f"Non posso rimuovere il numero di telefono {t} che non appartiene al dipartimento")
+
+        self._telefoni.remove(t)
+
+    def indirizzo(self) -> Indirizzo:
         return self._indirizzo
     
+    def set_indirizzo(self, indirizzo: Indirizzo|None) -> None:
+        self._indirizzo = indirizzo
 
-d = Dipartimento("Bianco", {Telefono("+393493218793"), Telefono("333498793")}, Indirizzo("Viale Guglielmo Marconi", "451", CAP("00146")))
-print(d)
+    def remove_indirizzo(self) -> None:
+        self.set_indirizzo(None)
 
-d.add_telefono(Telefono("33333333333"))
-print(d)
+    def citta(self) -> Citta:
+        return self._citta
 
-d.remove_telefono(Telefono("33333333333"))
-print(d)
+    def set_citta(self, c: Citta) -> None:
+        self._citta = c
+
+
+
+    def __repr__(self) -> str:
+        return f'Dipartimento({self._nome}, {self._telefoni}, {self._indirizzo}, {self._citta})'
+
+    def __str__(self) -> str:
+        if self.indirizzo():
+            ind_str: str = "con sede in " + str(self.indirizzo())
+        else:
+            ind_str: str = "senza sede"
+
+        tel_str: str = "[" + ", ".join(self.telefoni()) + "]"
+
+        return f"Dipartimento '{self.nome()}' {ind_str} a {self.citta()} e numeri di telefono: {tel_str}"

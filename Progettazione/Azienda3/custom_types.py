@@ -208,3 +208,4 @@ class Email(str):
 , v):
 			return super().__new__(cls, v)
 		raise ValueError(f"{v} non è un indirizzo email valido")
+

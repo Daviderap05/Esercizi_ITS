@@ -6,7 +6,7 @@ def merge_intervals(intervals: list[list[int]] = []) -> list[list[int]]|Exceptio
 
     for interval in intervals:
         
-        if len(interval) != 2:
+        if len(interval) != 2 or not isinstance(interval[0], int) or not isinstance(interval[1], int):
             
             raise Exception("Inserire solo intervalli di due numeri.")
         

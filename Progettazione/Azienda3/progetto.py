@@ -1,42 +1,28 @@
 from custom_types import RealGEZ
 
+class Progetto:
 
-class Progetto():
-    
-    _nome: str
-    _budget: RealGEZ
-    
-    
+    _nome: str # noto alla nascita
+    _budget: RealGEZ # noto alla nascita
+
     def __init__(self, nome: str, budget: RealGEZ) -> None:
-
         self._nome = nome
         self._budget = budget
-        
-        
-    def __str__(self) -> str:
-        
-        return f"Nome: {self._nome}, Budget: {self._budget}"
-    
-    
-    def set_nome(self, new_nome) -> None:
-        
-        self._nome = new_nome   
-    
-    
-    def get_nome(self) -> str:
-        
+
+    def nome(self) -> str:
         return self._nome
-    
-    
-    def set_budget(self, new_budget) -> None:
-        
-        self._budget = new_budget  
-    
-    
-    def get_budget(self) -> RealGEZ:
-        
+
+    def budget(self) -> RealGEZ:
         return self._budget
-    
-    
-p: Progetto = Progetto("Bianco", RealGEZ("2000"))
-print(p)
+
+    def get_nome(self) -> str:
+        return self._nome
+
+    def get_budget(self) -> RealGEZ:
+        return self._budget
+
+    def __str__(self) -> str:
+        return f"Progetto '{self.nome()}' con budget: {self.budget()}€"
+
+    def __repr__(self) -> str:
+        return f"Progetto(nome={self.get_nome()}, budget={self.budget()})"
