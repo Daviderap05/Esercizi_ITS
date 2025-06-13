@@ -7,6 +7,32 @@ def is_valid_ipv4(address: str) -> bool:
     return bool(re.fullmatch(ipv4_regex, address))
 
 
+#esercizi professore
+def is_valid_ipv42(address: str) -> bool:
+    
+    address_s = address.split(".")
+    
+    if len(address_s) != 4:
+        
+        # raise ValueError("Errore, l'indirizzo è mal formato")
+        return False
+    
+    for blocco in address_s:
+        
+        # raise ValueError("Errore, l'indirizzo contiene un carattere alfabetico!")
+        if not blocco.isdigit():
+            
+            return False
+        
+        # raise ValueError("Errore, l'indirizzo non è compreso tra 0 e 255!")
+        if not (0 <= int(blocco) <= 255):
+            
+            return False
+        
+    return True
+
+
+
 print(is_valid_ipv4("192.168.0.1"))  # True
 print(is_valid_ipv4("1.1.0.1"))  # True
 print(is_valid_ipv4("255.255.255.255"))  # True

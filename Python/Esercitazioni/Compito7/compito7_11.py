@@ -1,8 +1,9 @@
 import re
+from string import punctuation
 
 def count_unique_words(testo: str = "") -> str|dict[str, int]:
     
-    if testo == "":
+    if testo == "" or not isinstance(testo, str):
         
         return "Errore... inserire un testo."
     
@@ -22,4 +23,31 @@ def count_unique_words(testo: str = "") -> str|dict[str, int]:
     return diz
 
 
+#esercizio Professore non copre casi limite
+def count_unique_words2(testo: str = "") -> str|dict[str, int]:
+    
+    testo = testo.lower()
+    tokens: list[str] = testo.split(" ")
+    diz: dict[str, int] = {}
+    
+    for token in tokens:
+        
+        token = token.strip(punctuation)
+        
+        if not token:
+            
+            continue
+        
+        elif token not in diz:
+            
+            diz[token] = 1
+            
+        else:
+            
+            diz[token] += 1
+            
+    return diz
+
+
 print(count_unique_words("Hello, world! Hello... PYTHON? world."))
+print(count_unique_words("Ciao!come stai."))
