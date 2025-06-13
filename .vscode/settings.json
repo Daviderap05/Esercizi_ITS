@@ -7,7 +7,8 @@
         "markdown": false,
         "scminput": false,
         "html": true,
-        "python": false
+        "python": false,
+        "javascript": true
     },
     "python.analysis.typeCheckingMode": "standard"
 }
