@@ -23,11 +23,11 @@ while True:
             cont += 1
             continue  
         
-        sequenza_n.append(int(x))
+        sequenza_n.append(x)
         
         if x == 0:
             
-            print(sequenza_n)
+            print("; ".join(map(str, sequenza_n)))
             break
         
         if x == prima_x:
