@@ -164,12 +164,12 @@ class Mostro(Creatura):
                 if i % 2 == 0:
                     
                     nome_aggiornato += c.lower()
-                    continue
                     
                 else:
                     
                     nome_aggiornato += c.upper()
-                    continue
+                
+                continue
                     
             nome_aggiornato += c
                 
