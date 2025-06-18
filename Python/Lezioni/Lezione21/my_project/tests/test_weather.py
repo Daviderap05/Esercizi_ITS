@@ -1,5 +1,5 @@
 from my_project.weather import check_weather
-import pytest
+import pytest # type: ignore
 
 # # passed
 # def test_check_weather1():   #se ignoro il test_ pytest ignora la funzione

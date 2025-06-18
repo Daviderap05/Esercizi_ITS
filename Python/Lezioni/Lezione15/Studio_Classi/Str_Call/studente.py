@@ -37,4 +37,4 @@ class Studente(Persona):
     
     def speak(self) -> str:
         
-        print(f"Hello my name is: {self.getName()}")
+        return f"Hello my name is: {self.getName()}"
