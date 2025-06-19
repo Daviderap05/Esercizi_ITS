@@ -1,5 +1,7 @@
-from curses.ascii import isalpha
 import random
+import os
+import time
+import re
 
 
 class Creatura():
@@ -66,7 +68,7 @@ class Alieno(Creatura):
         Per generare un numero intero casuale nell'intervallo [a, b] (ovvero estremi inclusi), importare il modulo random e usare la funzione randint(a,b) del modulo;
         
         il metodo setMunizioni() (privato) non riceve argomenti in input e deve inizializzare l'attributo munizioni con una lista di 15 numeri interi positivi 
-        i cui elementi sono numeri della sequenza 0, 1, 4, 9, 16, 25, 36, 49, ... Usare le list comprehension.
+        i cui elementi sono numeri della sequenza 0, 1, 4, 9, 16, 25, 36, 49, ...
         
         il metodo __init__ deve inizializzare la superclasse, inizializzare la matricola e le munizioni.
         Inoltre, i nomi di tutti gli alieni devono essere "Robot-" + matricola (ad esempio, "Robot-16326", scritto con la R maiuscola).
@@ -83,12 +85,14 @@ class Alieno(Creatura):
         
         self.__setMatricola()
         self.__setMunizioni()
-        
-        nome_correttamente_formattato: str = f"Robot-{self.__matricola}"
-    
-        if nome != nome_correttamente_formattato:
+
+        if not re.fullmatch(r"^Robot-(?:[1-8][0-9]{4}|90000)$", nome):
             
-            print('Attenzione! Tutti gli Alieni devono avere il nome "Robot" seguito dal numero di matricola! Reimpostazione nome Alieno in Corso!')
+            print('Attenzione! Tutti gli Alieni devono avere il nome "Robot" seguito dal numero di matricola! Reimpostazione nome Alieno in Corso!\n')
+            
+            nome_correttamente_formattato: str = f"Robot-{self.__matricola}"
+            time.sleep(1)
+            
             nome = nome_correttamente_formattato
         
         super().__init__(nome)
@@ -150,6 +154,8 @@ class Mostro(Creatura):
     def __init__(self, nome: str, urlo_vittoria: str, gemito_sconfitta: str) -> None:   
         
         self.__setAssalto()
+        self.setVittoria(urlo_vittoria)
+        self.setSconfitta(gemito_sconfitta)
         super().__init__(nome)
         
     
@@ -157,9 +163,9 @@ class Mostro(Creatura):
         
         nome_aggiornato: str = ""
         
-        for i, c in enumerate(self.__nome):
+        for i, c in enumerate(self.getNome()):
             
-            if c != " " or c.isalpha():
+            if c.isalpha():
                 
                 if i % 2 == 0:
                     
@@ -178,9 +184,207 @@ class Mostro(Creatura):
         
     def __setAssalto(self) -> None:
         
-        self.__assalto: list[int] = [random.randint(1, 100) for x in range(0, 15)]
+        self.__assalto: list[int] = random.sample(range(1, 101), 15)
+        
+        
+    def setVittoria(self, urlo_vittoria: str) -> None:
+        
+        if isinstance(urlo_vittoria, str):
+            
+            self.__urlo_vittoria = urlo_vittoria
+            
+        else:
+            
+            self.__urlo_vittoria = "GRAAAHHH"
+            
+            
+    def setSconfitta(self, gemito_sconfitta: str) -> None:
+        
+        if isinstance(gemito_sconfitta, str):
+            
+            self.__gemito_sconfitta = gemito_sconfitta
+            
+        else:
+            
+            self.__gemito_sconfitta = "Uuurghhh"
         
         
     def getAssalto(self) -> list[int]:
         
         return self.__assalto
+    
+
+    def getVittoria(self) -> str:
+        
+        return self.__urlo_vittoria
+    
+    
+    def getSconfitta(self) -> str:
+        
+        return  self.__gemito_sconfitta
+    
+  
+    
+def pariUguali(a: list[int], b: list[int]) -> list[int]:
+    
+
+    '''
+    
+        Questo metodo riceve in input due liste a e b di interi positivi e deve restituire una lista c.
+        Ogni elementi della lista c deve essere uguale a:
+        
+        - 1 se l'elemento i-esimo di a e l'elemento i-esimo di b sono sono entrambi pari
+        - 0 altrimenti
+    
+    '''
+    
+    
+    c: list[int] = []
+    
+    for i, j in zip(a, b):
+        
+        if i % 2 == 0 and j % 2 == 0:
+            
+            c.append(1)
+            
+        else:
+            
+            c.append(0)
+            
+    return c
+
+
+def combattimento(a: Alieno, m: Mostro) -> Alieno|Mostro:
+    
+    
+    '''
+    
+        Questo metodo riceve in input un oggetto della classe Alieno ed un oggetto della classe Mostro. 
+        Il metodo deve controllare la validità di a e la validità di m. Se a non è un Alieno o se m non è un Mostro, 
+        il combattimento deve essere interrotto, mostrare un opportuno messaggio e ritornare None. Altrimenti, se a e m sono oggetti validi, 
+        il metodo deve simulare il combattimento tra Mostro e Alieno, restituendo la creatura vincitrice. 
+        Il combattimento consiste nell'applicare la funzione pariUguali() alle munizioni dell'Alieno e all'assalto del Mostro. 
+        Se la lista prodotta in output dal pariUguali() ha più di 4 elementi con valore 1, allora il vincitore è il mostro. Altrimenti, 
+        il vincitore è l'alieno. Se vince il mostro, sullo schermo viene stampato per 3 volte l'urlo della vittoria, 
+        altrimenti viene stampato il gemito della sconfitta.
+    
+    '''
+    
+    
+    if not isinstance(a, Alieno) or not isinstance(m, Mostro):
+        
+        raise ValueError("Le creature non sono valide")
+    
+    lista_vincitore: list[int] = pariUguali(a.getMunizioni(), m.getAssalto())
+    
+    if lista_vincitore.count(1) > 4:    #vittoria mostro
+        
+        for i in range(3):
+            
+            print(m.getVittoria())
+            
+        return m
+            
+    else:
+        
+        print(m.getSconfitta())
+        
+        return a
+    
+
+def proclamaVincitore(c: Creatura) -> None:
+    
+    
+    '''
+
+        Questo metodo stampa a schermo se hanno vinto gli alieni o i mostri (a seconda dell'oggetto c) e, 
+        mostra il vincitore all'interno di un rettangolo con contorno di *.
+
+    '''
+    
+    
+    larghezza: int = len(str(c)) + 10
+    altezza: int = 5
+
+    for i in range(altezza):
+        
+        if i == 0 or i == (altezza - 1):
+            
+            print("*" * larghezza)
+            
+        elif i == 2:
+            
+            spazi_totali: int = larghezza - 2 - len(str(c))
+            spazi_sx: int = spazi_totali // 2
+            spazi_dx: int = spazi_totali - spazi_sx
+            
+            print("*" + " " * spazi_sx + str(c) + " " * spazi_dx + "*")
+            
+        else:
+            
+            print("*" + " " * (larghezza - 2) + "*")
+            
+            
+def pulisci_terminale():
+    
+  """Pulisce il terminale."""
+  
+  if os.name == 'nt': # Se il sistema operativo è Windows
+      
+    os.system('cls')
+    
+  else: # Se il sistema operativo è Unix-like
+      
+    os.system('clear')
+            
+            
+def main():
+    
+    
+    '''
+    
+        - Inizializza un mostro e un alieno e stampa i dati corrispondenti sullo schermo.
+        - Esegue un combattimento tra i due oggetti creati.
+        - Proclama il vincitore.
+    
+    '''
+    
+    
+    pulisci_terminale()
+    
+    # Inizializzazione di un alieno
+    alieno: Alieno = Alieno("Robot-44567")  # il nome verrà corretto automaticamente se serve
+    
+    print(alieno)
+    print("Munizioni:", alieno.getMunizioni())
+    print()
+
+    # Inizializzazione di un mostro
+    mostro: Mostro = Mostro("Gorthor", "GRAAAHHH", "Uuurghhh")
+    
+    print(mostro)
+    print("Assalto:", mostro.getAssalto())
+    print()
+
+    print("Combattimento\n")
+
+    # parte il combattimento
+    vincitore: Alieno|Mostro = combattimento(alieno, mostro)
+    print()
+
+    # Proclamazione del vincitore con messaggio
+    if isinstance(vincitore, Mostro):
+        
+        print("I Mostri hanno vinto!\n")
+        
+    elif isinstance(vincitore, Alieno):
+        
+        print("Gli Alieni hanno vinto!\n")
+
+    # Visualizzazione grafica del vincitore
+    proclamaVincitore(vincitore)
+    
+    
+if __name__ == "__main__":
+    
+    main()
