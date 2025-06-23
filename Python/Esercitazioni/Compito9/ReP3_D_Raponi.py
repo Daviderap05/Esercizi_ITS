@@ -251,7 +251,7 @@ def pariUguali(a: list[int], b: list[int]) -> list[int]:
             
             c.append(0)
             
-    return c
+    return c   # Alternativa una sola riga: return [1 if i % 2 == 0 and j % 2 == 0 else 0 for i, j in zip(a, b)]
 
 
 def combattimento(a: Alieno, m: Mostro) -> Alieno|Mostro:
@@ -285,7 +285,7 @@ def combattimento(a: Alieno, m: Mostro) -> Alieno|Mostro:
             
         return m
             
-    else:
+    else:                               #vittoria alieno
         
         print(m.getSconfitta())
         
