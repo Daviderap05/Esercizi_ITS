@@ -47,6 +47,6 @@ while True:
         print("")
 
              
-print(f"Il numero {prima_x} compare {sequenza_n.count(prima_x)} volta/e nella sequenza")
+print(f"Il numero {prima_x} compare {sequenza_n.count(prima_x)} {'volta' if sequenza_n.count(prima_x) == 1 else 'volte'} nella sequenza")
 print(f"Il numero {prima_x} compare per la prima volta in posizione {i_seconda_x} nella sequenza")
 print(f"La somma dei valori della sequenza diversi da {prima_x} è {somma}")
