@@ -58,7 +58,7 @@ def genera() -> list[list[int]]:
     
     for r in range(dim):
         
-        row: list[list[int]] = []
+        row: list[int] = []
         
         for c in range(dim):
             
