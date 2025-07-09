@@ -180,38 +180,25 @@
 
 
 
-# def check_parentheses(expression: str) -> bool:
+def check_parentheses(stringa: str) -> bool:
     
-#     cont: int = 0
+    cont: int = 0
 
-#     if expression:
+    if not stringa or not isinstance(stringa, str):
+        raise ValueError ("Inserire una sringa piena.")
         
-#         for i in expression:
-            
-#             if i == "(":
-                
-#                 cont += 1
-                
-#             elif i == ")":
-                
-#                 cont -= 1
-                
-#                 if cont < 0:
-                    
-#                     return False
-                
-                
-#         if cont == 0:
-            
-#             return True
+    for c in stringa:
         
-#         else:
+        if c == "(":
+            cont += 1
             
-#             return False
-    
-#     else:
-        
-#         return False
+        elif c == ")":
+            cont -= 1
+            
+    return True if cont == 0 else False
+            
+            
+            
             
 # def check_parentheses(expression: str) -> bool:
 #     count = 0  # Contatore per le parentesi aperte
