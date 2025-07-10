@@ -1,38 +1,55 @@
-.App {
-  text-align: center;
+/* CSS semplificato per React Playground - Solo tema chiaro */
+
+:root {
+  --bg: #f8f9fa;
+  --text: #212529;
+  --card-bg: #ffffff;
+  --border: #dee2e6;
+  --btn-text: #212529;
+  --btn-border: #212529;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.5s ease, color 0.5s ease;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.card-title {
+  color: var(--text);
+}
+
+.card.transition:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-theme-button {
+  display: none;
+}
+
+.card-footer .btn {
+  border-radius: 50px;
+  padding: 6px 20px;
+  font-weight: 500;
+  color: var(--btn-text);
+  border: 1px solid var(--btn-border);
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.card-footer .btn:hover {
+  background-color: var(--btn-border);
+  color: var(--bg);
 }
