@@ -16,7 +16,7 @@ def fusionDNA(s1: str, s2: str) -> str:
     
     print("")
     
-    for i in s1[0:]:u
+    for i in s1[0:]:
         print(i, end="")
         
     print("")
