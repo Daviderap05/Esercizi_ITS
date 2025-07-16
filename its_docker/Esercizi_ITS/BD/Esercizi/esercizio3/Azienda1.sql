@@ -9,9 +9,10 @@ CREATE DOMAIN realGEZ AS real
 CREATE TYPE indirizzo AS(
 
 	via stringa,
-	civico realGEZ
+	civico stringa
 
 );
+
 
 
 CREATE TABLE impiegato(
@@ -38,19 +39,31 @@ CREATE TABLE dipartimento(
 	foreign key (impiegato)
 		references impiegato(id)
 
+	-- v.incl id occorre almeno una volta in dip_tel(id_dipartimento)
+
 );
 
 
 CREATE TABLE telefono(
 
-	id integer not null,
-	telefono varchar(15) not null,
+	telefono varchar(15) primary key
+	-- v.incl telefono occorre almeno una volta in dip_tel(id_telefono)
+	
+);
+
+
+CREATE TABLE dip_tel(
+
+	id_telefono varchar(15) not null,
 	id_dipartimento integer not null,
+
+	foreign key (id_telefono)
+		references telefono(telefono),
 
 	foreign key (id_dipartimento)
 		references dipartimento(id),
 
-	primary key(id)
+	primary key (id_dipartimento, id_telefono)
 
 );
 
@@ -78,6 +91,7 @@ CREATE TABLE coinvolto(
 		references progetto(id),
 
 	primary key(impiegato, progetto)
+
 );
 
 

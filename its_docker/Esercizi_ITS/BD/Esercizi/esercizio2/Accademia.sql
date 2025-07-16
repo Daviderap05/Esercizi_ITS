@@ -151,3 +151,5 @@ CREATE table Assenza (
 		references Persona(id)
 
 );
+
+-- (1, 'Davide', 'Raponi', 'Ricercatore', 1600)
