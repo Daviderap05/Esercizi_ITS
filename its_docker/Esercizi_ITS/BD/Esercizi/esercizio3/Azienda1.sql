@@ -1,113 +1,96 @@
-CREATE DOMAIN stringa AS varchar(200)
-	check(value is not null);
+create domain IntGEZ as integer
+        check (value >= 0);
+        
+create domain IntGZ as integer
+        check (value > 0);
 
+create domain RealGEZ as real
+        check (value >= 0);
 
-CREATE DOMAIN realGEZ AS real
-	check (value is not null and value >= 0);
+create domain Stringa as varchar;
 
+create domain CAP as char(5)
+        check (value ~ '[0-9]{5}');
 
-CREATE TYPE indirizzo AS(
-
-	via stringa,
-	civico stringa
-
+create type Indirizzo as (
+        via Stringa,
+        cap CAP,
+        civico Stringa
 );
 
 
 
-CREATE TABLE impiegato(
-
-	id integer primary key,
-
-	nome stringa not null,
-	cognome stringa not null,
-	nascita date not null,
-	stipendio realGEZ not null
-
+create table impiegato(
+    id serial primary key,
+    nome stringa not null,
+    cognome stringa not null,
+    nascita date not null,
+    stipendio RealGEZ not null,
+    
 );
 
 
-CREATE TABLE dipartimento(
+create table dipartimento(
+    id serial primary key,
+    nome stringa not null,
+    indirizzo indirizzo,
+    -- v. incl (id) 
+    --   appare in dip_tel(dipartimento)
 
-	id integer primary key,
-
-	nome stringa not null,
-	indirizzo indirizzo,
-
-	impiegato integer not null,
-
-	foreign key (impiegato)
-		references impiegato(id)
-
-	-- v.incl id occorre almeno una volta in dip_tel(id_dipartimento)
-
+    -- accorpo 'direzione'
+    direttore integer not null,
+    foreign key (direttore)
+        references impiegato(id)
 );
 
 
-CREATE TABLE telefono(
+create table afferenza (
+    impiegato integer not null,
+    dipartimento integer not null,
+    data_afferenza date not null,
 
-	telefono varchar(15) primary key
-	-- v.incl telefono occorre almeno una volta in dip_tel(id_telefono)
-	
+    primary key (impiegato),
+
+    foreign key (impiegato)
+        references impiegato(id),
+    foreign key (dipartimento)
+        references dipartimento(id),
 );
 
 
-CREATE TABLE dip_tel(
-
-	id_telefono varchar(15) not null,
-	id_dipartimento integer not null,
-
-	foreign key (id_telefono)
-		references telefono(telefono),
-
-	foreign key (id_dipartimento)
-		references dipartimento(id),
-
-	primary key (id_dipartimento, id_telefono)
-
+create table telefono(
+    telefono Stringa primary key
+    -- v. incl (telefono)
+    --  appare in dip_tel(telefono)
 );
 
 
-CREATE TABLE progetto(
-
-	id integer primary key,
-
-	nome stringa not null,
-	budget realGEZ not null
-
+create table dip_tel (
+    dipartimento integer not null,
+    telefono stringa not null,
+    primary key (dipartimento, telefono),
+    foreign key (dipartimento)
+        references dipartimento(id),
+    foreign key (telefono)
+        references telefono(telefono)
 );
 
 
-CREATE TABLE coinvolto(
-
-	impiegato integer not null,
-	progetto integer not null,
-
-
-	foreign key (impiegato)
-		references impiegato(id),
-
-	foreign key (progetto)
-		references progetto(id),
-
-	primary key(impiegato, progetto)
-
+create table progetto(
+    id serial primary key,
+    nome stringa not null,
+    budget RealGEZ not null
 );
 
 
-CREATE TABLE afferenza(
+create table coinvolto (
+    impiegato integer not null,
+    progetto integer not null,
 
-	impiegato integer not null,
-	dipartimento integer not null,
-	data_afferenza date not null,
+    primary key (impiegato, progetto),
 
-	foreign key (impiegato)
-		references impiegato(id),
-
-	foreign key (dipartimento)
-		references dipartimento(id),
-
-	unique (dipartimento),
-	primary key(impiegato)
-
+    foreign key (impiegato)
+        references impiegato(id),
+    foreign key (progetto)
+        references progetto(id)
 );
