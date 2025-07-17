@@ -1,31 +1,22 @@
-from abc import ABC, abstractclassmethod, abstractmethod
-from mytipes import *
+from abc import ABC, abstractmethod
 from datetime import date
+
+
 class Utente(ABC):
 
-    _username: str # mutabile, noto alla nascita
-    _registrazione: date # immutabile, noto alla nascita
+    username: str # mutabile, noto alla nascita
+    registrazione: date # immutabile, noto alla nascita
 
-    # abstractmethod
+    @abstractmethod
     def __init__(self, username: str, registrazione: date) -> None:
-        self.set_username(username)
-        self._registrazione = registrazione
+        self.setUsername(username)
+        self.registrazione = registrazione
 
-    def username(self) -> str:
-        return self._username
+    def setUsername(self, username: str) -> None:
+        self.username = username
+        
+    def getUsername(self) -> str:
+        return self.username
 
-    def set_username(self, username: str) -> None:
-        # controllo che il nome non sia gia stato usato
-        self._username = username
-
-    def registrazione(self) -> date:
-        return self._registrazione
-
-    
-
-
-
-
-
-
-
+    def getRegistrazione(self) -> date:
+        return self.registrazione
