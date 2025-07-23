@@ -9,32 +9,31 @@ create domain codice_IATA as char(3);
 create table Compagnia(
 
         nome StringaM primary key,
-        anno_fondazione PosInteger
+        annofondaz PosInteger
 );
 
 
-create table Aereoporto(
+create table Aeroporto(
 
-        codiceIATA codice_IATA primary key,
+        codice codice_IATA primary key,
         nome StringaM not null
 );
 
 
 create table LuogoAeroporto(
 
-        città StringaM not null,
+        citta StringaM not null,
         nazione StringaM not null,
 
-        codiceIATA codice_IATA not null,
-        foreign key (codiceIATA)
-                references Aereoporto(codiceIATA),
-
-        primary key (codiceIATA)
+        aeroporto codice_IATA not null,
+        foreign key (aeroporto)
+                references Aeroporto(codice) deferrable,
+        primary key (aeroporto)
 );
 
 
--- alter table Aeroporto
--- add foreign key (codice) references LuogoAeroporto(aeroporto);
+alter table Aeroporto
+        add foreign key (codice) references LuogoAeroporto(aeroporto) deferrable;
 
 
 create table ArrPart(
@@ -43,12 +42,13 @@ create table ArrPart(
         comp StringaM not null,
 
         arrivo codice_IATA not null,
-        foreign key (arrivo)
-                references Aereoporto(codiceIATA),
-
         partenza codice_IATA not null,
+        
+        foreign key (arrivo)
+                references Aeroporto(codice),
+
         foreign key (partenza)
-                references Aereoporto(codiceIATA),
+                references Aeroporto(codice),
 
         primary key (codice, comp)
 );
@@ -57,7 +57,7 @@ create table ArrPart(
 create table Volo(
 
         codice PosInteger not null,
-        durata_minuti PosInteger not null,
+        durataMinuti PosInteger not null,
         
         -- accorpo compagnia
         comp StringaM not null,
@@ -65,10 +65,10 @@ create table Volo(
                 references Compagnia(nome),
 
         foreign key (codice, comp) 
-                references ArrPart(codice, comp),
+                references ArrPart(codice, comp) deferrable,
 
         primary key (codice, comp)
 );
 
--- alter table ArrPart
--- add foreign key (codice, comp) references Volo(codice, comp);
+alter table ArrPart
+        add foreign key (codice, comp) references Volo(codice, comp) deferrable;
