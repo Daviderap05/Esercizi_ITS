@@ -1,4 +1,4 @@
--- Active: 1753297295466@@localhost@5432@ordinifatture
+-- Active: 1753341175299@@localhost@5432@ordinifatture
 create domain Stringa as varchar(200);
 
 create domain IntGEZ as integer

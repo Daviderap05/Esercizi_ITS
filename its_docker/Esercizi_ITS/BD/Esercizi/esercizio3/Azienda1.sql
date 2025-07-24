@@ -1,3 +1,4 @@
+-- Active: 1753341175299@@localhost@5432@azienda1
 create domain IntGEZ as integer
         check (value >= 0);
         
@@ -25,8 +26,7 @@ create table impiegato(
     nome stringa not null,
     cognome stringa not null,
     nascita date not null,
-    stipendio RealGEZ not null,
-    
+    stipendio RealGEZ not null    
 );
 
 
@@ -36,7 +36,6 @@ create table dipartimento(
     indirizzo indirizzo,
     -- v. incl (id) 
     --   appare in dip_tel(dipartimento)
-
     -- accorpo 'direzione'
     direttore integer not null,
     foreign key (direttore)
@@ -54,7 +53,7 @@ create table afferenza (
     foreign key (impiegato)
         references impiegato(id),
     foreign key (dipartimento)
-        references dipartimento(id),
+        references dipartimento(id)
 );
 
 
