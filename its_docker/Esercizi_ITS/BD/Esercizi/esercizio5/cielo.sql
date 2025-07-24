@@ -1,3 +1,4 @@
+-- Active: 1753341175299@@localhost@5432@cielo
 create domain StringaM as varchar(100);
 
 create domain PosInteger as integer check (value >= 0);

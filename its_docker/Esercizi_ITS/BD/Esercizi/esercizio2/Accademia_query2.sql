@@ -1,3 +1,4 @@
+-- Active: 1753341175299@@localhost@5432@accademia@public
 -- QUERY 1 --
 
 select wp.id, wp.nome, wp.inizio, wp.fine 
