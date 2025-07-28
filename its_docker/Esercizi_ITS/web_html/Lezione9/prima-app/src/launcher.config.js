@@ -6,6 +6,7 @@ import EsempioUseEffect from './Esercizi/Esercizio4/EsempioUseEffect';
 import CleanUp from './Esercizi/Esercizio5/CleanUp';
 import CambiaNome from './Esercizi/Esercizio6/CambiaNome';
 import Login from './Esercizi/Esercizio7/Login';
+import UserList from './Esercizi/Esercizio8/UserList';
 
 export const esercizi = [
   {
@@ -14,6 +15,7 @@ export const esercizi = [
       { nome: 'Tabellina', path: '/esercizi/tabellina', componente: <Tabellina /> },
       { nome: 'Contatore', path: '/esercizi/contatore', componente: <Contatore /> },
       { nome: 'Profilo Utente', path: '/esercizi/profilo-utente', componente: <ProfiloUtenteDemo /> },
+      { nome: 'UserList', path: '/esercizi/UserList', componente: <UserList /> },
     ]
   },
   {
