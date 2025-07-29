@@ -13,6 +13,10 @@ const UserAlbum = () => {
     const [albums, setAlbums] = useState([]);
     const [filteredAlbums, setFilteredAlbums] = useState([]);
 
+    const [photos, setPhotos] = useState([]);
+    const [filteredPhotos, setFilteredPhotos] = useState([]);
+
+
     const getUser = async () => {
 
         try {
@@ -43,10 +47,26 @@ const UserAlbum = () => {
         }
     };
 
+    const getPhotos = async () => {
+
+        try {
+
+            const response = await fetch(urlPhotos);
+            const result = await response.json();
+            setPhotos(result);
+
+        } catch (error) {
+
+            console.error("Errore nel caricamento album:", error);
+
+        }
+    };
+
     useEffect(() => {
 
         getUser();
         getAlbums();
+        getPhotos();
 
     }, []);
 
