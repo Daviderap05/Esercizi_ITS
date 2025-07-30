@@ -1,51 +1,196 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-const url = "https://jsonplaceholder.typicode.com/users";
+const urlUsers = "https://jsonplaceholder.typicode.com/users";
+const urlAlbums = "https://jsonplaceholder.typicode.com/albums";
+const urlPhotos = "https://jsonplaceholder.typicode.com/photos";
 
-const UserList = () => {
-  const [ users, setUsers ] = useState( [] );
-  const [ selectedId, setSelectedId ] = useState( "" ); // valore della select
+const UserAlbumsFullStack = () => {
 
-  const getData = async () => {
+  const [users, setUsers] = useState([]);
+  const [userSelected, setUserSelected] = useState(0);
+
+  const [albums, setAlbums] = useState([]);
+  const [albumSelected, setAlbumSelected] = useState(0);
+
+  const [photos, setPhotos] = useState([]);
+
+
+  const getUsers = async () => {
+
     try {
-      const res = await fetch( url );
-      const data = await res.json();
-      setUsers( data );
-    } catch ( error ) {
-      console.error( "Errore nel caricamento utenti:", error );
+
+      const response = await fetch(urlUsers);
+      const result = await response.json();
+      setUsers(result);
+
+    } catch (err) {
+
+      console.log(err);
+
     }
   };
 
-  useEffect( () => {
-    getData();
-  }, [] );
+  const getAlbums = async () => {
 
-  // Trova l'utente selezionato
-  const selectedUser = users.find( user => user.id === parseInt( selectedId ) );
+    try {
+
+      const url = urlAlbums + "?userId=" + userSelected;
+      const response = await fetch(url);
+      const result = await response.json();
+      setAlbums(result);
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+  };
+
+  const getPhotos = async () => {
+
+    try {
+
+      const url = urlPhotos + "?albumId=" + albumSelected;
+      const response = await fetch(url);
+      const result = await response.json();
+      setPhotos(result);
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+  };
+
+
+  useEffect(() => {
+
+    getUsers();
+
+  }, []);
+
+  useEffect(() => {
+
+    if (userSelected) {
+
+      getAlbums();
+
+    } else {
+
+      setAlbums([]);
+
+    }
+  }, [userSelected]);
+
+  useEffect(() => {
+
+    if (albumSelected) {
+
+      getPhotos();
+
+    } else {
+
+      setPhotos([]);
+
+    }
+  }, [albumSelected]);
+
+
+  const manageUser = (e) => {
+
+    setUserSelected(e.target.value);
+    setAlbumSelected(0);
+
+  };
+
+
+  const Opt = ({id, name, userId, title}) => {
+
+    const selectedValue = id === (userId ? albumSelected : userSelected);
+    const optName = userId ? title : name;
+
+    return (
+
+      <option value={id} defaultValue={selectedValue}> {optName} </option>
+
+    );
+
+  };
+
 
   return (
-    <>
-      <h1>Seleziona un utente</h1>
 
-      <select value={ selectedId } onChange={ ( e ) => setSelectedId( e.target.value ) }>
-        <option value="">-- Seleziona un nome --</option>
-        {users.map( ( user ) => (
-          <option key={ user.id } value={ user.id }>
-            { user.name }
-          </option>
-        ) ) }
-      </select>
+    <div className="container">
 
-      { selectedUser && (
-        <div className="card shadow" style={ { marginTop: '1rem' } }>
-          <img src={ `https://i.pravatar.cc/150?img=${selectedUser.id }`} alt={ selectedUser.name } />
-          <h3>{ selectedUser.name }</h3>
-          <p><strong>Email:</strong> { selectedUser.email }</p>
-          <p><strong>Sito:</strong> <a href={ `https://${selectedUser.website}` } target="_blank">{ selectedUser.website }</a></p>
+      <h1>Gestione albums e photos</h1>
+
+
+      <div className="row">
+
+        <div className="col-6">
+
+          <select className="form-select" value={userSelected} onChange={manageUser}>
+            
+            <option value="">Seleziona Utente</option>
+
+              {users.map((u) => {
+
+                return (
+
+                  <Opt key={u.id} {...u}/>
+
+                );
+
+              })}
+              
+          </select>
+
         </div>
-      )}
-    </>
+
+
+        <div className="col-6">
+
+          <select className="form-select" value={albumSelected} onChange={(e) => setAlbumSelected(e.target.value)}>
+            
+            <option value="0">Seleziona album</option>
+
+            {albums.map((u) => {
+
+              return (
+
+                <option key={u.id} value={u.id}> {u.title} </option>
+              );
+
+            })}
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div className="row">
+
+        <div className="col-12">
+
+          {photos.map((u) => {
+
+              return (
+
+                <p key={u.id} value={u.id}> <span>{u.title}</span> </p>
+
+              );
+
+            })}
+
+        </div>
+
+      </div>
+
+    </div>
   );
 };
 
-export default UserList;
+
+export default UserAlbumsFullStack;
