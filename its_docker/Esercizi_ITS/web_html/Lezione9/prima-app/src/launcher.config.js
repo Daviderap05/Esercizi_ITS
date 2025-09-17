@@ -15,6 +15,8 @@ import CampoRicerca from './Esercizi/Esercizio9/Esercizio9_5/CampoRicerca';
 import MessaggioSegreto from './Esercizi/Esercizio9/Esercizio9_6/MessaggioSegreto';
 import AggiornaTitolo from './Esercizi/Esercizio9/Esercizio9_7/AggiornaTitolo';
 import GalleriaFoto from './Esercizi/Esercizio9/Esercizio9_8/GalleriaFoto';
+import ModuloContatti from './Esercizi/Esercizio9/Esercizio9_9/ModuloContatti';
+import BlogApp from './Esercizi/Esercizio9/Esercizio9_10/BlogApp';
 
 export const esercizi = [
   {
@@ -42,6 +44,8 @@ export const esercizi = [
       { nome: 'MessaggioSegreto', path: '/esercizi/esercizio9/esercizio9_6', componente: <MessaggioSegreto/> },
       { nome: 'AggiornaTitolo', path: '/esercizi/esercizio9/esercizio9_7', componente: <AggiornaTitolo/> },
       { nome: 'GalleriaFoto', path: '/esercizi/esercizio9/esercizio9_8', componente: <GalleriaFoto/> },
+      { nome: 'ModuloContatti', path: '/esercizi/esercizio9/esercizio9_9', componente: <ModuloContatti/> },
+      { nome: 'BlogApp', path: '/esercizi/esercizio9/esercizio9_10', componente: <BlogApp/> },
     ]
   }
 ];
