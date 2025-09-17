@@ -1,5 +1,4 @@
 
-
 create domain stringa as varchar;
 
 create domain codicefiscale as char(16)

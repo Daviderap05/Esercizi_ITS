@@ -2,8 +2,6 @@ create table posizionemilitare (
 	nome stringa primary key
 );
 
-
-
 create table persona (
 	cf codicefiscale primary key,
 	nome stringa not null,
