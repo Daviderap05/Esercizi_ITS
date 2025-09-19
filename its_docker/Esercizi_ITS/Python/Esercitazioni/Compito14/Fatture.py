@@ -4,9 +4,9 @@ from Dottore import Dottore
 
 class Fattura:
     def __init__(self, patients: list[Paziente], doctor: Dottore) -> None:
-        if doctor.isAValidDoctor():
+        if doctor.isAValidDoctor() and isinstance(patients, list) and isinstance(doctor, Dottore):
             self.doctor: Dottore | None = doctor
-            self.patients: list[Paziente] | None = list(patients)
+            self.patients: list[Paziente] | None = patients
             self.fatture: int | None = len(self.patients)
             self.salary: int | float | None = 0
         else:
@@ -42,13 +42,16 @@ class Fattura:
             print("Operazione non consentita: dottore non valido o fattura non inizializzata.")
             return
 
-        self.patients.append(newPatient)
-        self.getFatture()
-        self.getSalary()
-        print(
-            f"Alla lista del Dottor {self.doctor.getLastname()} "
-            f"è stato aggiunto il paziente {newPatient.getIdCode()}"
-        )
+        if any(p.getIdCode() == newPatient.getIdCode() for p in self.patients): # any retituisce true se un controlla nel for da true
+            self.patients.append(newPatient)
+            self.getFatture()
+            self.getSalary()
+            print(
+                f"Alla lista del Dottor {self.doctor.getLastname()} "
+                f"è stato aggiunto il paziente {newPatient.getIdCode()}"
+            )
+        else:
+            print("Attenzione il paziente è gia presente nella lista.")
 
     def removePatient(self, idCode: str) -> None:
         if self.doctor is None or self.patients is None:
