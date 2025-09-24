@@ -17,6 +17,7 @@ import AggiornaTitolo from './Esercizi/Esercizio9/Esercizio9_7/AggiornaTitolo';
 import GalleriaFoto from './Esercizi/Esercizio9/Esercizio9_8/GalleriaFoto';
 import ModuloContatti from './Esercizi/Esercizio9/Esercizio9_9/ModuloContatti';
 import BlogApp from './Esercizi/Esercizio9/Esercizio9_10/BlogApp';
+import TodoApp from './Esercizi/Esercizio10/TodoApp';
 
 export const esercizi = [
   {
@@ -46,6 +47,7 @@ export const esercizi = [
       { nome: 'GalleriaFoto', path: '/esercizi/esercizio9/esercizio9_8', componente: <GalleriaFoto/> },
       { nome: 'ModuloContatti', path: '/esercizi/esercizio9/esercizio9_9', componente: <ModuloContatti/> },
       { nome: 'BlogApp', path: '/esercizi/esercizio9/esercizio9_10', componente: <BlogApp/> },
+      { nome: 'TodoApp', path: '/esercizi/TodoApp', componente: <TodoApp/> },
     ]
   }
 ];
