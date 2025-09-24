@@ -1,4 +1,3 @@
-# isEqual(otherFilm): che ritorna true se il codice identificativo di due film è uguale.  
 from __future__ import annotations  
 from movie_genre import *
 
@@ -10,12 +9,17 @@ class Film():
         self.setTitle(title)
     
     def setID(self, id: int) -> None:
-        if isinstance(id, int) and id:
+        if isinstance(id, int) and id >= 0:
             self.__id = id
+        else:
+            raise ValueError("ID non valido")
+
             
     def  setTitle(self, title: str) -> None:
         if isinstance(title, str) and title.strip():
-            self.__title = title
+            self.__title = title.capitalize()
+        else:
+            raise ValueError("Titolo non valido")
             
     def getId(self) -> int:
         return self.__id
@@ -23,6 +27,7 @@ class Film():
     def getTitle(self) -> str:
         return self.__title
     
-    def isEqual(self, otherFilm: Azione | Commedia | Drama):
+    def isEqual(self, otherFilm: Film)  -> bool:
+        if not isinstance(otherFilm, Film):
+            return False
         return self.__id == otherFilm.getId()
-        # usarlo in noleggio (isAvaible)

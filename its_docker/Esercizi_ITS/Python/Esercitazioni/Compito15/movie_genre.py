@@ -2,12 +2,12 @@ from film import Film
 
 
 class Azione(Film):
-
+    
+    __genere: str = "Azione"
+    __penale: float | int = 3
+            
     def __init__(self, id: int, title: str) -> None:
         super().__init__(id, title)
-        
-        self.__genere: str = "Azione"
-        self.__penale: float | int = 3
         
     def getGenere(self) -> str:
         return self.__genere
@@ -15,20 +15,20 @@ class Azione(Film):
     def getPenale(self) -> int | float:
         return self.__penale
     
-    def calcolaPenaleRitardo(self, nGiorniRit: int) -> int | float | ValueError:
-        if nGiorniRit and nGiorniRit > 0 and isinstance(nGiorniRit, int):
-            return nGiorniRit * Azione.getPenale()
+    def calcolaPenaleRitardo(self, nGiorniRit: int) -> int | float:
+        if isinstance(nGiorniRit, int) and nGiorniRit > 0:
+            return nGiorniRit * self.getPenale()
         raise ValueError ("Inserire dei giorni di ritardo > 0")
         
       
         
 class Commedia(Film):
 
+    __genere: str = "Commedia"
+    __penale: float | int = 2.5
+    
     def __init__(self, id: int, title: str) -> None:
         super().__init__(id, title)
-        
-        self.__genere: str = "Commedia"
-        self.__penale: float | int = 2.5
         
     def getGenere(self) -> str:
         return self.__genere
@@ -36,20 +36,20 @@ class Commedia(Film):
     def getPenale(self) -> int | float:
         return self.__penale
     
-    def calcolaPenaleRitardo(self, nGiorniRit: int) -> int | float | ValueError:
-        if nGiorniRit and nGiorniRit > 0 and isinstance(nGiorniRit, int):
-            return nGiorniRit * Commedia.getPenale()
+    def calcolaPenaleRitardo(self, nGiorniRit: int) -> int | float:
+        if isinstance(nGiorniRit, int) and nGiorniRit > 0:
+            return nGiorniRit * self.getPenale()
         raise ValueError ("Inserire dei giorni di ritardo > 0")
         
         
 
 class Drama(Film):
 
+    __genere: str = "Drama"
+    __penale: float | int = 2
+        
     def __init__(self, id: int, title: str) -> None:
         super().__init__(id, title)
-        
-        self.__genere: str = "Drama"
-        self.__penale: float | int = 2
         
     def getGenere(self) -> str:
         return self.__genere
@@ -57,8 +57,8 @@ class Drama(Film):
     def getPenale(self) -> int | float:
         return self.__penale
     
-    def calcolaPenaleRitardo(self, nGiorniRit: int) -> int | float | ValueError:
-        if nGiorniRit and nGiorniRit > 0 and isinstance(nGiorniRit, int):
-            return nGiorniRit * Drama.getPenale()
+    def calcolaPenaleRitardo(self, nGiorniRit: int) -> int | float:
+        if isinstance(nGiorniRit, int) and nGiorniRit > 0:
+            return nGiorniRit * self.getPenale()
         raise ValueError ("Inserire dei giorni di ritardo > 0")
         
