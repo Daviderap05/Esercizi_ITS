@@ -21,20 +21,20 @@ class Triangolo(Forma):
     
     forma: str = "Triangolo"
     
-    def __init__(self, nome: str, lato: int):
+    def __init__(self, nome: str, lato: int) -> None:
         super().__init__(nome)
         
-        if lato > 2 and isinstance(lato, int):
+        if isinstance(lato, int) and lato > 2:
             self.lato = lato
         else:
             raise ValueError ("Inserire un lato valido > 0")
 
         
-    def getArea(self):
+    def getArea(self) -> None:
         print (f"\n{(self.lato ** 2) / 2}")
     
     
-    def Render(self):
+    def Render(self) -> None:
         
         for i in range(self.lato):
             

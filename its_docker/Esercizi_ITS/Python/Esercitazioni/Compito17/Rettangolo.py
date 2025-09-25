@@ -17,25 +17,25 @@ class Rettangolo(Forma):
     
     forma: str = "Rettangolo"
     
-    def __init__(self, nome: str, base: int, altezza: int):
+    def __init__(self, nome: str, base: int, altezza: int) -> None:
         super().__init__(nome)
         
-        if base > 1 and isinstance(base, int):
+        if isinstance(base, int) and base > 1:
             self.base = base
         else:
             raise ValueError ("Inserire una base valida > 0")
         
-        if altezza > 1 and isinstance(altezza, int):
+        if isinstance(altezza, int) and altezza > 1:
             self.altezza = altezza
         else:
             raise ValueError ("Inserire un'altezza valida > 0")
         
         
-    def getArea(self):
+    def getArea(self) -> None:
         print (f"\n{self.base * self.altezza}")
     
     
-    def Render(self):
+    def Render(self) -> None:
         
         print("* " * self.base)
         
@@ -45,6 +45,6 @@ class Rettangolo(Forma):
         print("* " * self.base)
         
         
-q = Rettangolo ("r", 5, 2)
-q.Render()
-q.getArea()
+r = Rettangolo ("r", 5, 2)
+r.Render()
+r.getArea()

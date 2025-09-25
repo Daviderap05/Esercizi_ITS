@@ -7,7 +7,7 @@ from abc import *
 
 class Forma(ABC):
     
-    def __init__(self, nome: str):
+    def __init__(self, nome: str) -> None:
         super().__init__()
         
         if nome and isinstance(nome, str):
@@ -15,11 +15,11 @@ class Forma(ABC):
             
             
     @abstractmethod
-    def getArea():
+    def getArea() -> None:
         pass
         
     
     @abstractmethod
-    def Render():
+    def Render() -> None:
         pass    
     

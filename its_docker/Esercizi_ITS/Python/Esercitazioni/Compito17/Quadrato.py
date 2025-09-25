@@ -15,19 +15,20 @@ class Quadrato(Forma):
     
     forma: str = "Quadrato"
     
-    def __init__(self, nome: str, lunghezza: int):
+    def __init__(self, nome: str, lunghezza: int) -> None:
         super().__init__(nome)
         
-        if lunghezza > 1 and isinstance(lunghezza, int):
+        if   isinstance(lunghezza, int) and lunghezza > 1:
             self.lunghezza = lunghezza
         else:
             raise ValueError ("Inserire un numero valido > 0")
         
         
-    def getArea(self):
-        return self.lunghezza**2
+    def getArea(self) -> None:
+        print(f"\n{self.lunghezza**2}")
     
-    def Render(self):
+    
+    def Render(self) -> None:
         
         print("* " * self.lunghezza)
         
@@ -39,3 +40,4 @@ class Quadrato(Forma):
         
 q = Quadrato("q", 5)
 q.Render()
+q.getArea()
