@@ -30,7 +30,6 @@ INSERT INTO Compagnia(nome, annofondaz) VALUES
 ('Caimanair', '1954'),
 ('Apitalia', '1900'),
 ('MagicFly', '1990');
-('WizardAir');
 
 
 INSERT INTO LuogoAeroporto(aeroporto, citta, nazione) VALUES
