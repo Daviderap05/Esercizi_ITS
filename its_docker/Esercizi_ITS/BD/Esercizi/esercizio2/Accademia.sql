@@ -1,4 +1,4 @@
--- Active: 1753341175299@@localhost@5432@accademia
+-- Active: 1753297295466@@localhost@5432@accademia@public
 CREATE type Strutturato AS enum (	
 
 	'Ricercatore', 
