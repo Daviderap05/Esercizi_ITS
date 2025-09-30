@@ -77,21 +77,65 @@
         
 #     return d2
 
-def letter_count(text: str) -> dict[str,int]:
+# def letter_count(text: str) -> dict[str,int]:
     
-    d = {}
+#     d = {}
     
-    if not text:
-        return d
+#     if not text:
+#         return d
     
-    parole = text.lower().split()
+#     parole = text.lower().split()
     
-    for p in parole:
+#     for p in parole:
         
-        if p not in d and p.isalpha():
-            d[p] = parole.count(p)
+#         if p not in d and p.isalpha():
+#             d[p] = parole.count(p)
             
-    return d    
+#     return d    
 
-mia_stringa = "Questa è una frase di esempio è 9"
-print(letter_count(mia_stringa))
+# mia_stringa = "Questa è una frase di esempio è 9"
+# print(letter_count(mia_stringa))
+
+
+# def primes_up_to(n: int) -> list[int]:
+    
+#     if n < 2:
+#         return []
+    
+#     lista: list[int] = [2]
+#     primo: bool = True
+
+#     for num in range(1, n + 1, 2):
+
+#         if num == 1:
+#             continue
+        
+#         div: int = 2
+    
+#         while div < num:
+        
+#             if (num % div == 0):
+            
+#                 primo = False
+#                 break
+            
+#             primo = True
+#             div += 1
+        
+#         if primo:
+#             lista.append(num)
+    
+#     return lista
+
+# print(primes_up_to(2))
+
+
+# Nella sala delle cronache devi annotare combo ripetute in forma compatta: implementa `rle(s)` 
+# restituendo tuple `(carattere, conteggio)` in ordine; se non c'è nulla da contare, `[]`.
+
+def rle(s: str) -> list[tuple[str,int]]:
+    
+    if not s or s == "":
+        return []
+    
+print(rle(""))
