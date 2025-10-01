@@ -115,18 +115,18 @@ print("-------------------------------------------------------------------------
 
 # def deep_get(d: dict | list, path: list, default=None):
     
-#     if not d or not path:
-#         return default
+    # if not d or not path:
+    #     return default
     
-#     d_c: dict | list = d
-#     for key in path:
-#         if isinstance(d_c, dict):
-#             d_c = d_c[key]
-#         elif isinstance(d_c, list):
-#             d_c = d_c[key]
-#         else:
-#             return None
-#     return d_c             
+    # d_c: dict | list = d
+    # for key in path:
+    #     if isinstance(d_c, dict | list):
+    #         d_c = d_c[key]
+    #     # elif isinstance(d_c, list):
+    #     #     d_c = d_c[key]
+    #     else:
+    #         return None
+    # return d_c             
             
 print("--------------------------------------------------------------------------------------------")
 
@@ -292,3 +292,69 @@ print("-------------------------------------------------------------------------
 #     return nums[-k:] + nums[:-k]
 
 # print(rotate_right([1, 2, 3], 7))
+
+print("--------------------------------------------------------------------------------------------")
+
+# Per l’Offerta d’Onore, servi l’esatto ammontare col minor numero di pezzi. 
+# Usa `min_coins(amount, coins)`: minimo numero di monete, oppure `1000000000` 
+# se non è possibile. Mantieni la firma e vinci i test.
+
+
+# def min_coins(amount: int = 0, coins: list[int] = [1, 2, 3]) -> int:
+#     INF = 1_000_000_000
+
+#     if amount == 0:
+#         return 0
+#     if not coins:
+#         return INF
+
+#     # filtra tagli non validi
+#     denoms = [c for c in coins if isinstance(c, int) and c > 0]
+
+#     dp = [INF] * (amount + 1)
+#     dp[0] = 0
+
+#     # UNBOUNDED: aggiorna in ordine crescente per consentire il riuso
+#     for c in denoms:
+#         for s in range(c, amount + 1):
+#             if dp[s - c] != INF:
+#                 cand = dp[s - c] + 1
+#                 if cand < dp[s]:
+#                     dp[s] = cand
+
+#     return dp[amount] if dp[amount] != INF else INF
+
+print("--------------------------------------------------------------------------------------------")
+
+
+def write_and_read(lines: list[str]) -> list[str]:
+    
+    filename = "textio_write_and_read.txt"
+
+    with open(filename, "w", encoding="utf-8", newline="\n") as f:
+        for s in lines:
+            if s.endswith("\n"):
+                f.write(s)
+            else:
+                f.write(s + "\n")
+
+    out = []
+    with open(filename, "r", encoding="utf-8") as f:
+        for line in f:
+            out.append(line.rstrip("\n"))
+
+    return out
+
+def count_lines(lines: list[str]) -> int:
+    
+    filename = 'textio_count.txt'
+    
+    with open(filename, "w", encoding="utf-8", newline="\n") as f:
+        for s in lines:
+            if s.endswith("\n"):
+                f.write(s)
+            else:
+                f.write(s + "\n")
+                
+    with open(filename, "r", encoding="utf-8") as f:
+        return count
