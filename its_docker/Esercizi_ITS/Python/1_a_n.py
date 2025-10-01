@@ -26,10 +26,10 @@
     
     
 #comoda la regex per togliere tutto ciò che non è alfabetico anche spazi    
-import re
-text = "ciao mondo 9 "
-text = re.sub(r'[^a-zA-Z]', '', text).lower() 
-print(text)
+# import re
+# text = "ciao mondo 9 "
+# text = re.sub(r'[^a-zA-Z]', '', text).lower() 
+# print(text)
 
 
 
@@ -38,3 +38,12 @@ print(text)
 
 
 #text = text.replace(" ", "").lower()   comodo per sostituire a volte per eliminare gli spazi
+
+# per ruotare a destra
+# def rotate_right(nums: list[int], k: int) -> list[int]:
+    
+#     if not nums:
+#         return []
+    
+#     k = k % len(nums)
+#     return nums[-k:] + nums[:-k]
