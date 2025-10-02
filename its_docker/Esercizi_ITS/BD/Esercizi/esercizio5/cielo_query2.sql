@@ -11,6 +11,7 @@ GROUP BY (a.codice, a.nome)
 select count(v.codice)
 from volo v, ArrPart ap
 where v.codice = ap.codice
+    and v.comp = ap.comp
     and ap.partenza = 'HTR'
     and v.durataMinuti >= '100'
 
@@ -25,7 +26,7 @@ GROUP BY(la.nazione)
 
 
 -- Query 4 --
-select avg(durataMinuti), max(durataMinuti), min(durataMinuti)
+select round(avg(durataMinuti)::numeric, 1), max(durataMinuti), min(durataMinuti)
 from volo
 where volo.comp = 'MagicFly'
 
