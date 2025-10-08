@@ -53,6 +53,57 @@ nella RAM si crea un dizonario dove la chiave 'a' ha valore = alla posizione del
 
 b = 'ciao' >> l'interprete python salva la variabile in un dizionario = {'b', 4, 4}
 
-mutua autentic. prima cifro con la mia chiave privata poi con la pubblica di dest. il dest. 
-decifra con la sua chiave privata e poi con la pubblica di mittente. (firma digitale)
-l'ordine è fondamentale.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+RSA: --> metodo per criptare un messaggio
+A deve mandare messaggio a B
+
+A --> KpubA, KprivA
+B --> KpubB, KprivB
+
+Queste chiavi servono per criptare un messaggio e sono one way (non si torna indietro) con la chiave pubblica cifro il messaggio.
+se A cifra con chiave pubblica di B --> B può decifrarlo con  la sua chiave privata. (Stessa cosa al contrario)
+
+
+
+PROBLEMA:
+J e K vogliono creare una chiave segreta, intesa come una sequenza di byte, che solo loro due conosceranno. 
+Il tutto scambiandosi messaggi pubblici (senza privacy).
+
+
+
+Diffie Helman --> metodo per scambiarsi messaggi in chiaro, usando delle chiavi concordate tra i partecipanti (che sanno solo loro).
+Premessa --> (2^2)^3 = (2^3)^2
+
+J e K condividono 2 informazioni pubbliche --> n(mod) e p(base)
+In una "sessione di lavoro" entrambi si creano una chiave privata (Non valido sempre) --> JprivA, KprivB
+
+J invia a K il numero ((p^JprivA) % n), che darà un risultato X 
+K invia a J il numero ((p^KprivB) % n), che darà un risultato Y
+
+Dopodichè, arrivato il risultato a entrambi,
+J calcolerà ((Y^JprivA) % n)
+K calcolerà ((X^JprivA) % n)
+
+I risultati saranno uguali per tutti e due.
+
+
+
+MUTUA AUTENTICAZIONE:
+A cifra con la sua chiave privata poi con la pubblica di B
+B decifra con la sua chiave privata e poi con la pubblica A. (firma digitale) / (l'ordine è fondamentale)
+Stessa cosa al contrario.
+
+
+
+PROBLEMA:
+'M' deve essere pubblico, nel senso che non deve essere pubblicato come dato cifrato. (In chiaro)
+
+
+
+HASH CRITTOGRAFATO --> SHA 256/512 bit --> Firma digitale:
+-non deve essere invertibile (no crittografia)
+-no paradosso del compleanno --> bisogna evitare le collisioni --> su usano numeri a 32 bite
+-i messaggi se sono completamente diversi i loro hash devono essere completamente diversi.
