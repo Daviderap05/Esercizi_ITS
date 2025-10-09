@@ -47,3 +47,22 @@
     
 #     k = k % len(nums)
 #     return nums[-k:] + nums[:-k]
+
+
+
+#DECORATORI
+import time
+#il decorator prende l'indirizzo di una funzione per decorarla
+def cronometro(fun):
+    def wrapper():
+        start = time.perf_counter()  
+        fun()
+        print(f"{(time.perf_counter() - start):.6f}")
+    return wrapper
+ 
+@cronometro
+def ciao():
+    print("Hello")
+    
+ciao()
+#cronometro(ciao()) --> è la stessa cosa
