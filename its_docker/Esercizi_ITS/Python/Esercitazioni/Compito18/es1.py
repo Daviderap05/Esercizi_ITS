@@ -329,4 +329,97 @@
 #     return diz
 
 
-#rimane l'ultimo
+# rimane l'ultimo
+
+
+# def num_ord(lista_n: list[float] = []) -> tuple[float, float]:
+    
+#     if not lista_n:
+#         raise ValueError ("Errore... inserire una lista di numeri.")
+    
+#     n_min: float = lista_n[0]
+#     n_max: float = lista_n[0]
+    
+#     for n in lista_n:
+#         if n > n_max:
+#             n_max = n
+#         elif n < n_min:
+#             n_min = n
+            
+#     return (n_min, n_max)
+            
+# print(num_ord([2, -4, 3, 7]))
+# print(num_ord())
+
+
+
+# import string
+# def fun(l: list[str]) -> dict[str, int]:
+#     diz: dict[str, int] = {}
+    
+#     for s in l:
+#         s = s.lower().strip().split()
+        
+#         for j in s:
+#             j = j.strip(string.punctuation)
+#             if j not in diz:
+#                 diz[j] = 1
+#             else:
+#                 diz[j] += 1
+                
+#     return diz
+
+
+
+# def fun(l: list[str]) -> dict[str, int]:
+    
+    # diz: dict[str, int] = {}
+    
+    # for s in l:
+    #     s = s.lower().strip().split()
+
+    #     for i in s:
+    #         parola: str = ""
+            
+    #         for j in i:
+                
+    #             if j.isalpha():
+    #                 parola += j
+                    
+    #         if parola not in diz:
+    #             diz[parola] = 1
+    #         else:
+    #             diz[parola] += 1
+                 
+    # return diz
+                    
+
+# s = "Ciao , come stai,"
+# s = s.lower().strip().split()
+# print(s)
+
+# print(fun(["Ciao! come", "ci,ao,"]))
+
+
+
+# def fun(l: list[int]):
+
+#     lista = [l[0]]
+    
+#     for i in l[1:]:
+#         placed = False
+        
+#         for j in lista:
+#             if i <= j:
+                
+#                 lista.insert(lista.index(j), i)
+#                 placed = True
+#                 break
+            
+#         if not placed:
+#             lista.append(i)
+            
+#     return lista
+    
+
+# print(fun([1, 0, 5, 2, 3]))
