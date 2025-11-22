@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "id": "42c0",
+      "text": "ciaozgar",
+      "completed": true
+    },
+    {
+      "id": "f14e",
+      "text": "come ",
+      "completed": false
+    },
+    {
+      "id": "9bf7",
+      "text": "stai ",
+      "completed": true
+    },
+    {
+      "id": "7fa3",
+      "text": "ciao come stai",
+      "completed": false
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+la cpu elabora istruzioni che manipolano le informazioni (unita di misura il bit) --> lavora esclusivamente sui bit --> fa solo operazioni logiche
+file header: nome, dimensione, padding (per il controllo degli errori), pattern, num.casuale, data di scadenza
+
+
+La crittografia simmetrica (o a chiave segreta) è un metodo di crittografia che utilizza la stessa chiave 
+segreta per crittografare e decrittografare i dati.
+difficoltà nella distribuzione sicura della chiave segreta
+
+
+La crittografia asimmetrica (o a chiave pubblica) usa una coppia di chiavi matematicamente collegate: 
+una chiave pubblica da condividere per crittografare i dati, 
+e una chiave privata segreta per decrittografarli
+
+La crittografia asimmetrica utilizza una coppia di chiavi matematicamente collegate: una chiave pubblica e una chiave privata. 
+La chiave pubblica viene usata per cifrare un messaggio e può essere distribuita liberamente, 
+mentre solo la corrispondente chiave privata, tenuta segreta, può decifrare il messaggio. 
+Questo meccanismo garantisce la riservatezza dei dati e l'autenticazione del mittente tramite firme digitali. 
+
+lentezza
+
+
+asimmetrica: k pubblica e k privata. tutti hanno la pubblica e tramite essa criptano il messaggio.Per decifrare il messaggio si usa la propria chiave privata. 
+A cifra il messaggio con la chiave pubblica di B. B usa la sua chiave privata per decifrare il messaggio di A.
+
+Ognuno di noi ha una coppia di chiavi (pubblica e privata).
+
+
+Ruolo delle chiavi: crittografare significa spostarsi in un punto dell'orologio. Decrittografare  
+significa rifare un giro completo dell'orologio fino a dove è partito. Non si può tornare indietro (solo con brute force). 
+
+
+
+RSA si ha n che è il modulo, e esponente pubblico (chiave pubblica), d che è l'esponente privato (chiave privata)
+n^e -> n è un numero || bisogna convertire n in un numero perchè, essendo il messaggio (n), dobbiamo anche criptare frasi!!
+
+
+teorema RSA prevede che ci sia una chiave pubblica e privata. la prima sono numeri interi (di grandi dimensioni, n
+on obbligatorio ma se lo sono è più difficile decodificare senza chiavi). Sono due numeri. la seconda chiave sempre 2 numeri.
+
+Kpub(e, n) || Kpriv(d, n)
+
+Per cifrare, A cifra M (è un numero intero) con la chiave pubblica di B. --> M^e modulo di n restituisce C (numero intero), 
+pow (funzione di python) fa proprio questo --> powd(M, e, n) 
+
+Per decifrare, B decifra C con la sua chiave privata. --> C^d modulo di n restituisce M
+pow (funzione di python) fa proprio questo --> powd(C, d, n)
+
+
+
+a = 37 >> l'interprete python salva la variabile in un dizionario = {'a', 0, 4}, dove dict[1] è la posizione in ram 
+dove è allocato e 4 la dimensione del valore e la fine dello spazio allocato. 
+nella RAM si crea un dizonario dove la chiave 'a' ha valore = alla posizione della RAM (usando lo spazio dedicato all'applicativo in cui stiamo lavorando).
+
+b = 'ciao' >> l'interprete python salva la variabile in un dizionario = {'b', 4, 4}
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+RSA: --> metodo per criptare un messaggio
+A deve mandare messaggio a B
+
+A --> KpubA, KprivA
+B --> KpubB, KprivB
+
+Queste chiavi servono per criptare un messaggio e sono one way (non si torna indietro) con la chiave pubblica cifro il messaggio.
+se A cifra con chiave pubblica di B --> B può decifrarlo con  la sua chiave privata. (Stessa cosa al contrario)
+
+
+
+PROBLEMA:
+J e K vogliono creare una chiave segreta, intesa come una sequenza di byte, che solo loro due conosceranno. 
+Il tutto scambiandosi messaggi pubblici (senza privacy).
+
+
+
+Diffie Helman --> metodo per scambiarsi messaggi in chiaro, usando delle chiavi concordate tra i partecipanti (che sanno solo loro).
+Premessa --> (2^2)^3 = (2^3)^2
+
+J e K condividono 2 informazioni pubbliche --> n(mod) e p(base)
+In una "sessione di lavoro" entrambi si creano una chiave privata (Non valido sempre) --> JprivA, KprivB
+
+J invia a K il numero ((p^JprivA) % n), che darà un risultato X 
+K invia a J il numero ((p^KprivB) % n), che darà un risultato Y
+
+Dopodichè, arrivato il risultato a entrambi,
+J calcolerà ((Y^JprivA) % n)
+K calcolerà ((X^JprivA) % n)
+
+I risultati saranno uguali per tutti e due.
+
+
+
+MUTUA AUTENTICAZIONE:
+A cifra con la sua chiave privata poi con la pubblica di B
+B decifra con la sua chiave privata e poi con la pubblica A. (firma digitale) / (l'ordine è fondamentale)
+Stessa cosa al contrario.
+
+
+
+PROBLEMA:
+'M' deve essere pubblico, nel senso che non deve essere pubblicato come dato cifrato. (In chiaro)
+
+
+
+HASH CRITTOGRAFATO --> SHA 256/512 bit --> Firma digitale:
+-non deve essere invertibile (no crittografia)
+-no paradosso del compleanno --> bisogna evitare le collisioni --> su usano numeri a 32 bite
+-i messaggi se sono completamente diversi i loro hash devono essere completamente diversi.

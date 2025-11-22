@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Gioco: indovina il numero!</title>
+
+    </head>
+
+    <body>
+
+        <h1>Gioco: indovina il numero!</h1>
+
+        <input type="text" id="tentativo" placeholder="Inserisci un numero">
+        <button onclick="controlla()">Controlla</button>
+
+        <br><br>
+
+        Tentativi:
+
+        <input type="text" id="conteggio" value="0" readonly>
+        <br><br>
+
+        <button onclick="nuovoGioco()">Nuovo Gioco</button>
+        <p id="messaggio"></p>
+
+        <script>
+
+            let numeroSegreto; // Variabile globale per il numero segreto
+            let tentativi; // Variabile globale per il conteggio dei tentativi
+
+            function nuovoGioco() {
+
+                // Inizializza le variabili globali
+                numeroSegreto = Math.floor(Math.random() * 101); // Numero da 0 a 100
+                tentativi = 0;
+
+                // Resetta i campi e mostra il messaggio di inizio
+                document.getElementById("tentativo").value = "";
+                document.getElementById("conteggio").value = tentativi;
+                document.getElementById("messaggio").textContent = "Nuova partita iniziata!";
+
+            }
+
+            function controlla() {
+
+                let input = document.getElementById("tentativo").value;
+                let numeroUtente = parseInt(input);
+
+                if (isNaN(numeroUtente)) {
+
+                    document.getElementById("messaggio").textContent = "Inserisci un numero valido!";
+                    return;
+
+                }
+
+                tentativi++;
+                document.getElementById("conteggio").value = tentativi;
+
+                if (numeroUtente === numeroSegreto) {
+
+                    document.getElementById("messaggio").textContent = `Bravo! Hai indovinato in ${tentativi} tentativi.`;
+                
+                } else if (numeroUtente < numeroSegreto) {
+
+                    document.getElementById("messaggio").textContent = "Troppo piccolo!";
+                
+                } else {
+
+                    document.getElementById("messaggio").textContent = "Troppo grande!";
+                
+                }
+
+            }
+
+            // Avvia una nuova partita all'inizio
+            nuovoGioco();
+            
+        </script>
+
+    </body>
+
+</html>

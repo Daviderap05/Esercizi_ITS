@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+    </head>
+
+    <body>
+        
+        <div id="risultato">    </div>
+
+        <div id="saluto">   </div>
+
+        <script>
+
+            //let numero = 100;
+            let numero = prompt("Inserisci il primo numero: ");
+
+            //trasforma il numero da stringa a intero
+            numero = parseInt(numero);
+
+            //non mostra nell html il 100 ma nella console, utile per il debug
+            console.log(numero);
+
+            //let numero2 = 30;
+            let numero2 = prompt("Inserisci il secondo numero: ");
+            
+            //trasforma il secondo numero da stringa a intero
+            numero2 = parseInt(numero2);
+
+            document.getElementById("risultato").innerHTML = "La somma di " + numero + " e " + numero2 + " è: " + (numero + numero2);
+
+            let nome = "Davide";
+
+            document.getElementById("saluto").innerHTML = "Ciao " + nome;
+
+        </script>
+
+    </body>
+
+</html>

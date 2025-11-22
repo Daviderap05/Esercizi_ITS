@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+    </head>
+
+    <body>
+        
+        <div id="risultato">    </div>
+
+        <script>
+
+            let minuti
+            let secondi_rimanenti
+            let ore;
+
+            let secondi = parseInt(prompt("Inserisci i secondi: "));
+
+            if (secondi <= 0){
+
+                document.getElementById("risultato").innerHTML = "Errore... inserire un numero positivo > di 0.";
+
+            }else if (secondi < 60){
+
+                document.getElementById("risultato").innerHTML = "hai inserito: " + secondi + " secondi.";
+
+            }else if (secondi < 3600){
+
+                minuti = parseInt(secondi / 60) 
+                secondi_rimanenti = (secondi % 60)
+
+                document.getElementById("risultato").innerHTML =
+                "Hai inserito: " + secondi + " secondi, che equivalgono a " + minuti + " minuti e " + secondi_rimanenti + " secondi.";
+
+            }else{
+
+                ore = parseInt(secondi / 3600);
+                minuti = parseInt((secondi % 3600) / 60);
+                secondi_rimanenti = secondi % 60;
+
+                document.getElementById("risultato").innerHTML =
+                "Hai inserito: " + secondi + " secondi, che equivalgono a " + ore + " ore, " + minuti + " minuti e " + secondi_rimanenti + " secondi.";
+
+            }
+            
+        </script>
+
+    </body>
+
+</html>

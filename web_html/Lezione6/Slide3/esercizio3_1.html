@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+    </head>
+
+    <body>
+        
+        <div id="risultato">    </div>
+
+        <script>
+
+            let numeri = [];
+            let media = 0;
+    
+            for (let i = 1; i <= 5; i++) {
+
+                let numero = parseInt(prompt("Inserisci il " + i + "° numero: "));
+                numeri.push(numero);
+            }
+    
+            let somma = numeri.reduce((acc, val) => acc + val);
+            media = somma / numeri.length;
+            
+            document.getElementById("risultato").innerHTML = "I numeri inseriti sono: " + numeri + ". La somma è: " + somma + " e la relativa media equivale a: " + media;
+        
+        </script>
+
+    </body>
+
+</html>

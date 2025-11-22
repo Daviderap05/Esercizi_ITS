@@ -1,0 +1,151 @@
+1.  Progettazione risorse: Considera un centro sportivo che gestisce corsi, istruttori e iscritti. 
+    Elenca le principali risorse e scrivi gli URI corretti. Indica anche esempi di URI errati.
+
+    Corretti:           Errati:
+    /corsi              /corso
+    /istruttori         /istruttore     
+    /iscritti           /iscritto
+
+
+2.  Metodi HTTP e CRUD: Per ciascuna operazione indica il metodo HTTP e il codice di stato corretto:
+
+    Creare un nuovo corso                                = POST /corsi              ->  201 Created
+    Aggiornare i dati di un istruttore                   = PUT /istruttori/1        ->  200 Ok
+    Eliminare un iscritto                                = DELETE /iscritti/1       ->  204 No Content
+    Ottenere l’elenco dei corsi                          = GET /corsi               ->  200 Ok
+    Tentare di accedere a un corso inesistente           = GET /corsi/1             ->  404 Not Found
+
+
+3.  Analisi JSON: Ecco un oggetto JSON relativo a una prenotazione di campo da tennis: 
+    
+    Content-Type: application/json
+        {
+        'id': 12,
+        'cliente': 'Luca Neri', 
+        'campo': 3, 
+        'data': '2025-03-20', 
+        'ora': '18:00', 
+        'durata_ore': 2
+        }
+
+    BASE URL: https://api.esempio.it
+
+    Individua la risorsa e utilizza i metodi HTTP per crea una nuova prenotazione con i dati forniti, 
+    modificare l'intera prenotazione, e creare una nuova prenotazione con dati differenti. 
+    Indica anche il codice di stato corretto.
+
+    -------------------------------------------------------------------------------------------------
+    
+    POST https://api.esempio.it/prenotazioni
+    Content-Type: application/json
+
+        {
+        'id': 12,
+        "cliente": "Luca Neri",
+        "campo": 3,
+        "data": "2025-03-20",
+        "ora": "18:00",
+        "durata_ore": 2
+        }
+
+    CODICE STATO = 201 Created
+
+    PUT https://api.esempio.it/prenotazioni/12
+    Content-Type: application/json
+
+        {
+        'id': 12,
+        "cliente": "Luca Neri",
+        "campo": 3,
+        "data": "2025-03-21",
+        "ora": "19:00",
+        "durata_ore": 2
+        }
+
+    CODICE STATO: 200 OK   |   204 No Content
+
+    POST https://api.esempio.it/prenotazioni
+    Content-Type: application/json
+
+        {
+        'id': 13,
+        "cliente": "Giulia Bianchi",
+        "campo": 1,
+        "data": "2025-03-22",
+        "ora": "09:00",
+        "durata_ore": 1
+        }
+
+    CODICE STATO = 201 Created
+
+
+4.  Progetta una mini API: un’agenzia di viaggi deve gestire destinazioni, clienti e prenotazioni. 
+    Definisci 5 endpoint REST (metodo + URI + esempio di risposta JSON).
+
+    BASE URL: https://api.viaggi.it
+
+    POST https://api.viaggi.it/destinazioni
+    Content-Type: application/json
+
+        [
+            {
+                "id": 1,
+                "nome": "Parigi",
+                "paese": "Francia",
+                "prezzo_medio": 450,
+                "durata_giorni": 4
+            },
+            {
+                "id": 2,
+                "nome": "Tokyo",
+                "paese": "Giappone",
+                "prezzo_medio": 1200,
+                "durata_giorni": 7
+            }
+        ]
+
+    POST https://api.viaggi.it/clienti
+    Content-Type: application/json
+
+        {
+            "id": 101,
+            "nome": "Luca Neri",
+            "email": "luca.neri@example.com",
+            "telefono": "+39 345 1234567"
+        }
+
+    POST https://api.viaggi.it/prenotazioni
+    Content-Type: application/json
+
+        {
+            "cliente_id": 101,
+            "destinazione_id": 2,
+            "data_partenza": "2025-12-20",
+            "numero_persone": 2
+        }
+
+    GET https://api.viaggi.it/prenotazioni/{id}
+    Content-Type: application/json
+
+        {
+            "cliente": {
+                "id": 101,
+                "nome": "Luca Neri"
+            },
+            "destinazione": {
+                "id": 2,
+                "nome": "Tokyo",
+                "paese": "Giappone"
+            },
+            "data_partenza": "2025-12-20",
+            "numero_persone": 2,
+            "prezzo_totale": 2400,
+            "stato": "confermata"
+    }
+
+    PUT https://api.viaggi.it/prenotazioni/{id}
+    Content-Type: application/json
+
+        {
+            "stato": "annullata"
+        }

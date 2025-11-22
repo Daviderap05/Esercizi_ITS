@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+
+    <head>
+        
+        <meta charset="UTF-8">
+        <title>Document</title>
+
+    </head>
+
+    <body>
+
+        <script>
+
+            function creaLinee() {
+
+                for (let i = 0; i <= 100; i += 5) {
+
+                    let hr = document.createElement("hr");
+                    hr.style.width = i + "%";
+                    document.body.appendChild(hr);
+
+                }
+
+            }
+
+            creaLinee();
+
+        </script>
+
+    </body>
+
+</html>

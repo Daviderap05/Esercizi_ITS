@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+    </head>
+
+    <body>
+        
+        <div id="risultato">    </div>
+
+        <script>
+
+            let anno_corrente = 2025
+            let anno_nascita = 2005
+
+            let anni = anno_corrente - anno_nascita
+
+            let anni_rimanenti = 100 - anni
+            
+            document.getElementById("risultato").innerHTML = "La data corrente è: " + anno_corrente + ". Il tuo anno di nascita è: " + anno_nascita + ". Ti mancano " + anni_rimanenti + " anni per raggiungere i 100.";
+        
+        </script>
+
+    </body>
+
+</html>

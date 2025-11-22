@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel ="stylesheet" href="ProvaEsame.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="div1"></div>
+    <div id="post" class="div2">
+      <!--mandare a video i dati del post dell'endpoint-->
+    </div>
+    <script>
+      const url = "https://jsonplaceholder.typicode.com/posts/1";
+      const url2 = "https://jsonplaceholder.typicode.com/users/";
+      async function getPost() {
+        const response = await fetch(url);
+        const ris = await response.json();
+        document.getElementById("post").innerHTML = ris.body;
+      }
+
+      getPost();
+
+      const div = document.querySelector("div");
+      fetch(url)
+        .then((resp) => resp.json())
+        .then((post) => {
+          //codice consumatore ed è sempre dentro una then, consuma il risultato di una promise
+          div.innerHTML = `<h2>${post.title}</h2><p>${post.body}</p>`;
+          fetch(url2 + post.userId)
+            .then((resp) => resp.json())
+            .then((user) => {
+              div.innerHTML += `<p><strong>Author: </strong>${user.name}</p>`;
+            });
+        });
+    </script>
+  </body>
+</html>
