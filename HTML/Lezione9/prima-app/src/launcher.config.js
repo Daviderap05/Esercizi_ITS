@@ -24,6 +24,7 @@ import EchoInput from "./Esercizi/Esercizio11/Esercizio11_3/EchoInput";
 import Pizza from "./Esercizi/Esercizio11/Esercizio11_4/Pizza";
 import CheckboxMultiple from "./Esercizi/Esercizio12/CheckboxMultiple";
 import MarcaModello from "./Esercizi/Esercizio13/MarcaModello";
+import UtenteTarga from "./Esercizi/Esercizio14/UtenteTarga";
 
 export const esercizi = [
   {
@@ -73,6 +74,11 @@ export const esercizi = [
         nome: "CheckboxMultiple",
         path: "/esercizi/esercizio12",
         componente: <CheckboxMultiple />,
+      },
+      {
+        nome: "UtenteTarga",
+        path: "/esercizi/esercizio14",
+        componente: <UtenteTarga />,
       },
     ],
   },
