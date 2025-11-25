@@ -9,6 +9,40 @@
   --btn-border: #212529;
 }
 
+/* Tema scuro: morbido, elegante */
+/* Tema scuro: morbido, non nero assoluto */
+body.dark {
+  --bg: #1f1f24;
+  --text: #e9ecef;
+  --card-bg: #34343d;
+  --border: #3a3a3f;
+  --btn-text: #e9ecef;
+  --btn-border: #e9ecef;
+}
+
+/* Forza il testo chiaro in dark mode anche dentro le pagine degli esercizi */
+body.dark,
+body.dark .container,
+body.dark .card,
+body.dark .card-body,
+body.dark .card-title,
+body.dark p,
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6,
+body.dark label,
+body.dark span {
+  color: var(--text) !important;
+}
+
+/* Override di alcune classi Bootstrap che tengono il testo nero */
+body.dark .text-dark {
+  color: var(--text) !important;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);
@@ -52,4 +86,44 @@ body {
 .card-footer .btn:hover {
   background-color: var(--btn-border);
   color: var(--bg);
+}
+
+/* Bottone tema - inversione colore */
+.theme-toggle-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  transition: 0.3s ease;
+}
+
+body.dark .theme-toggle-btn {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Bordo card-footer più chiaro in dark mode */
+body.dark .card-footer {
+  border-top: 1px solid #e9ecef !important; /* bianco tenue */
+}
+
+/* Tema chiaro: bordo un po’ più visibile */
+.card-footer {
+  border-top: 1px solid #c9c9d1 !important; 
+}
+
+/* Tutto il bordo bianco in dark mode */
+body.dark .card {
+  border: 1px solid #ffffff !important;
+}
+
+/* Bordo anche nella parte del footer */
+body.dark .card-footer {
+  border-top: 1px solid #ffffff !important;
+}
+
+/* Fix bottone "Apri" in modalità notte */
+body.dark .card-footer .btn:hover {
+  background-color: #ffffff !important; /* sfondo bianco */
+  color: #000000 !important;            /* testo nero */
+  border-color: #ffffff !important;
 }

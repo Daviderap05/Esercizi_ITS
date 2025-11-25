@@ -71,6 +71,16 @@ function Section({ title, children }) {
 
 // HOME: come prima, ma nascondiamo gli item che appartengono a raccolte (se hideChildrenFromHome)
 function Home() {
+  const [isDark, setIsDark] = React.useState(false);
+
+  const toggleTheme = () => {
+    setIsDark((prev) => {
+      const next = !prev;
+      document.body.classList.toggle("dark", next);
+      return next;
+    });
+  };
+
   const byPath = buildItemIndex();
   const includedPaths = buildIncludedPathsSet(
     raccolte.filter((r) => r.hideChildrenFromHome)
@@ -78,6 +88,16 @@ function Home() {
 
   return (
     <div className="container mt-5">
+      {/* Pulsante minimal in alto a destra */}
+      <div className="text-end mb-3">
+        <button
+          className="theme-toggle-btn rounded-pill px-3 py-2"
+          onClick={toggleTheme}
+        >
+          {isDark ? "☀️" : "🌙"}
+        </button>
+      </div>
+
       <PageHeader
         title="🚀 React Playground"
         subtitle="Scegli un esercizio e inizia a sperimentare"
