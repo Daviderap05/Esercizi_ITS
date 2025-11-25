@@ -6,6 +6,7 @@ import {
   Route,
   Link,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { esercizi } from "./launcher.config";
 import { raccolte as raccolteConfig } from "./launcher.config";
@@ -72,7 +73,7 @@ function Section({ title, children }) {
 
 // HOME
 function Home() {
-  // Stato iniziale letto da localStorage
+  // Stato iniziale tema
   const [isDark, setIsDark] = React.useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("theme") === "dark";
@@ -80,16 +81,38 @@ function Home() {
     return false;
   });
 
-  // Sincronizza il body con lo stato (utile se entri direttamente in "/")
+  // Stato iniziale modalità lite (senza animazioni)
+  const [isLite, setIsLite] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("liteMode") === "on";
+    }
+    return false;
+  });
+
+  // Sincronizza il body con il tema
   React.useEffect(() => {
     document.body.classList.toggle("dark", isDark);
   }, [isDark]);
+
+  // Sincronizza il body con la modalità lite
+  React.useEffect(() => {
+    document.body.classList.toggle("no-anim", isLite);
+  }, [isLite]);
 
   const toggleTheme = () => {
     setIsDark((prev) => {
       const next = !prev;
       document.body.classList.toggle("dark", next);
       localStorage.setItem("theme", next ? "dark" : "light");
+      return next;
+    });
+  };
+
+  const toggleLite = () => {
+    setIsLite((prev) => {
+      const next = !prev;
+      document.body.classList.toggle("no-anim", next);
+      localStorage.setItem("liteMode", next ? "on" : "off");
       return next;
     });
   };
@@ -101,8 +124,15 @@ function Home() {
 
   return (
     <div className="container mt-5 page-fade">
-      {/* Pulsante minimal in alto a destra */}
-      <div className="text-end mb-3">
+      {/* Pulsanti in alto a destra: Animazioni + Tema */}
+      <div className="d-flex justify-content-end mb-3 gap-2">
+        <button
+          className="lite-toggle-btn rounded-pill px-3 py-2"
+          onClick={toggleLite}
+          aria-label="Attiva o disattiva le animazioni"
+        >
+          {isLite ? "🚫 Animazioni" : "🎬 Animazioni"}
+        </button>
         <button
           className="theme-toggle-btn rounded-pill px-3 py-2"
           onClick={toggleTheme}
@@ -157,7 +187,9 @@ function CollectionHub({ raccolta }) {
     .map((p) => byPath.get(p))
     .filter(Boolean);
 
-  // stesso comportamento tema della Home
+  const navigate = useNavigate();
+
+  // Tema iniziale
   const [isDark, setIsDark] = React.useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("theme") === "dark";
@@ -165,9 +197,21 @@ function CollectionHub({ raccolta }) {
     return false;
   });
 
+  // Lite iniziale
+  const [isLite, setIsLite] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("liteMode") === "on";
+    }
+    return false;
+  });
+
   React.useEffect(() => {
     document.body.classList.toggle("dark", isDark);
   }, [isDark]);
+
+  React.useEffect(() => {
+    document.body.classList.toggle("no-anim", isLite);
+  }, [isLite]);
 
   const toggleTheme = () => {
     setIsDark((prev) => {
@@ -178,10 +222,26 @@ function CollectionHub({ raccolta }) {
     });
   };
 
+  const toggleLite = () => {
+    setIsLite((prev) => {
+      const next = !prev;
+      document.body.classList.toggle("no-anim", next);
+      localStorage.setItem("liteMode", next ? "on" : "off");
+      return next;
+    });
+  };
+
   return (
     <div className="container mt-5 page-fade">
-      {/* Pulsante minimal anche nelle raccolte */}
-      <div className="text-end mb-3">
+      {/* Pulsanti in alto a destra: lite + tema */}
+      <div className="d-flex justify-content-end mb-3 gap-2">
+        <button
+          className="lite-toggle-btn rounded-pill px-3 py-2"
+          onClick={toggleLite}
+          aria-label="Attiva o disattiva le animazioni"
+        >
+          {isLite ? "🚫 Animazioni" : "🎬 Animazioni"}
+        </button>
         <button
           className="theme-toggle-btn rounded-pill px-3 py-2"
           onClick={toggleTheme}
@@ -199,16 +259,22 @@ function CollectionHub({ raccolta }) {
             : "Nessun esercizio configurato"
         }
       />
+
+      {/* Pulsante indietro, subito sopra le card */}
+      <div className="mb-3">
+        <button
+          type="button"
+          className="btn btn-sm back-home-btn"
+          onClick={() => navigate(-1)}
+        >
+          ← Torna indietro
+        </button>
+      </div>
+
       <div className="row">
         {items.map((es, idx) => (
           <ExerciseCard key={idx} title={es.nome} to={es.path} />
         ))}
-      </div>
-
-      <div className="mt-4">
-        <Link to="/" className="btn btn-sm back-home-btn">
-          {"← Torna alla Home"}
-        </Link>
       </div>
     </div>
   );
@@ -223,30 +289,51 @@ function CollectionRouter() {
   return <CollectionHub raccolta={raccolta} />;
 }
 
-// Gestisce le Routes, il tema e le posizioni di scroll
+// Gestisce le Routes, il tema e le transizioni tra le pagine
 function AppRoutes() {
   const location = useLocation();
 
-  // mappa: { "/": y, "/raccolta-1": y, ... }
+  // location "visibile" (quella che sta sullo schermo)
+  const [displayLocation, setDisplayLocation] = React.useState(location);
+  const [transitionStage, setTransitionStage] = React.useState("fade-in");
+
+  // mappa: { "/": y, "/raccolta-1": y, "/es1": y, ... }
   const scrollPositions = React.useRef({});
-  const prevPathRef = React.useRef(location.pathname);
 
+  // Quando cambia la vera location, avvia la fade-out
   React.useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    const isDark = savedTheme === "dark";
+    if (location.pathname !== displayLocation.pathname) {
+      setTransitionStage("fade-out");
+    }
+  }, [location, displayLocation.pathname]);
 
-    const prevPath = prevPathRef.current;
-    const currentPath = location.pathname;
+  // Durante la fade-out: salva scroll e, dopo un piccolo delay, cambia pagina
+  React.useEffect(() => {
+    if (transitionStage === "fade-out") {
+      scrollPositions.current[displayLocation.pathname] = window.scrollY;
 
-    // 1) Salvo lo scroll della pagina che sto lasciando
-    scrollPositions.current[prevPath] = window.scrollY;
+      const timeout = setTimeout(() => {
+        setDisplayLocation(location);
+        setTransitionStage("fade-in");
+      }, 180);
 
-    // 2) Tema / skin solo per Home + Raccolte
+      return () => clearTimeout(timeout);
+    }
+  }, [transitionStage, location, displayLocation.pathname]);
+
+  // Ogni volta che cambia la pagina visibile:
+  //  - applica il tema (solo Home/Raccolte)
+  //  - gestisce lo scroll
+  React.useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    const isDark = saved === "dark";
+
+    const currentPath = displayLocation.pathname;
     const isHome = currentPath === "/";
     const isRaccolta =
-      Array.isArray(raccolte) &&
-      raccolte.some((r) => r.path === currentPath);
+      Array.isArray(raccolte) && raccolte.some((r) => r.path === currentPath);
 
+    // Tema / skin solo per Home + Raccolte
     if (isHome || isRaccolta) {
       document.body.classList.add("app-themed");
       document.body.classList.toggle("dark", isDark);
@@ -255,53 +342,55 @@ function AppRoutes() {
       document.body.classList.remove("dark");
     }
 
-    // 3) Ripristino scroll della nuova pagina
-    const savedScroll = scrollPositions.current[currentPath];
-    if (savedScroll !== undefined) {
-      // pagina già visitata → torna dove era
-      window.scrollTo(0, savedScroll);
-    } else {
-      // prima volta su questa pagina → vai all'inizio
+    // Scroll:
+    //  - se è una raccolta → sempre dall'alto
+    //  - altrimenti → usa posizione salvata, se esiste
+    if (isRaccolta) {
       window.scrollTo(0, 0);
+    } else {
+      const savedScroll = scrollPositions.current[currentPath];
+      if (savedScroll !== undefined) {
+        window.scrollTo(0, savedScroll);
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
-
-    // aggiorno il path precedente
-    prevPathRef.current = currentPath;
-  }, [location.pathname]);
+  }, [displayLocation.pathname]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+    <div className={`route-fade ${transitionStage}`}>
+      <Routes location={displayLocation}>
+        <Route path="/" element={<Home />} />
 
-      {/* Route per ogni esercizio */}
-      {esercizi.map((gruppo, gIdx) =>
-        gruppo.items.map((es, idx) => (
-          <Route
-            key={`${gIdx}-${idx}`}
-            path={es.path}
-            element={es.componente}
-          />
-        ))
-      )}
+        {/* Route per ogni esercizio */}
+        {esercizi.map((gruppo, gIdx) =>
+          gruppo.items.map((es, idx) => (
+            <Route
+              key={`${gIdx}-${idx}`}
+              path={es.path}
+              element={es.componente}
+            />
+          ))
+        )}
 
-      {/* Route per ogni raccolta */}
-      {Array.isArray(raccolte) &&
-        raccolte.map((r, i) => (
-          <Route
-            key={`raccolta-${i}`}
-            path={r.path}
-            element={<CollectionRouter />}
-          />
-        ))}
+        {/* Route per ogni raccolta */}
+        {Array.isArray(raccolte) &&
+          raccolte.map((r, i) => (
+            <Route
+              key={`raccolta-${i}`}
+              path={r.path}
+              element={<CollectionRouter />}
+            />
+          ))}
 
-      <Route
-        path="*"
-        element={<p className="container mt-4">Pagina non trovata.</p>}
-      />
-    </Routes>
+        <Route
+          path="*"
+          element={<p className="container mt-4">Pagina non trovata.</p>}
+        />
+      </Routes>
+    </div>
   );
 }
-
 
 export default function App() {
   return (

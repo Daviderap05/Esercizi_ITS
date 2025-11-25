@@ -1,4 +1,4 @@
-/* CSS semplificato per React Playground - Solo tema chiaro */
+/* CSS semplificato per React Playground */
 
 :root {
   --bg: #f4f4f9;
@@ -37,12 +37,12 @@ body.app-themed.dark span {
   color: var(--text) !important;
 }
 
-/* Override di Bootstrap */
+/* Bootstrap override (solo vetrina) */
 body.app-themed.dark .text-dark {
   color: var(--text) !important;
 }
 
-/* --- SKIN applicata SOLO a Home + Raccolte --- */
+/* --- SKIN della vetrina --- */
 
 body.app-themed {
   background-color: var(--bg);
@@ -55,7 +55,7 @@ body.app-themed .container {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Fade-in morbido per Home e Raccolte */
+/* Fade-in morbido */
 body.app-themed .page-fade {
   animation: pageFadeIn 0.45s ease-out;
 }
@@ -73,7 +73,7 @@ body.app-themed .card-animated {
   animation: cardIn 0.35s ease-out;
 }
 
-/* Titolo card */
+/* Titoli card */
 body.app-themed .card-title {
   color: var(--text);
 }
@@ -84,7 +84,7 @@ body.app-themed .card.transition:hover {
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* Pulsante modalità tema */
+/* Pulsante tema */
 .theme-toggle-btn {
   background-color: #000;
   color: #fff;
@@ -97,13 +97,49 @@ body.app-themed .card.transition:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Dark mode pulsante */
 body.app-themed.dark .theme-toggle-btn {
   background-color: #fff;
   color: #000;
 }
 
-/* Footer card */
+/* --------------------------------------------- */
+/*   🔘 Pulsante MODALITÀ LITE (stesso stile delle card) */
+/* --------------------------------------------- */
+
+/* Stesso stile del bottone "Apri" delle card */
+body.app-themed .lite-toggle-btn {
+  border-radius: 50px;
+  padding: 6px 20px;
+  font-weight: 500;
+  color: var(--btn-text);
+  border: 1px solid var(--btn-border);
+  background-color: transparent;
+  transition: all 0.25s ease;
+}
+
+/* Stesso hover del bottone card */
+body.app-themed .lite-toggle-btn:hover {
+  background-color: var(--btn-border);
+  color: var(--bg);
+}
+
+/* Quando la modalità LITE è attiva → evidenziamo usando la stessa palette */
+body.no-anim.app-themed .lite-toggle-btn {
+  background-color: var(--btn-border);
+  color: var(--bg);
+  border-color: var(--btn-border);
+}
+
+/* In dark mode + lite attivo: allineato al comportamento del pulsante "Apri" */
+body.app-themed.dark.no-anim .lite-toggle-btn {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* --------------------------------------------- */
+
+/* Card footer */
 body.app-themed .card-footer .btn {
   border-radius: 50px;
   padding: 6px 20px;
@@ -119,12 +155,12 @@ body.app-themed .card-footer .btn:hover {
   color: var(--bg);
 }
 
-/* Bordo separatore card chiaro */
+/* Bordo separatore */
 body.app-themed .card-footer {
   border-top: 1px solid #c9c9d1 !important;
 }
 
-/* Card in dark mode: bordo bianco */
+/* Dark mode card border */
 body.app-themed.dark .card {
   border: 1px solid #ffffff !important;
 }
@@ -140,21 +176,29 @@ body.app-themed.dark .card-footer .btn:hover {
   border-color: #ffffff !important;
 }
 
-/* Modalità notte = totalmente invisibile (solo testo bianco) */
+/* Bottone "Torna indietro" modalità notte */
 body.app-themed.dark .back-home-btn {
   color: #ffffff !important;
   border: none !important;
   background-color: transparent !important;
   box-shadow: none !important;
-  transition: 0.3s ease;
 }
 
-/* Hover modalità notte = NESSUN EFFETTO (come in modalità chiara) */
 body.app-themed.dark .back-home-btn:hover {
   background-color: transparent !important;
   color: #ffffff !important;
-  border: none !important;
-  box-shadow: none !important;
+}
+
+/* Effetto hover del tasto "Torna indietro"
+   Solo quando le animazioni sono ATTIVE (niente no-anim) */
+body.app-themed:not(.no-anim) .back-home-btn {
+  transition: transform 0.2s ease;
+}
+
+body.app-themed:not(.no-anim) .back-home-btn:hover {
+  transform: scale(
+    1.08
+  ); /* leggero ingrandimento, sembra cresca solo il testo */
 }
 
 /* Titoli sezione con underline animata */
@@ -180,7 +224,6 @@ body.app-themed .section-title:hover::after {
 }
 
 /* --- KEYFRAMES --- */
-
 @keyframes pageFadeIn {
   from {
     opacity: 0;
@@ -201,4 +244,67 @@ body.app-themed .section-title:hover::after {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* --- Transizione route --- */
+.route-fade {
+  transition: opacity 0.22s ease-in-out;
+  opacity: 1;
+}
+
+.route-fade.fade-out {
+  opacity: 0;
+}
+
+.route-fade.fade-in {
+  opacity: 1;
+}
+
+/* ----------------------------------------- */
+/*           MODALITÀ LITE (NO ANIM)        */
+/* ----------------------------------------- */
+
+body.no-anim .page-fade {
+  animation: none !important;
+}
+
+body.no-anim .card-animated {
+  animation: none !important;
+}
+
+body.no-anim .route-fade {
+  transition: none !important;
+  opacity: 1 !important;
+}
+
+body.no-anim .route-fade.fade-out,
+body.no-anim .route-fade.fade-in {
+  opacity: 1 !important;
+}
+
+body.no-anim .card.transition,
+body.no-anim .card.transition:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+body.no-anim .theme-toggle-btn,
+body.no-anim .theme-toggle-btn:hover,
+body.no-anim .lite-toggle-btn,
+body.no-anim .lite-toggle-btn:hover {
+  transition: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Cambio tema immediato in modalità lite */
+body.no-anim.app-themed,
+body.no-anim.app-themed .container {
+  transition: none !important;
+}
+
+/* Niente underline animata nei titoli sezione in modalità lite */
+body.no-anim .section-title::after {
+  transition: none !important;
+  width: 0 !important;
 }
