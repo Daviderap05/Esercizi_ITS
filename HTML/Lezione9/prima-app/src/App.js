@@ -8,8 +8,9 @@ import {
   useLocation,
 } from "react-router-dom";
 import { esercizi } from "./launcher.config";
-import { raccolte as raccolteConfig } from "./launcher.config"; // import normale
+import { raccolte as raccolteConfig } from "./launcher.config";
 import "./App.css";
+
 const raccolte = raccolteConfig || [];
 
 // Mappa path -> item esercizio (per recuperare componenti/titoli dai path)
@@ -69,14 +70,26 @@ function Section({ title, children }) {
   );
 }
 
-// HOME: come prima, ma nascondiamo gli item che appartengono a raccolte (se hideChildrenFromHome)
+// HOME
 function Home() {
-  const [isDark, setIsDark] = React.useState(false);
+  // Stato iniziale letto da localStorage
+  const [isDark, setIsDark] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") === "dark";
+    }
+    return false;
+  });
+
+  // Sincronizza il body con lo stato (utile se entri direttamente in "/")
+  React.useEffect(() => {
+    document.body.classList.toggle("dark", isDark);
+  }, [isDark]);
 
   const toggleTheme = () => {
     setIsDark((prev) => {
       const next = !prev;
       document.body.classList.toggle("dark", next);
+      localStorage.setItem("theme", next ? "dark" : "light");
       return next;
     });
   };
@@ -93,6 +106,7 @@ function Home() {
         <button
           className="theme-toggle-btn rounded-pill px-3 py-2"
           onClick={toggleTheme}
+          aria-label="Cambia tema"
         >
           {isDark ? "☀️" : "🌙"}
         </button>
@@ -143,8 +157,40 @@ function CollectionHub({ raccolta }) {
     .map((p) => byPath.get(p))
     .filter(Boolean);
 
+  // stesso comportamento tema della Home
+  const [isDark, setIsDark] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") === "dark";
+    }
+    return false;
+  });
+
+  React.useEffect(() => {
+    document.body.classList.toggle("dark", isDark);
+  }, [isDark]);
+
+  const toggleTheme = () => {
+    setIsDark((prev) => {
+      const next = !prev;
+      document.body.classList.toggle("dark", next);
+      localStorage.setItem("theme", next ? "dark" : "light");
+      return next;
+    });
+  };
+
   return (
     <div className="container mt-5">
+      {/* Pulsante minimal anche nelle raccolte */}
+      <div className="text-end mb-3">
+        <button
+          className="theme-toggle-btn rounded-pill px-3 py-2"
+          onClick={toggleTheme}
+          aria-label="Cambia tema"
+        >
+          {isDark ? "☀️" : "🌙"}
+        </button>
+      </div>
+
       <PageHeader
         title={raccolta.nome}
         subtitle={
@@ -160,7 +206,7 @@ function CollectionHub({ raccolta }) {
       </div>
 
       <div className="mt-4">
-        <Link to="/" className="btn btn-sm">
+        <Link to="/" className="btn btn-sm back-home-btn">
           {"← Torna alla Home"}
         </Link>
       </div>
@@ -171,46 +217,73 @@ function CollectionHub({ raccolta }) {
 function CollectionRouter() {
   const location = useLocation();
 
-  // Trova quale raccolta corrisponde al path corrente
   const raccolta = (raccolte || []).find((r) => r.path === location.pathname);
   if (!raccolta) return <p className="container mt-4">Raccolta non trovata.</p>;
 
   return <CollectionHub raccolta={raccolta} />;
 }
 
+// Gestisce le Routes e il tema fuori/dentro Home + Raccolte
+function AppRoutes() {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    const isDark = saved === "dark";
+
+    const isHome = location.pathname === "/";
+    const isRaccolta =
+      Array.isArray(raccolte) &&
+      raccolte.some((r) => r.path === location.pathname);
+
+    if (isHome || isRaccolta) {
+      // In Home o in una pagina Raccolta: applico il tema e la "skin" grafica
+      document.body.classList.add("app-themed");
+      document.body.classList.toggle("dark", isDark);
+    } else {
+      // Negli esercizi singoli: niente tema, niente skin
+      document.body.classList.remove("app-themed");
+      document.body.classList.remove("dark");
+    }
+  }, [location.pathname]);
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+
+      {/* Route per ogni esercizio */}
+      {esercizi.map((gruppo, gIdx) =>
+        gruppo.items.map((es, idx) => (
+          <Route
+            key={`${gIdx}-${idx}`}
+            path={es.path}
+            element={es.componente}
+          />
+        ))
+      )}
+
+      {/* Route per ogni raccolta */}
+      {Array.isArray(raccolte) &&
+        raccolte.map((r, i) => (
+          <Route
+            key={`raccolta-${i}`}
+            path={r.path}
+            element={<CollectionRouter />}
+          />
+        ))}
+
+      <Route
+        path="*"
+        element={<p className="container mt-4">Pagina non trovata.</p>}
+      />
+    </Routes>
+  );
+}
+
 export default function App() {
-  // Costruiamo anche tutte le route degli esercizi (immutate)
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-
-        {/* Route per ogni esercizio (rimangono identiche) */}
-        {esercizi.map((gruppo, gIdx) =>
-          gruppo.items.map((es, idx) => (
-            <Route
-              key={`${gIdx}-${idx}`}
-              path={es.path}
-              element={es.componente}
-            />
-          ))
-        )}
-
-        {/* Route per ogni raccolta: mostra la pagina con le 11 card */}
-        {Array.isArray(raccolte) &&
-          raccolte.map((r, i) => (
-            <Route
-              key={`raccolta-${i}`}
-              path={r.path}
-              element={<CollectionRouter />}
-            />
-          ))}
-
-        <Route
-          path="*"
-          element={<p className="container mt-4">Pagina non trovata.</p>}
-        />
-      </Routes>
+      <AppRoutes />
     </Router>
   );
 }
