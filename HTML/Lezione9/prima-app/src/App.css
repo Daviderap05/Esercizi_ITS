@@ -37,12 +37,12 @@ body.app-themed.dark span {
   color: var(--text) !important;
 }
 
-/* Override di alcune classi Bootstrap che tengono il testo nero (solo vetrina) */
+/* Override di Bootstrap */
 body.app-themed.dark .text-dark {
   color: var(--text) !important;
 }
 
-/* --- SKIN della vetrina: SOLO quando il body ha app-themed --- */
+/* --- SKIN applicata SOLO a Home + Raccolte --- */
 
 body.app-themed {
   background-color: var(--bg);
@@ -55,35 +55,55 @@ body.app-themed .container {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* Fade-in morbido per Home e Raccolte */
+body.app-themed .page-fade {
+  animation: pageFadeIn 0.45s ease-out;
+}
+
+/* Card base */
 body.app-themed .card {
   background-color: var(--card-bg);
   border: 1px solid var(--border);
-  transition: all 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    background-color 0.25s ease, border-color 0.25s ease;
 }
 
+/* Animazione ingresso card */
+body.app-themed .card-animated {
+  animation: cardIn 0.35s ease-out;
+}
+
+/* Titolo card */
 body.app-themed .card-title {
   color: var(--text);
 }
 
+/* Hover card */
 body.app-themed .card.transition:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* bottone tema */
+/* Pulsante modalità tema */
 .theme-toggle-btn {
   background-color: #000;
   color: #fff;
   border: none;
-  transition: 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.theme-toggle-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode pulsante */
 body.app-themed.dark .theme-toggle-btn {
   background-color: #fff;
   color: #000;
 }
 
-/* footer delle card */
+/* Footer card */
 body.app-themed .card-footer .btn {
   border-radius: 50px;
   padding: 6px 20px;
@@ -91,7 +111,7 @@ body.app-themed .card-footer .btn {
   color: var(--btn-text);
   border: 1px solid var(--btn-border);
   background-color: transparent;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 body.app-themed .card-footer .btn:hover {
@@ -99,41 +119,86 @@ body.app-themed .card-footer .btn:hover {
   color: var(--bg);
 }
 
-/* Tema chiaro: bordo un po’ più visibile */
+/* Bordo separatore card chiaro */
 body.app-themed .card-footer {
   border-top: 1px solid #c9c9d1 !important;
 }
 
-/* Tutto il bordo bianco in dark mode */
+/* Card in dark mode: bordo bianco */
 body.app-themed.dark .card {
   border: 1px solid #ffffff !important;
 }
 
-/* Bordo anche nella parte del footer */
 body.app-themed.dark .card-footer {
   border-top: 1px solid #ffffff !important;
 }
 
-/* Fix bottone "Apri" in modalità notte */
+/* Fix pulsante Apri in dark mode */
 body.app-themed.dark .card-footer .btn:hover {
-  background-color: #ffffff !important; /* sfondo bianco */
-  color: #000000 !important; /* testo nero */
+  background-color: #ffffff !important;
+  color: #000000 !important;
   border-color: #ffffff !important;
 }
 
-/* Bottone "Torna alla Home" in modalità notte */
+/* Modalità notte = totalmente invisibile (solo testo bianco) */
 body.app-themed.dark .back-home-btn {
-  color: #ffffff !important;        /* testo bianco */
-  border: none !important;          /* totalmente invisibile */
+  color: #ffffff !important;
+  border: none !important;
   background-color: transparent !important;
-  box-shadow: none !important;      /* elimina qualsiasi traccia */
+  box-shadow: none !important;
   transition: 0.3s ease;
 }
 
-/* Hover in modalità notte */
+/* Hover modalità notte = NESSUN EFFETTO (come in modalità chiara) */
 body.app-themed.dark .back-home-btn:hover {
-  background-color: #ffffff !important; /* sfondo bianco */
-  color: #000000 !important;            /* testo nero */
-  border: 1px solid #ffffff !important; /* bordo solo in hover */
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border: none !important;
   box-shadow: none !important;
+}
+
+/* Titoli sezione con underline animata */
+body.app-themed .section-title {
+  position: relative;
+  display: inline-block;
+}
+
+body.app-themed .section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: var(--text);
+  opacity: 0.3;
+  transition: width 0.3s ease;
+}
+
+body.app-themed .section-title:hover::after {
+  width: 100%;
+}
+
+/* --- KEYFRAMES --- */
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

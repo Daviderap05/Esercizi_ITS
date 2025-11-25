@@ -44,7 +44,7 @@ function ExerciseCard({ title, to }) {
   return (
     <div className="col-12 col-sm-6 col-lg-4 mb-4">
       <Link to={to} className="text-decoration-none">
-        <div className="card shadow-sm border-0 h-100 transition rounded-4">
+        <div className="card shadow-sm border-0 h-100 transition rounded-4 card-animated">
           <div
             className="card-body d-flex align-items-center justify-content-center"
             style={{ minHeight: 120 }}
@@ -64,7 +64,7 @@ function Section({ title, children }) {
   if (!children) return null;
   return (
     <div className="mb-5">
-      <h2 className="h4 fw-bold mb-3">{title}</h2>
+      <h2 className="h4 fw-bold mb-3 section-title">{title}</h2>
       <div className="row">{children}</div>
     </div>
   );
@@ -100,7 +100,7 @@ function Home() {
   );
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 page-fade">
       {/* Pulsante minimal in alto a destra */}
       <div className="text-end mb-3">
         <button
@@ -179,7 +179,7 @@ function CollectionHub({ raccolta }) {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 page-fade">
       {/* Pulsante minimal anche nelle raccolte */}
       <div className="text-end mb-3">
         <button
@@ -223,28 +223,50 @@ function CollectionRouter() {
   return <CollectionHub raccolta={raccolta} />;
 }
 
-// Gestisce le Routes e il tema fuori/dentro Home + Raccolte
+// Gestisce le Routes, il tema e le posizioni di scroll
 function AppRoutes() {
   const location = useLocation();
 
-  React.useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const isDark = saved === "dark";
+  // mappa: { "/": y, "/raccolta-1": y, ... }
+  const scrollPositions = React.useRef({});
+  const prevPathRef = React.useRef(location.pathname);
 
-    const isHome = location.pathname === "/";
+  React.useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const isDark = savedTheme === "dark";
+
+    const prevPath = prevPathRef.current;
+    const currentPath = location.pathname;
+
+    // 1) Salvo lo scroll della pagina che sto lasciando
+    scrollPositions.current[prevPath] = window.scrollY;
+
+    // 2) Tema / skin solo per Home + Raccolte
+    const isHome = currentPath === "/";
     const isRaccolta =
       Array.isArray(raccolte) &&
-      raccolte.some((r) => r.path === location.pathname);
+      raccolte.some((r) => r.path === currentPath);
 
     if (isHome || isRaccolta) {
-      // In Home o in una pagina Raccolta: applico il tema e la "skin" grafica
       document.body.classList.add("app-themed");
       document.body.classList.toggle("dark", isDark);
     } else {
-      // Negli esercizi singoli: niente tema, niente skin
       document.body.classList.remove("app-themed");
       document.body.classList.remove("dark");
     }
+
+    // 3) Ripristino scroll della nuova pagina
+    const savedScroll = scrollPositions.current[currentPath];
+    if (savedScroll !== undefined) {
+      // pagina già visitata → torna dove era
+      window.scrollTo(0, savedScroll);
+    } else {
+      // prima volta su questa pagina → vai all'inizio
+      window.scrollTo(0, 0);
+    }
+
+    // aggiorno il path precedente
+    prevPathRef.current = currentPath;
   }, [location.pathname]);
 
   return (
@@ -279,6 +301,7 @@ function AppRoutes() {
     </Routes>
   );
 }
+
 
 export default function App() {
   return (
