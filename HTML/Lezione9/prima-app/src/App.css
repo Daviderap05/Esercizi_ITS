@@ -78,59 +78,98 @@ body.app-themed .card-title {
   color: var(--text);
 }
 
-/* Hover card */
-body.app-themed .card.transition:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+/* CARD - Modalità normale (non lite) */
+/* Modalità chiara: ombra nera molto visibile */
+body.app-themed:not(.no-anim) .card.transition:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Pulsante tema */
+/* Modalità scura: glow bianco ben evidente */
+body.app-themed:not(.no-anim) .card.transition:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* -------------------------------------------------- */
+/*  Pulsante TEMA (giorno/notte)                      */
+/* -------------------------------------------------- */
+
 .theme-toggle-btn {
   background-color: #000;
   color: #fff;
   border: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 999px;
+  padding: 6px 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Hover tema in modalità chiara: ombra scura */
 .theme-toggle-btn:hover {
   transform: translateY(-1px) scale(1.03);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
+/* Tema scuro: colori invertiti */
 body.app-themed.dark .theme-toggle-btn {
   background-color: #fff;
   color: #000;
 }
 
-/* --------------------------------------------- */
-/*   🔘 Pulsante MODALITÀ LITE (stesso stile delle card) */
-/* --------------------------------------------- */
+/* Hover tema in modalità scura: ombra chiara */
+body.app-themed.dark .theme-toggle-btn:hover {
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.3);
+}
 
-/* Stesso stile del bottone "Apri" delle card */
+/* -------------------------------------------------- */
+/*  Pulsante MODALITÀ LITE (Animazioni ON/OFF)        */
+/*  Stessa animazione/ombra del pulsante tema         */
+/* -------------------------------------------------- */
+
 body.app-themed .lite-toggle-btn {
-  border-radius: 50px;
+  border-radius: 999px;
   padding: 6px 20px;
   font-weight: 500;
   color: var(--btn-text);
   border: 1px solid var(--btn-border);
   background-color: transparent;
-  transition: all 0.25s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-/* Stesso hover del bottone card */
-body.app-themed .lite-toggle-btn:hover {
+/* Hover in modalità chiara: stessa animazione + ombra del tema */
+body.app-themed:not(.no-anim) .lite-toggle-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
   background-color: var(--btn-border);
   color: var(--bg);
 }
 
-/* Quando la modalità LITE è attiva → evidenziamo usando la stessa palette */
+/* Base in dark mode */
+body.app-themed.dark .lite-toggle-btn {
+  color: #e9ecef;
+  border-color: #ffffff88;
+}
+
+/* Hover in dark mode: stessa logica del tema, con ombra chiara */
+body.app-themed.dark:not(.no-anim) .lite-toggle-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.28);
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* Quando la modalità LITE è attiva → pulsante evidenziato, senza animazioni extra */
 body.no-anim.app-themed .lite-toggle-btn {
   background-color: var(--btn-border);
   color: var(--bg);
   border-color: var(--btn-border);
+  box-shadow: none;
+  transform: none;
 }
 
-/* In dark mode + lite attivo: allineato al comportamento del pulsante "Apri" */
 body.app-themed.dark.no-anim .lite-toggle-btn {
   background-color: #ffffff;
   color: #000000;
@@ -176,14 +215,36 @@ body.app-themed.dark .card-footer .btn:hover {
   border-color: #ffffff !important;
 }
 
-/* Bottone "Torna indietro" modalità notte */
-body.app-themed.dark .back-home-btn {
+/* -------------------------------------------------- */
+/*  Bottone "Torna indietro" raccolte (back-home-btn) */
+/* -------------------------------------------------- */
+
+/* Base: nessun bordo/ombra in NESSUNO stato (giorno) */
+body.app-themed .back-home-btn,
+body.app-themed .back-home-btn:focus,
+body.app-themed .back-home-btn:active,
+body.app-themed .back-home-btn:focus-visible {
+  border: none !important;
+  outline: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  color: var(--text) !important;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Modalità notte: solo testo bianco, sempre pulito */
+body.app-themed.dark .back-home-btn,
+body.app-themed.dark .back-home-btn:focus,
+body.app-themed.dark .back-home-btn:active,
+body.app-themed.dark .back-home-btn:focus-visible {
   color: #ffffff !important;
   border: none !important;
   background-color: transparent !important;
   box-shadow: none !important;
 }
 
+/* Hover in dark mode: resta solo testo bianco */
 body.app-themed.dark .back-home-btn:hover {
   background-color: transparent !important;
   color: #ffffff !important;
@@ -196,10 +257,10 @@ body.app-themed:not(.no-anim) .back-home-btn {
 }
 
 body.app-themed:not(.no-anim) .back-home-btn:hover {
-  transform: scale(
-    1.08
-  ); /* leggero ingrandimento, sembra cresca solo il testo */
+  transform: scale(1.08); /* sembra ingrandirsi solo la scritta */
 }
+
+/* --------------------------------------------- */
 
 /* Titoli sezione con underline animata */
 body.app-themed .section-title {
@@ -288,6 +349,7 @@ body.no-anim .card.transition:hover {
   box-shadow: none !important;
 }
 
+/* Niente animazioni sui pulsanti tema / animazioni in modalità lite */
 body.no-anim .theme-toggle-btn,
 body.no-anim .theme-toggle-btn:hover,
 body.no-anim .lite-toggle-btn,

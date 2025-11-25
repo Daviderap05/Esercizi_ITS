@@ -61,11 +61,20 @@ function ExerciseCard({ title, to }) {
   );
 }
 
-function Section({ title, children }) {
+/**
+ * Section con possibilità di avere contenuto a destra del titolo
+ * (es. pulsanti cambio tema / animazioni).
+ */
+function Section({ title, children, rightContent }) {
   if (!children) return null;
   return (
     <div className="mb-5">
-      <h2 className="h4 fw-bold mb-3 section-title">{title}</h2>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2 className="h4 fw-bold mb-0 section-title">{title}</h2>
+        {rightContent && (
+          <div className="d-flex gap-2 align-items-center">{rightContent}</div>
+        )}
+      </div>
       <div className="row">{children}</div>
     </div>
   );
@@ -124,24 +133,6 @@ function Home() {
 
   return (
     <div className="container mt-5 page-fade">
-      {/* Pulsanti in alto a destra: Animazioni + Tema */}
-      <div className="d-flex justify-content-end mb-3 gap-2">
-        <button
-          className="lite-toggle-btn rounded-pill px-3 py-2"
-          onClick={toggleLite}
-          aria-label="Attiva o disattiva le animazioni"
-        >
-          {isLite ? "🚫 Animazioni" : "🎬 Animazioni"}
-        </button>
-        <button
-          className="theme-toggle-btn rounded-pill px-3 py-2"
-          onClick={toggleTheme}
-          aria-label="Cambia tema"
-        >
-          {isDark ? "☀️" : "🌙"}
-        </button>
-      </div>
-
       <PageHeader
         title="🚀 React Playground"
         subtitle="Scegli un esercizio e inizia a sperimentare"
@@ -153,8 +144,33 @@ function Home() {
           (it) => !includedPaths.has(it.path)
         );
         if (visibleItems.length === 0) return null;
+
         return (
-          <Section key={gIndex} title={gruppo.titolo}>
+          <Section
+            key={gIndex}
+            title={gruppo.titolo}
+            // Pulsanti solo accanto alla PRIMA sezione (es. "Esercizi Funzionali")
+            rightContent={
+              gIndex === 0 ? (
+                <>
+                  <button
+                    className="lite-toggle-btn rounded-pill px-3 py-2"
+                    onClick={toggleLite}
+                    aria-label="Attiva o disattiva le animazioni"
+                  >
+                    {isLite ? "🚫 Animazioni" : "🎬 Animazioni"}
+                  </button>
+                  <button
+                    className="theme-toggle-btn rounded-pill px-3 py-2"
+                    onClick={toggleTheme}
+                    aria-label="Cambia tema"
+                  >
+                    {isDark ? "☀️" : "🌙"}
+                  </button>
+                </>
+              ) : null
+            }
+          >
             {visibleItems.map((es, idx) => (
               <ExerciseCard key={idx} title={es.nome} to={es.path} />
             ))}
@@ -233,24 +249,6 @@ function CollectionHub({ raccolta }) {
 
   return (
     <div className="container mt-5 page-fade">
-      {/* Pulsanti in alto a destra: lite + tema */}
-      <div className="d-flex justify-content-end mb-3 gap-2">
-        <button
-          className="lite-toggle-btn rounded-pill px-3 py-2"
-          onClick={toggleLite}
-          aria-label="Attiva o disattiva le animazioni"
-        >
-          {isLite ? "🚫 Animazioni" : "🎬 Animazioni"}
-        </button>
-        <button
-          className="theme-toggle-btn rounded-pill px-3 py-2"
-          onClick={toggleTheme}
-          aria-label="Cambia tema"
-        >
-          {isDark ? "☀️" : "🌙"}
-        </button>
-      </div>
-
       <PageHeader
         title={raccolta.nome}
         subtitle={
@@ -260,8 +258,8 @@ function CollectionHub({ raccolta }) {
         }
       />
 
-      {/* Pulsante indietro, subito sopra le card */}
-      <div className="mb-3">
+      {/* Pulsante indietro + pulsanti modalità sulla stessa riga, sopra le card */}
+      <div className="mb-3 d-flex justify-content-between align-items-center">
         <button
           type="button"
           className="btn btn-sm back-home-btn"
@@ -269,6 +267,23 @@ function CollectionHub({ raccolta }) {
         >
           ← Torna indietro
         </button>
+
+        <div className="d-flex gap-2">
+          <button
+            className="lite-toggle-btn rounded-pill px-3 py-2"
+            onClick={toggleLite}
+            aria-label="Attiva o disattiva le animazioni"
+          >
+            {isLite ? "🚫 Animazioni" : "🎬 Animazioni"}
+          </button>
+          <button
+            className="theme-toggle-btn rounded-pill px-3 py-2"
+            onClick={toggleTheme}
+            aria-label="Cambia tema"
+          >
+            {isDark ? "☀️" : "🌙"}
+          </button>
+        </div>
       </div>
 
       <div className="row">
