@@ -25,6 +25,7 @@ import Pizza from "./Esercizi/Esercizio11/Esercizio11_4/Pizza";
 import CheckboxMultiple from "./Esercizi/Esercizio12/CheckboxMultiple";
 import MarcaModello from "./Esercizi/Esercizio13/MarcaModello";
 import UtenteTarga from "./Esercizi/Esercizio14/UtenteTarga";
+import PostsGrid from "./Esercizi/Esercizio15/PostsGrid";
 
 export const esercizi = [
   {
@@ -79,6 +80,11 @@ export const esercizi = [
         nome: "UtenteTarga",
         path: "/esercizi/esercizio14",
         componente: <UtenteTarga />,
+      },
+      {
+        nome: "PostsGrid",
+        path: "/esercizi/esercizio15",
+        componente: <PostsGrid />,
       },
     ],
   },
