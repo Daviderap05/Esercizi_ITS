@@ -29,6 +29,29 @@
         max-width: 350px;
         box-shadow: 0 4px 8px rgb(0, 0, 0, 0.1);
       }
+
+      .card p {
+        font-size: 0.8rem;
+      }
+
+      .card ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      .card li {
+        margin: 5px 0;
+        padding: 2px 0;
+      }
+
+      .card h2 {
+        font-size: 1.4rem;
+      }
+
+      .card small {
+        color: cornflowerblue;
+        font-weight: 700;
+      }
     </style>
   </head>
   <body>
@@ -38,6 +61,21 @@
       const urlUsers = "https://jsonplaceholder.typicode.com/users/";
       const urlCommenti = "https://jsonplaceholder.typicode.com/comments/";
       const divContainer = document.getElementById("root");
+
+      async function fetchDetailsPosts(post) {
+        const userP = fetch(urlUsers + post.userId).then((resp) => resp.json());
+        const commentiP = fetch(urlCommenti + "?postId=" + post.id).then(
+          (resp) => resp.json()
+        );
+
+        const [user, comments] = await Promise.all([userP, commentiP]);
+
+        return {
+          ...post,
+          user: user.name,
+          comments,
+        };
+      }
 
       //creare la funzione per leggere tutti i posts
       async function loadAllPosts() {
@@ -49,8 +87,26 @@
 
           const allPosts = await response.json();
 
-          allPosts.forEach((post) => {
-            divContainer.innerHTML += `<div class="card"><h2>${post.title}</h2><p>${post.body}</p></div>`;
+          //con parentesi tonde il return è implicito
+          const allDataPromise = allPosts.map((post) => {
+            return fetchDetailsPosts(post);
+          });
+
+          const allData = await Promise.all(allDataPromise);
+
+          divContainer.innerHTML = "";
+
+          allData.forEach((post) => {
+            const commentsHtml = post.comments
+              .map((c) => `<li><strong>${c.name}</strong></li>`)
+              .join("");
+
+            divContainer.innerHTML += `<div class="card">
+                                            <h2>${post.title}</h2>
+                                            <p>${post.body}</p>
+                                            <small>${post.user}</small>
+                                            <ul>${commentsHtml}</ul>
+                                        </div>`;
           });
         } catch (error) {
           console.error("Errore nel caricamento dati " + error);
