@@ -11,9 +11,12 @@ public class esercizio1 {
         System.out.print("Inserisci K: ");
         int k = s.nextInt();
 
-
+        int pow = n;
         if (n > 0 && k > 0) {
-            System.out.println("\nris: " + Math.pow(n, k));
+            for (int i = 1; i < k; i++) {
+                pow *= n;
+            }
+            System.out.println("\nris: " + pow);
         } else {
             System.err.println("N o K inferiori a 0");
         }
