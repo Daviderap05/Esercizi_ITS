@@ -10,9 +10,9 @@ public class esercizio3 {
         Scanner s = new Scanner(System.in);
 
         int ris_c;
-        String ris;
+        String ris = "";
 
-        System.out.println("\n\nMorra Cinese\n");
+        System.out.println("\nMorra Cinese\n");
 
         do {
 
@@ -24,6 +24,7 @@ public class esercizio3 {
 
             System.out.print("Fai il tuo gioco: ");
             int ris_g = s.nextInt();
+            s.nextLine();
 
             switch (ris_g) {
 
@@ -57,21 +58,21 @@ public class esercizio3 {
                     }
                 }
 
-                default -> System.out.println("Giocata non valida riprova!\n");
+                default -> System.out.println("Giocata non valida\n");
 
             }
 
-            while (true) {
-                System.out.print("\nVuoi giocare ancora (s/n): ");
+            while (!ris.equals("n") && !ris.equals("s")) {
+                System.out.print("Vuoi giocare ancora (s/n): ");
                 ris = s.next().toLowerCase();
+                System.out.println("\n");
 
-                if (!ris.equals("n") || !ris.equals("s")) {
-                    System.err.println("Errore... scelta non valida Riprova!");
-                } else {
-                    break;
+                if (!ris.equals("n") && !ris.equals("s")) {
+                    System.err.println("Errore... scelta non valida. Riprova!");
                 }
             }
 
         } while (!ris.equals("n"));
+        System.out.println("Addio");
     }
 }
