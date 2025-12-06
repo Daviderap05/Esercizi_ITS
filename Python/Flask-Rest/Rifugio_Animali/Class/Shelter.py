@@ -9,6 +9,7 @@ class Shelter:
         animals: dict[str, Animal | Cat | Dog] | None = None,
         adoptions: dict[str, str] | None = None,
     ) -> None:
+        
         if animals is None:
             animals = {}
 
@@ -39,3 +40,8 @@ class Shelter:
 
         self.adoptions[animal_id] = adopter_name
         return True
+    
+    def get_name_adopter(self, animal_id: str) -> str | None:
+        if animal_id not in self.adoptions:
+            return None
+        return self.adoptions[animal_id]
