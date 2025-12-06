@@ -65,7 +65,7 @@ def animal_adoption(animal_id: str):
     if animal is None:
         return jsonify({"error": "Animal not found"}), 404
 
-    if shelter.is_adoptded(animal_id):
+    if shelter.is_adopted(animal_id):
         return jsonify(
             {
                 "animal_id": animal_id,
@@ -90,7 +90,7 @@ def add_animal():
         return jsonify({"error": "Missing JSON body"}), 400
 
     animal_type: str | None = data.get("type")
-    
+
     if animal_type not in ("dog", "cat"):
         return (
             jsonify({"error": "Invalid or missing 'type'. Must be 'dog' or 'cat'."}),
@@ -168,12 +168,12 @@ def add_animal():
 
 @app.route("/animals/<string:animal_id>/adopt", methods=["POST"])
 def adopt_animal(animal_id: str):
-    animal: Dog | Cat | None = shelter.get(animal_id)
+    animal = shelter.get(animal_id)
 
     if animal is None:
         return jsonify({"error": "Animal not found"}), 404
 
-    # se è già adottato (usa lo stesso metodo che uso nella GET)
+    # se è già adottato (usa lo stesso metodo che usi nella GET)
     if shelter.is_adopted(animal_id):
         return (
             jsonify(
@@ -186,14 +186,11 @@ def adopt_animal(animal_id: str):
             400,
         )
 
-    data: dict | None = request.get_json()
+    data = request.get_json()
     if not data or "adopter_name" not in data:
-        return (
-            jsonify({"error": "Missing field 'adopter_name' in JSON body"}),
-            400,
-        )
+        return jsonify({"error": "Missing field 'adopter_name' in JSON body"}), 400
 
-    adopter_name: str = data["adopter_name"]
+    adopter_name = data["adopter_name"]
 
     shelter.set_adopted(animal_id, adopter_name)
 

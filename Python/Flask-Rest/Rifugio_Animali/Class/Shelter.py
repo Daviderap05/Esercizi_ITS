@@ -31,7 +31,7 @@ class Shelter:
     def list_all(self) -> list[dict[str, Any]]:
         return [animal.info() for animal in self.animals.values()]
 
-    def is_adoptded(self, animal_id: str) -> bool:
+    def is_adopted(self, animal_id: str) -> bool:
         return True if animal_id in self.adoptions else False
 
     def set_adopted(self, animal_id: str, adopter_name: str) -> bool:
