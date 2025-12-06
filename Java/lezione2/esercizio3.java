@@ -5,17 +5,17 @@ import java.util.Scanner;
 
 public class esercizio3 {
     public static void main(String[] args) {
-        
+
         Random rand = new Random();
         Scanner s = new Scanner(System.in);
 
         int ris_c;
-        String ris = "";
+        String ris;
 
         System.out.println("\nMorra Cinese\n");
 
         do {
-
+            ris = "";
             ris_c = rand.nextInt(0, 3);
 
             System.out.println("0  --> Sasso");
