@@ -1,4 +1,4 @@
-package Java.lezione2;
+package lezione2;
 
 import java.util.Date;
 import java.util.Scanner;
