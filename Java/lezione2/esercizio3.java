@@ -74,5 +74,6 @@ public class esercizio3 {
 
         } while (!ris.equals("n"));
         System.out.println("Addio");
+        s.close();
     }
 }

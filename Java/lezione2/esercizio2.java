@@ -29,5 +29,7 @@ public class esercizio2 {
             cont++;
 
         }
+
+        s.close();
     }
 }

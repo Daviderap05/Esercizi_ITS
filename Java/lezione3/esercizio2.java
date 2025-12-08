@@ -2,7 +2,7 @@ package lezione3;
 
 import java.util.Scanner;
 
-public class esercizio1 {
+public class esercizio2 {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
@@ -17,11 +17,13 @@ public class esercizio1 {
             A[i] = s.nextInt();
         }
 
-        for (int i = 0; i < n; i++) {
-            B[i] = A[i];
+        int cont = 0;
+        for (int i = A.length - 1; i >= 0; i--) {
+            B[cont] = A[i];
+            cont++;
         }
-
-        System.out.println("Array B copiato da A:");
+        
+        System.out.println("Array B copiato, al contrario, da A:");
         for (int i = 0; i < n; i++) {
             System.out.print(B[i] + " ");
         }
