@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" />
+    <title>Progetto Studente</title>
+    <style>
+      li {
+        margin-bottom: 8px;
+      }
+      li:nth-child(2) {
+        background-color: mediumaquamarine;
+        font-weight: bolder;
+        border: double;
+        max-width: fit-content;
+        padding: 4px;
+      }
+      li:nth-child(4) {
+        background-color: mediumaquamarine;
+        font-weight: bolder;
+        border: double;
+        max-width: fit-content;
+        padding: 4px;
+      }
+
+      .btn:hover {
+        background-color: mediumaquamarine;
+        transform: scale(1.1);
+        border: thin solid;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        min-width: 240px;
+        width: fit-content;
+        min-height: 240px;
+        background-color: aquamarine;
+        border-radius: 10px;
+        margin: 0 auto; /*allinea al centro*/
+      }
+
+      .card-header,
+      .card-footer {
+        padding: 15px;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .card-header {
+        border-bottom: 1px solid #333;
+      }
+
+      .card-body {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #333;
+      }
+      .form {
+        display: flex;
+        gap: 20px;
+      }
+      input:focus {
+        outline: none; /*Togli il bordo di default*/
+        border: 2px solid aquamarine;
+      }
+      /* Overlay: copre tutto e scurisce */
+      .overlay {
+        position: fixed;
+        inset: 0; /* top/right/bottom/left: 0 */
+        background: rgba(0, 0, 0, 0.5);
+        display: none; /* NASCOSTO di default */
+        justify-content: center; /* centro orizzontale */
+        align-items: center; /* centro verticale */
+      }
+
+      /* Quando è aperto */
+      .overlay.open {
+        display: flex;
+      }
+
+      /* Finestra */
+      .modal {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        width: min(90vw, 320px);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Inizio esercizi</h1>
+
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quae
+      magni enim doloribus suscipit dignissimos in modi sint veritatis deleniti!
+      Temporibus odio inventore maxime at totam blanditiis similique, autem ab!
+    </p>
+
+    <br />
+
+    <ul>
+      <li>elemento 1</li>
+      <li>elemento 2</li>
+      <li>elemento 3</li>
+      <li>elemento 4</li>
+    </ul>
+
+    <br />
+
+    <button class="btn">Premi</button>
+
+    <br />
+    <br />
+
+    <div class="card">
+      <div class="card-header">Titolo</div>
+
+      <div class="card-body">Scarpe</div>
+
+      <div class="card-footer">Prezzo$</div>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="form">
+      <input type="text" placeholder="email" />
+      <input type="password" placeholder="password" />
+    </div>
+
+    <br />
+
+    <h2 id="cont">Contatore: 0</h2>
+
+    <button onclick="aumenta()">Aumenta</button>
+    <button onclick="decrementa()">Decrementa</button>
+
+    <script>
+      let contatore = 0;
+
+      function aumenta() {
+        contatore++;
+        document.getElementById("cont").innerHTML = "Contatore: " + contatore;
+      }
+
+      function decrementa() {
+        contatore--;
+        document.getElementById("cont").innerHTML = "Contatore: " + contatore;
+      }
+    </script>
+
+    <br />
+    <br />
+    <br />
+
+    <button id="openModal">Apri avviso</button>
+
+    <div id="overlay" class="overlay">
+      <div class="modal">
+        <h2>Avviso</h2>
+        <p>Questo è un messaggio di avviso.</p>
+        <button id="closeModal">Chiudi</button>
+      </div>
+    </div>
+
+    <script>
+      const overlay = document.getElementById("overlay");
+      const openBtn = document.getElementById("openModal");
+      const closeBtn = document.getElementById("closeModal");
+
+      openBtn.addEventListener("click", () => {
+        overlay.classList.add("open");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        overlay.classList.remove("open");
+      });
+    </script>
+
+    <br />
+    <br />
+
+    <h2 id="model"></h2>
+
+    <script>
+      let macchina = {
+        modello: " Fiat Panda",
+        anno: 1990,
+      };
+
+      document.getElementById(
+        "model"
+      ).textContent = `Modello: ${macchina.modello} (${macchina.anno})`;
+    </script>
+
+    <input type="text" placeholder="inserisci testo" id="elemento" />
+    <button onclick="invio()">Aggiungi elemento</button>
+
+    <ul id="lista"></ul>
+
+    <script>
+      function invio() {
+        let messaggio = document.getElementById("elemento").value.trim();
+
+        if (messaggio === "") {
+          return;
+        }
+
+        let elementi = document.getElementsByTagName("li");
+
+        if (messaggio === elementi[elementi.length - 1].textContent) {
+          return;
+        }
+        document.getElementById("lista").innerHTML += `<li>${messaggio}</li>`;
+      }
+    </script>
+
+    <br />
+
+    <input type="text" placeholder="inserisci testo" id="testo_s" />
+    <button onclick="invia()">Controllo lunghezza</button>
+    <br />
+    <p id="err" style="color: white;">Il messaggio è sotto i 10 caratteri</p>
+
+    <script>
+      function invia() {
+        let messaggio = document.getElementById("testo_s").value.trim();
+        let errore = document.getElementById("err");
+
+        if (messaggio.length < 10) {
+          errore.style.color = "red";
+        }else{
+          errore.style.color = "white"
+        }
+      }
+    </script>
+  </body>
+</html>
