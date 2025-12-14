@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lvl2</title>
+
+    <style>
+      .navBar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+
+      .navBar img {
+        width: 80px;
+      }
+
+      .contenuto {
+        padding: 10px 20px;
+        display: flex;
+        gap: 24px;
+      }
+
+      aside {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        background-color: blanchedalmond;
+      }
+
+      article {
+        flex: 1;
+      }
+
+      .icons {
+        display: flex;
+        gap: 24px;
+        font-size: 1.2rem;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        background-color: aquamarine;
+        border-radius: 8px;
+        min-height: 240px;
+        flex: 1 1 240px;
+        max-width: 320px;
+      }
+
+      .card-header,
+      .card-body {
+        border-bottom: 1px solid;
+      }
+
+      .card-header,
+      .card-footer {
+        padding: 15px;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .card-body {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navBar">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png"
+        alt="Logo"
+      />
+      <div class="icons">
+        <span>🔔</span>
+        <span>👤</span>
+      </div>
+    </nav>
+    <div class="contenuto">
+      <aside class="sidebar">
+        <h1 style="text-align: center">Sidebar</h1>
+        <input
+          type="text"
+          id="text"
+          placeholder="inserisci testo da filtrare"
+        />
+        <ul id="elencoP">
+          <li>Davide</li>
+          <li>Mario</li>
+          <li>Giulia</li>
+          <li>Gianluca</li>
+          <li>Domenico</li>
+          <li>Flavio</li>
+        </ul>
+        <script>
+          const lista = [
+            "Davide",
+            "Mario",
+            "Giulia",
+            "Gianluca",
+            "Domenico",
+            "Flavio",
+          ];
+          const input = document.getElementById("text");
+
+          input.addEventListener("input", () => {
+            const text = input.value.trim().toLowerCase();
+
+            const elenco = lista.filter((nome) =>
+              nome.toLowerCase().startsWith(text)
+            );
+
+            const ul = document.getElementById("elencoP");
+            ul.innerHTML = "";
+            elenco.forEach((nome) => {
+              ul.innerHTML += `<li>${nome}</li>`;
+            });
+          });
+        </script>
+      </aside>
+      <article>
+        <div class="container">
+          <div class="card">
+            <div class="card-header">Titolo</div>
+            <div class="card-body">Scarpe</div>
+            <div class="card-footer">Prezzo $</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Titolo</div>
+            <div class="card-body">Scarpe</div>
+            <div class="card-footer">Prezzo $</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">Titolo</div>
+            <div class="card-body">Scarpe</div>
+            <div class="card-footer">Prezzo $</div>
+          </div>
+        </div>
+      </article>
+      <script>
+        // Esercizio 15, 16
+        const Negozio = {
+          scarpe: {
+            titolo: "Nike",
+            marca: "Air-force",
+            prezzo: 100,
+          },
+        };
+
+        const { titolo, marca, prezzo } = Negozio.scarpe;
+        const descrizione = () => `${titolo} ${marca} ${prezzo} €`;
+        console.log(descrizione()); // Nike Air-force 100 €
+
+        // Esercizio 17
+        let var1 = "var1";
+        let var2 = "var2";
+        console.log("var1 = " + var1 + ", var2 = " + var2);
+
+        [var1, var2] = [var2, var1];
+        console.log("var1 = " + var1 + ", var2 = " + var2);
+
+        // Esercizio 18
+        let array1 = ["a", "b", "c"];
+        let array2 = ["d", "e", "f"];
+        let array3 = [...array1, ...array2];
+        console.log(array3);
+
+        // Esercizio 19
+        const Persona = {
+          nome: "Mario",
+          cognome: "Rossi",
+          eta: 18,
+        };
+
+        const Persona2 = {
+          ...Persona,
+          eta: 20,
+        };
+
+        console.log(Persona2);
+      </script>
+    </div>
+  </body>
+</html>
