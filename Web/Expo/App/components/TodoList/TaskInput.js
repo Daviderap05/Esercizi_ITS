@@ -7,81 +7,93 @@ import {
   Modal,
   Image,
 } from "react-native";
-const TaskInput = (props) => {
-  const [task, setTask] = useState("");
-  function taskInputHandler(enteredTask) {
-    console.log(enteredTask);
-    setTask(enteredTask);
+
+export default function TaskInput({ visible, onAddTask, onCancel }) {
+  const [text, setText] = useState("");
+
+  function changeHandler(value) {
+    setText(value);
   }
-  function addTask() {
-    props.onAddTask(task);
-    setTask("");
-    props.onCancel();
+
+  function addHandler() {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+
+    onAddTask(trimmed);
+    setText("");
+    onCancel();
   }
-  function annulla() {
-    setTask("");
-    props.onCancel();
+
+  function cancelHandler() {
+    setText("");
+    onCancel();
   }
+
   return (
-    <Modal visible={props.visible} animationType="slide">
-      {" "}
+    <Modal visible={visible} animationType="slide">
       <View style={styles.inputContainer}>
-        {" "}
         <Image
           style={styles.image}
           source={{
-            uri: "https://www.dropbox.com/scl/fi/2z78bc6kybcbktiazwn9p/goal.png?rlkey=fhww8krf0rwg4rurigo7ht3i6&dl=0",
+            uri: "https://www.dropbox.com/scl/fi/2z78bc6kybcbktiazwn9p/goal.png?rlkey=fhww8krf0rwg4rurigo7ht3i6&dl=1",
           }}
-        ></Image>{" "}
+        />
+
         <TextInput
           style={styles.textInput}
           placeholder="Inserisci task"
-          onChangeText={taskInputHandler}
-          value={task}
-        />{" "}
+          placeholderTextColor="#cfc7ff"
+          onChangeText={changeHandler}
+          value={text}
+        />
+
         <View style={styles.buttonContainer}>
-          {" "}
           <View style={styles.button}>
-            {" "}
             <Button
               title="Aggiungi"
-              onPress={addTask}
+              onPress={addHandler}
               color="#f31282"
-              disabled={task === ""}
-            ></Button>{" "}
-          </View>{" "}
+              disabled={text.trim() === ""}
+            />
+          </View>
+
           <View style={styles.button}>
-            {" "}
-            <Button
-              title="Annulla"
-              onPress={annulla}
-              color="#b180f0"
-            ></Button>{" "}
-          </View>{" "}
-        </View>{" "}
-      </View>{" "}
+            <Button title="Annulla" onPress={cancelHandler} color="#b180f0" />
+          </View>
+        </View>
+      </View>
     </Modal>
   );
-};
+}
+
 const styles = StyleSheet.create({
-  textInput: {
-    borderWidth: 1,
-    borderColor: "#cccccc",
-    width: "70%",
-    padding: 8,
-  },
-  image: { height: 100, width: 100, margin: 20 },
   inputContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+    padding: 16,
     gap: 16,
     backgroundColor: "#311b6b",
   },
-  buttonContainer: { flexDirection: "row" },
-  button: { marginHorizontal: 8 },
+  textInput: {
+    borderWidth: 1,
+    borderColor: "#cfc7ff",
+    color: "white",
+    width: "75%",
+    padding: 10,
+    borderRadius: 8,
+  },
+  image: {
+    height: 100,
+    width: 100,
+    marginBottom: 12,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    marginTop: 8,
+  },
+  button: {
+    marginHorizontal: 8,
+    minWidth: 120,
+  },
 });
-export default TaskInput;

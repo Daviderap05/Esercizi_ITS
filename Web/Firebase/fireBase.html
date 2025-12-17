@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="taskForm">
+      <label for="nome">Task:</label>
+      <input type="text" id="nome" name="task" />
+      <input type="submit" value="Invia" />
+    </form>
+
+    <script>
+      const URL =
+        "https://todoapp-50614-default-rtdb.europe-west1.firebasedatabase.app/tasks";
+
+      const form = document.getElementById("taskForm");
+
+      form.addEventListener("submit", funzione);
+
+      function funzione(event) {
+        event.preventDefault();
+        const taskInput = document.getElementById("nome").value.trim();
+
+        if (taskInput === "") {
+          return alert("Inserisci un Task");
+        }
+
+        document.getElementById("tasks").innerHTML += `<p>${taskInput}</p>`;
+
+        const newTask = {
+          text: taskInput,
+          done: false,
+        };
+
+        fetch(URL + ".json", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newTask),
+        })
+          .then((resp) => resp.json())
+          .then((ris) => console.log(ris))
+          .catch((err) => console.error(err));
+      }
+
+      async function getData() {
+        try {
+          let response = await fetch(URL + ".json");
+
+          if (!response.ok) {
+            throw new Error("Errore: " + response.status);
+          }
+
+          let dati = await response.json();
+          if (!dati) return;
+
+          const lista5 = Object.keys(dati).map((id) => ({
+            id,
+            ...dati[id],
+          }));
+
+          console.log(lista5);
+        } catch (error) {
+          console.error("Errore: " + error);
+        }
+      }
+      getData();
+    </script>
+    <div id="tasks"></div>
+  </body>
+</html>

@@ -1,45 +1,91 @@
-import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-  ScrollView,
-  FlatList,
-} from "react-native";
-import TaskItem from "./App/components/TodoLIst/TaskItem";
-import TaskInput from "./App/components/TodoLIst/TaskInput";
+import { useState, useEffect } from "react";
+import { StyleSheet, View, Button, FlatList } from "react-native";
+
+import TaskItem from "./App/components/TodoList/TaskItem";
+import TaskInput from "./App/components/TodoList/TaskInput";
+
+const URL =
+  "https://todoapp-50614-default-rtdb.europe-west1.firebasedatabase.app/tasks";
 
 export default function App() {
-  // const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  async function loadTasks() {
+    try {
+      let response = await fetch(URL + ".json");
+
+      if (!response.ok) {
+        throw new Error("Errore: " + response.status);
+      }
+
+      let dati = await response.json();
+
+      if (!dati) {
+        setTasks([]);
+        return;
+      }
+
+      const items = Object.keys(dati).map((id) => ({
+        id,
+        task: dati[id].text,
+        done: dati[id].done,
+      }));
+
+      setTasks(items);
+    } catch (error) {
+      console.error("Errore: " + error);
+    }
+  }
+
   function startAddTask() {
-    setModalVisible(true); //Apre la modale
+    setModalVisible(true);
   }
 
   function endAddTask() {
-    setModalVisible(false); //Apre la modale
+    setModalVisible(false);
   }
 
-  // function taskInputHandler(enteredTask) {
-  //   console.log(enteredTask);
-  //   setTask(enteredTask);
-  // }
-  function deleteTask(id) {
-    setTasks((current) => {
-      return current.filter((t) => t.id !== id);
-    });
+  async function addTaskHandler(taskText) {
+    try {
+      const newTask = { text: taskText, done: false };
+
+      const response = await fetch(URL + ".json", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newTask),
+      });
+
+      if (!response.ok) {
+        throw new Error("Errore: " + response.status);
+      }
+
+      endAddTask();
+      await loadTasks();
+    } catch (error) {
+      console.error("Errore: " + error);
+    }
   }
-  function addTaskHandler(task) {
-    setTasks((current) => [...current, { task, id: new Date() }]);
+
+  async function deleteTask(id) {
+    try {
+      const response = await fetch(`${URL}/${id}.json`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Errore: " + response.status);
+      }
+
+      await loadTasks();
+    } catch (e) {
+      console.error(e);
+    }
   }
-  // function addTaskHandler() {
-  //   setTasks((current) => [...current, { task,id:new Date()}]);
-  //   setTask("");
-  // }
 
   return (
     <View style={styles.appContainer}>
@@ -49,44 +95,16 @@ export default function App() {
         visible={modalVisible}
         onAddTask={addTaskHandler}
         onCancel={endAddTask}
-      ></TaskInput>
-      {/* <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Inserisci task"
-          onChangeText={taskInputHandler}
-          value={task}
-        />
-        <Button
-          title="Aggiungi"
-          onPress={addTaskHandler}
-          disabled={task === ""}
-        ></Button>
-      </View> */}
-      <View style={styles.goalsContainer}>
+      />
+
+      <View style={styles.listContainer}>
         <FlatList
-          alwaysBounceVertical={true}
           data={tasks}
-          renderItem={(itemData) => {
-            return (
-              <TaskItem
-                onDelete={deleteTask}
-                taskItem={itemData.item}
-              ></TaskItem>
-              // <View style={styles.taskItem}>
-              //   <Text style={styles.taskText}>{itemData.item.task}</Text>
-              // </View>
-            );
-          }}
           keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TaskItem taskItem={item} onDelete={deleteTask} />
+          )}
         />
-        {/* <ScrollView>
-          {tasks.map((t, index) => (
-            <View key={index} style={styles.taskItem}>
-              <Text style={styles.taskText}>{t}</Text>
-            </View>
-          ))}
-        </ScrollView> */}
       </View>
     </View>
   );
@@ -95,26 +113,12 @@ export default function App() {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingTop: 50,
     paddingHorizontal: 16,
+    backgroundColor: "#fff",
   },
-  // textInput: {
-  //   borderWidth: 1,
-  //   borderColor: "#cccccc",
-  //   width: "70%",
-  //   padding: 8,
-  // },
-  // inputContainer: {
-  //   flex: 1,
-  //   flexDirection: "row",
-  //   justifyContent: "space-between",
-  //   alignItems: "center",
-  //   marginBottom: 24,
-  //   borderBottomWidth: 1,
-  //   borderColor: "#cccccc",
-  // },
-  goalsContainer: {
-    flex: 4,
+  listContainer: {
+    flex: 1,
+    marginTop: 12,
   },
 });
