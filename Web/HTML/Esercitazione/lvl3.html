@@ -83,7 +83,20 @@
         media_singoli.reduce((sum, voto) => sum + voto) / media_singoli.length
       );
 
-      //ESERCIZIO6/5
+      //ESERCIZIO5
+      const miaPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (Math.random() > 0.5) {
+            resolve({ dati: "Dati ricevuti dal server!" });
+          } else {
+            reject("Impossibile recuperare i dati.");
+          }
+        }, 2000);
+      })
+        .then((risultato) => console.log(risultato))
+        .catch((errore) => console.error(errore));
+
+      //ESERCIZIO7/6
       async function fetchDati() {
         try {
           let response = await fetch(
@@ -107,7 +120,7 @@
         .then((data) => console.log(data))
         .catch((error) => console.error("Errore nella richiesta:", error));
 
-      //ESERCIZIO7
+      //ESERCIZIO8
       async function fetchDati2() {
         try {
           const response = await fetch(
@@ -135,6 +148,45 @@
         }
       }
       fetchDati2();
+
+      //ESERCIZIO9
+      async function fetchDati3(url) {
+        let response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Errore: " + response.status);
+        }
+        let dati = await response.json();
+
+        return dati;
+      }
+
+      async function main() {
+        try {
+          const ris = await Promise.all([
+            fetchDati3("https://jsonplaceholder.typicode.com/posts/1"),
+            fetchDati3("https://jsonplaceholder.typicode.com/posts/1/comments"),
+          ]);
+
+          const [post, comm] = ris;
+
+          console.log("Titolo post: " + post.title);
+          console.log("Numero commenti (" + comm.length + "):");
+          comm.forEach((c) => console.log(c));
+        } catch (error) {
+          console.error("Errore nel caricamento dati:", error.message);
+        }
+      }
+
+      main();
+
+      //ESERCIZIO10
+      const array3 = [true, false, true, false, true, true];
+
+      const t = array3.filter((e) => e === true);
+      const f = array3.filter((e) => e === false);
+
+      console.log(t.length);
+      console.log(f.length);
     </script>
   </body>
 </html>
