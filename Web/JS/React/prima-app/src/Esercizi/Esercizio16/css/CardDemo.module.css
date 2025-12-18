@@ -1,0 +1,27 @@
+.page {
+  min-height: 100vh;
+}
+
+/* tema SOLO di questa pagina */
+.pageLight {
+  background-color: white;
+  color: black;
+}
+
+.pageDark {
+  background-color: black;
+  color: white;
+}
+
+.topbar {
+  padding: 12px 20px;
+}
+
+/* max 3 per riga */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 16px;
+  justify-content: center;
+  padding: 20px;
+}
