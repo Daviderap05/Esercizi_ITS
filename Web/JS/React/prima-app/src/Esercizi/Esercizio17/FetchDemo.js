@@ -73,45 +73,76 @@ const FetchDemo = () => {
   }
 
   return (
-    <div>
-      <h1>Fetch Users, Albums e Photos</h1>
-      <select
-        className="form-select"
-        onChange={handleChange}
-        value={userSelected}
+    <div className="container">
+      <h1 style={{ textAlign: "center", marginBottom: "24px" }}>
+        Fetch Users, Albums e Photos
+      </h1>
+      <div
+        style={{
+          display: "flex",
+          gap: "16px",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
       >
-        <option value="">Seleziona Utente</option>
-        {users.map((u) => {
-          return (
-            <option key={u.id} value={u.id}>
-              {u.name}
-            </option>
-          );
-        })}
-      </select>
+        <select
+          className="form-select"
+          onChange={handleChange}
+          value={userSelected}
+          style={{ maxWidth: "400px" }}
+        >
+          <option value="">Seleziona Utente</option>
+          {users.map((u) => {
+            return (
+              <option key={u.id} value={u.id}>
+                {u.name}
+              </option>
+            );
+          })}
+        </select>
 
-      <select
-        className="form-select"
-        onChange={(e) => setAlbumSelected(e.target.value)}
-        value={albumSelected}
-        disabled={!userSelected}
-      >
-        <option value="">Seleziona Album</option>
-        {albums.map((a) => {
-          return (
-            <option key={a.id} value={a.id}>
-              {a.title}
-            </option>
-          );
-        })}
-      </select>
+        <select
+          className="form-select"
+          onChange={(e) => setAlbumSelected(e.target.value)}
+          value={albumSelected}
+          disabled={!userSelected}
+          style={{ maxWidth: "400px" }}
+        >
+          <option value="">Seleziona Album</option>
+          {albums.map((a) => {
+            return (
+              <option key={a.id} value={a.id}>
+                {a.title}
+              </option>
+            );
+          })}
+        </select>
+      </div>
 
       <br></br>
 
-      <ul>
+      <ul
+        style={{
+          listStyle: "none",
+          padding: 0,
+          marginTop: "24px",
+          maxWidth: "813px",
+          marginInline: "auto",
+        }}
+      >
         {photos.map((u) => {
           return (
-            <li key={u.id} value={u.id}>
+            <li
+              key={u.id}
+              style={{
+                padding: "10px 14px",
+                marginBottom: "16px",
+                borderRadius: "8px",
+                backgroundColor: "#f5f5f5",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.08)",
+                fontSize: "14rm",
+              }}
+            >
               {u.title}
             </li>
           );
