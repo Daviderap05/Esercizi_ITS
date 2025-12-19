@@ -1,9 +1,20 @@
 import React from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet, Pressable, Alert } from "react-native";
 
-export default function TaskItem({ taskItem, onDelete }) {
+export default function TaskItem({ taskItem, patchItem, deleteTask }) {
   function pressHandler() {
-    onDelete(taskItem.id);
+    patchItem(taskItem.id);
+  }
+
+  function pressHandlerCancel() {
+    Alert.alert("Elimina task", "Sei sicuro di voler eliminare questa task?", [
+      { text: "Annulla", style: "cancel" },
+      {
+        text: "Elimina",
+        style: "destructive",
+        onPress: () => deleteTask(taskItem.id),
+      },
+    ]);
   }
 
   return (
@@ -11,6 +22,7 @@ export default function TaskItem({ taskItem, onDelete }) {
       <Pressable
         android_ripple={{ color: "#210644" }}
         onPress={pressHandler}
+        onLongPress={pressHandlerCancel}
         style={({ pressed }) => [styles.pressable, pressed && styles.pressed]}
       >
         <Text style={styles.taskText}>{taskItem.task}</Text>

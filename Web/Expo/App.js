@@ -10,6 +10,7 @@ const URL =
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [filter, setFilter] = useState("todo");
 
   useEffect(() => {
     loadTasks();
@@ -82,14 +83,55 @@ export default function App() {
       }
 
       await loadTasks();
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error("Errore: " + error);
     }
   }
+
+  async function updateTask(id) {
+    const task = tasks.find((t) => t.id === id);
+    try {
+      const response = await fetch(`${URL}/${id}.json`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ done: !task.done }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Errore: " + response.status);
+      }
+
+      await loadTasks();
+    } catch (error) {
+      console.error("Errore: " + error);
+    }
+  }
+
+  function handlePressDone() {
+    setFilter("done");
+  }
+
+  function handlePressToDo() {
+    setFilter("todo");
+  }
+
+  const visibleTasks =
+    filter === "done"
+      ? tasks.filter((t) => t.done)
+      : tasks.filter((t) => !t.done);
 
   return (
     <View style={styles.appContainer}>
       <Button title="Add New Task" color="#5e0acc" onPress={startAddTask} />
+      <View style={{ flexDirection: "row", gap: 8, marginVertical: 16 }}>
+        <View style={{ flex: 1 }}>
+          <Button title="Done" onPress={handlePressDone} />
+        </View>
+
+        <View style={{ flex: 1 }}>
+          <Button title="To do" onPress={handlePressToDo} />
+        </View>
+      </View>
 
       <TaskInput
         visible={modalVisible}
@@ -99,10 +141,14 @@ export default function App() {
 
       <View style={styles.listContainer}>
         <FlatList
-          data={tasks}
+          data={visibleTasks}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TaskItem taskItem={item} onDelete={deleteTask} />
+            <TaskItem
+              taskItem={item}
+              patchItem={updateTask}
+              deleteTask={deleteTask}
+            />
           )}
         />
       </View>
