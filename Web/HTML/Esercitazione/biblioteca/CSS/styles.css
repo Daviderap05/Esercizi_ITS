@@ -1,0 +1,137 @@
+/* --- RESET BASE --- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #f6f7fb;
+  color: #111;
+}
+
+/* --- CONTENITORE --- */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* --- CARD --- */
+.card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.table-card {
+  margin-top: 18px;
+}
+
+/* --- FORM --- */
+form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 16px;
+  align-items: end;
+}
+
+/* Campo singolo */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 12px;
+  color: #374151;
+}
+
+input[type="text"] {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  font-size: 14px;
+}
+
+input[type="text"]:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+/* --- BOTTONE --- */
+#addLibro {
+  grid-column: 1 / -1;
+  justify-self: end;
+  min-width: 180px;
+
+  padding: 11px 16px;
+  border-radius: 12px;
+  border: none;
+  background: #111827;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#addLibro:hover {
+  background: #1f2937;
+}
+
+/* --- MESSAGGIO --- */
+#result {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #065f46;
+}
+
+/* --- BOTTONI TABELLA --- */
+.btn-elimina {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  background: #b42318;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-elimina:hover {
+  filter: brightness(1.05);
+}
+
+/* --- DATA TABLES OVERRIDE --- */
+div.dt-container .dt-search {
+  margin-bottom: 12px;
+}
+
+div.dt-container .dt-search input {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+}
+
+table.dataTable thead th {
+  font-weight: 600;
+}
+
+table.dataTable tbody td {
+  vertical-align: middle;
+}
+
+/* --- RESPONSIVE --*/
+@media (max-width: 760px) {
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  #addLibro {
+    justify-self: stretch;
+    width: 100%;
+  }
+}
