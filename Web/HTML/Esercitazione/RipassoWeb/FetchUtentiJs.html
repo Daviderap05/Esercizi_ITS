@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FetchPhotos</title>
+    <script>
+      let userSelected;
+      let albumSelected;
+
+      async function getUsers() {
+        try {
+          let response = await fetch(
+            "https://jsonplaceholder.typicode.com/users"
+          );
+
+          if (!response.ok) {
+            throw new Error("Errore: " + response.status);
+          }
+
+          let dati = await response.json();
+          return dati;
+        } catch (error) {
+          console.error("Errore: " + error);
+        }
+      }
+
+      async function getAlbums(id) {
+        try {
+          let response = await fetch(
+            `https://jsonplaceholder.typicode.com/albums?userId=${id}`
+          );
+
+          if (!response.ok) {
+            throw new Error("Errore: " + response.status);
+          }
+
+          let dati = await response.json();
+          return dati;
+        } catch (error) {
+          console.error("Errore: " + error);
+        }
+      }
+
+      async function getPhotos(id) {
+        try {
+          let response = await fetch(
+            `https://jsonplaceholder.typicode.com/photos?albumId=${id}`
+          );
+
+          if (!response.ok) {
+            throw new Error("Errore: " + response.status);
+          }
+
+          let dati = await response.json();
+          return dati;
+        } catch (error) {
+          console.error("Errore: " + error);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Fetch Users, Albums and Photos</h1>
+    <select
+      name="selectUtenti"
+      id="selectUtenti"
+      onchange="handleChangeUsers(event)"
+    >
+      <option value="">Seleziona un utente</option>
+    </select>
+    <select
+      name="selectAlbums"
+      id="selectAlbums"
+      onchange="handleChangeAlbum(event)"
+      disabled
+    >
+      <option value="">Seleziona un album</option>
+    </select>
+
+    <ul id="selectPhotos"></ul>
+
+    <script>
+      async function selectUsers() {
+        const users = await getUsers();
+
+        if (!users) return;
+
+        let selectUtenti = document.getElementById("selectUtenti");
+
+        users.forEach((user) => {
+          selectUtenti.innerHTML += `<option value="${user.id}">${user.name}</option>`;
+        });
+      }
+
+      async function selectAlbums() {
+        const albums = await getAlbums(userSelected);
+
+        if (!albums) return;
+
+        let selectAlbum = document.getElementById("selectAlbums");
+        selectAlbum.innerHTML = `<option value="">Seleziona un album</option>`;
+
+        albums.forEach((album) => {
+          selectAlbum.innerHTML += `<option value="${album.id}">${album.title}</option>`;
+        });
+      }
+
+      async function selectPhotos() {
+        const photos = await getPhotos(albumSelected);
+
+        if (!photos) return;
+
+        let selectPhotos = document.getElementById("selectPhotos");
+        selectPhotos.innerHTML = "";
+
+        photos.forEach((photo) => {
+          selectPhotos.innerHTML += `<li id="${photo.id}">${photo.title}</li>`;
+        });
+      }
+
+      function handleChangeUsers(event) {
+        userSelected = event.target.value;
+
+        let selectAlbum = document.getElementById("selectAlbums");
+        selectAlbum.disabled = !userSelected;
+
+        let selectPhotos = document.getElementById("selectPhotos");
+        selectPhotos.innerHTML = "";
+
+        selectAlbums();
+      }
+
+      function handleChangeAlbum(event) {
+        albumSelected = event.target.value;
+        selectPhotos();
+      }
+
+      selectUsers();
+    </script>
+  </body>
+</html>

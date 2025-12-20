@@ -28,6 +28,7 @@ import UtenteTarga from "./Esercizi/Esercizio14/UtenteTarga";
 import PostsGrid from "./Esercizi/Esercizio15/PostsGrid";
 import CardDemo from "./Esercizi/Esercizio16/CardDemo";
 import FetchDemo from "./Esercizi/Esercizio17/FetchDemo";
+import LoginDemo from "./Esercizi/Esercizio18/LoginDemo";
 
 export const esercizi = [
   {
@@ -97,6 +98,11 @@ export const esercizi = [
         nome: "FetchDemo",
         path: "/esercizi/esercizio17",
         componente: <FetchDemo />,
+      },
+      {
+        nome: "LoginDemo",
+        path: "/esercizi/esercizio18",
+        componente: <LoginDemo />,
       },
     ],
   },
