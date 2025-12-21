@@ -16,7 +16,9 @@ jobs:
 
       - name: Install and build (React app)
         working-directory: Web/JS/React/prima-app
-        run: npm ci && npm run build
+        run: |
+          npm ci
+          CI=false npm run build
 
       - name: Deploy to Firebase Hosting (preview)
         uses: FirebaseExtended/action-hosting-deploy@v0
