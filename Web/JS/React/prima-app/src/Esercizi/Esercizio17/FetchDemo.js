@@ -138,7 +138,7 @@ const FetchDemo = () => {
                 padding: "10px 14px",
                 marginBottom: "16px",
                 borderRadius: "8px",
-                backgroundColor: "#f5f5f5",
+                backgroundColor: "#cccc",
                 boxShadow: "0 2px 4px rgba(0,0,0,0.08)",
                 fontSize: "14rm",
               }}
