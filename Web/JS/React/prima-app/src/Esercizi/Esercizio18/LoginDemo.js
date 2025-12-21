@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const LoginDemo = () => {
   const URL =
-    "https://login-11d88-default-rtdb.europe-west1.firebasedatabase.app/";
+    "https://primaapp-37f15-default-rtdb.europe-west1.firebasedatabase.app/";
 
   const [email, setEmail] = useState("");
   const [psw, setPsw] = useState("");
