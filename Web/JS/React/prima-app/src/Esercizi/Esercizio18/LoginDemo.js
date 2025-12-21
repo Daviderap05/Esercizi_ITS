@@ -6,8 +6,8 @@ const LoginDemo = () => {
 
   const [email, setEmail] = useState("");
   const [psw, setPsw] = useState("");
-    const [users, setUsers] = useState([]);
-    
+  const [users, setUsers] = useState([]);
+
   async function getUsers() {
     try {
       let response = await fetch(URL + "loginAttempts" + ".json");
@@ -26,8 +26,8 @@ const LoginDemo = () => {
     } catch (error) {
       console.error("Errore: " + error);
     }
-    }
-    
+  }
+
   async function invioForm(e) {
     e.preventDefault();
     try {
@@ -54,6 +54,8 @@ const LoginDemo = () => {
   }, []);
   return (
     <>
+      <h1 style={{textAlign: "center", marginBottom: "16px"}}>Login</h1>
+
       <div
         className="container"
         style={{ display: "flex", justifyContent: "center" }}
