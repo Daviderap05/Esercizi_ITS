@@ -15,7 +15,7 @@ CREATE DOMAIN CF as CHAR(16);
 
 
 CREATE TABLE Specie (
-    n_scentifico VARCHAR(200) PRIMARY KEY,
+    n_scientifico VARCHAR(200) PRIMARY KEY,
     n_comune VARCHAR(200) NOT NULL
 );
 
@@ -24,19 +24,21 @@ CREATE TABLE AreaVerde (
     latitudine realLat NOT NULL,
     longitudine realLong NOT NULL,
     is_fruibile BOOLEAN NOT NULL,
-    is_sensibile BOOLEAN
+    is_sensibile BOOLEAN,
+
+    check (NOT is_sensibile or is_fruibile) -- "se A allora B"
 );
 
 CREATE TABLE SoggettoVerde (
     id SERIAL PRIMARY KEY,
     data DATE NOT NULL,
     -- accorpo Specie
-    n_scent VARCHAR(200) NOT NULL,
-    Foreign Key (n_scent) 
-        REFERENCES Specie(n_scentifico),
+    specie VARCHAR(200) NOT NULL,
+    Foreign Key (specie) 
+        REFERENCES Specie(n_scientifico),
     -- accorpo AreaVerde
-    av INTEGER NOT NULL,
-    Foreign Key (av) 
+    areaVerde INTEGER NOT NULL,
+    Foreign Key (areaVerde) 
         REFERENCES AreaVerde(id)
 );
 
@@ -44,7 +46,11 @@ CREATE TABLE Intervento (
     id SERIAL PRIMARY KEY,
     inizio TIMESTAMP NOT NULL,
     durata intDurata NOT NULL,
-    priorità intPriorità NOT NULL
+    priorità intPriorità NOT NULL,
+    -- accorpo AreaVerde
+    areaVerde INTEGER NOT NULL,
+    Foreign Key (areaVerde) 
+        REFERENCES AreaVerde(id)
 );
 
 CREATE TABLE InterventoAssegnato (
@@ -78,5 +84,4 @@ CREATE TABLE Assegna (
         REFERENCES Operatore(cf),
 
     PRIMARY KEY (interventoAssegnato, operatore)
-    
 );
