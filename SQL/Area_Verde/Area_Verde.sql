@@ -45,7 +45,7 @@ CREATE TABLE SoggettoVerde (
 CREATE TABLE Intervento (
     id SERIAL PRIMARY KEY,
     inizio TIMESTAMP NOT NULL,
-    durata intDurata NOT NULL,
+         intDurata NOT NULL,
     priorità intPriorità NOT NULL,
     -- accorpo AreaVerde
     areaVerde INTEGER NOT NULL,
