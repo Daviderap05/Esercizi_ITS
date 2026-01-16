@@ -3,7 +3,7 @@ package Lezioni.lezione3;
 import java.util.Scanner;
 
 public class esercizio1 {
-    @SuppressWarnings("resource")
+    @SuppressWarnings({"resource", "ManualArrayToCollectionCopy"})
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 

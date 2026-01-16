@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class esercizio1 {
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "ConvertToTryWithResources"})
     public static void main(String[] args) {
         Date data_fine = new Date(0, 0, 0, 15, 30);
         Date data_corrente = new Date();
