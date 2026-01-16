@@ -3,6 +3,7 @@ package Lezioni.lezione3;
 import java.util.Scanner;
 
 public class esercizio4 {
+    @SuppressWarnings("resource")
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         int somma = 0;
