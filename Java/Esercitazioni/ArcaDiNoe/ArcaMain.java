@@ -5,7 +5,7 @@ import Esercitazioni.ArcaDiNoe.Animali.AnimaliC.Canarino;
 import Esercitazioni.ArcaDiNoe.Animali.AnimaliC.Cane;
 import Esercitazioni.ArcaDiNoe.Animali.AnimaliC.Gatto;
 
-public class Main {
+public class ArcaMain {
     public static void main(String[] args) {
 
         Arca arca = new Arca();
