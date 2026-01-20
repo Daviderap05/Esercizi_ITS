@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Arca {
 
-    private  final ArrayList<Animale> animali;
+    private final ArrayList<Animale> animali;
 
     public Arca() {
         animali = new ArrayList<>();
