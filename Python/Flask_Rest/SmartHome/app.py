@@ -4,7 +4,7 @@ from Class.SecurityCamera import SecurityCamera
 from classMain import hub
 
 
-app = Flask("__name__")
+app = Flask(__name__)
 
 
 @app.route("/", methods=["GET"])
@@ -39,7 +39,7 @@ def get_device(serial_number: str):
     if device is None:
         return jsonify({"error": "device not found"}), 404
 
-    return jsonify(device.info())
+    return jsonify(device.info())   
 
 
 @app.route("/devices/<string:serial_number>/diagnostic/<float:factor>", methods=["GET"])
@@ -51,7 +51,7 @@ def device_diagnostic(serial_number: str, factor: float):
 
     return jsonify(
         {
-            "id": serial_number,
+            "serial_number": serial_number,
             "device_type": device.device_type(),
             "factor": factor,
             "diagnostic_seconds": device.diagnostics_time(factor),
@@ -265,7 +265,7 @@ def put(serial_number: str):
 def patch(serial_number: str):
     data: dict = request.get_json()
 
-    # 1) body presente (POST = dati nel JSON)
+    # 1) body presente (PATCH = dati nel JSON)
     if data is None:
         return jsonify({"error": "Missing JSON body"}), 400
 
