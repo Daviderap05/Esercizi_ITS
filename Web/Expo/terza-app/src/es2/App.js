@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
-import ProductItem from "./src/es2/ProductItem";
+import ProductItem from "./src/es2/ProductItem"; 
 
 export default function App() {
   const [products, setProducts] = useState([]);
