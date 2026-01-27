@@ -61,8 +61,9 @@ def post():
         return jsonify({"error": "error"}), 400
     # -------------------------------------------------
     # -------------------------------------------------
-    booking_type: str = data.get("type")
-
+    booking_type: str | None = data.get("type")
+    if booking_type not in ("visit", "exam"):
+        return jsonify({"error": "error"}), 400
     # -------------------------------------------------
     # -------------------------------------------------
     campi_comuni: list[str] = [
