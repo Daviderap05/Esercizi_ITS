@@ -19,7 +19,7 @@ public class Tir extends Veicolo {
             throw new IllegalStateException("Numero passeggeri tir non valido");
 
         double base = 12.5;
-        double costoMerce = tonnellate * 0.5;
+        double costoMerce = this.tonnellate * 0.5;
 
         return base + costoMerce + costoPasseggeri();
     }

@@ -1,12 +1,9 @@
 package Class.Concrete;
 
 import Class.Astratte.Veicolo;
+import Class.Enum.Tipo;
 
 public class Auto extends Veicolo {
-
-    public enum Tipo {
-        MINI, STANDARD, SUV
-    }
 
     private final Tipo tipo;
 
@@ -21,7 +18,7 @@ public class Auto extends Veicolo {
             throw new IllegalStateException("Numero passeggeri auto non valido");
 
         double base;
-        switch (tipo) {
+        switch (this.tipo) {
             case MINI -> base = 4;
             case STANDARD -> base = 5;
             case SUV -> base = 8.5;

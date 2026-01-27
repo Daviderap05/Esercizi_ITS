@@ -1,5 +1,6 @@
 package Class.Astratte;
 
+import Class.Error.CodaVuotaException;
 import Interface.Tariffabile;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -10,8 +11,8 @@ public class Biglietteria {
     private final Queue<Tariffabile> coda;
 
     public Biglietteria() {
-        cassa = 0;
-        coda = new LinkedList<>();
+        this.cassa = 0;
+        this.coda = new LinkedList<>();
     }
 
     public void aggiungiInCoda(Tariffabile t) {
@@ -25,11 +26,11 @@ public class Biglietteria {
             throw new CodaVuotaException("Coda vuota");
 
         Tariffabile t = coda.poll();
-        cassa += t.calcolaTariffa();
+        this.cassa += t.calcolaTariffa();
         return t;
     }
 
     public double getCassa() {
-        return cassa;
+        return this.cassa;
     }
 }

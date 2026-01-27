@@ -22,11 +22,11 @@ public class Persona implements Tariffabile {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public String getCognome() {
-        return cognome;
+        return this.cognome;
     }
 
     public void setCognome(String cognome) {
