@@ -1,62 +1,46 @@
-import { useState } from "react";
-import { StyleSheet, Text, View, FlatList, Pressable } from "react-native";
-import ProductItem from "./src/es2/ProductItem";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import React from "react";
+import Saluto from "./src/es3/Saluto";
+import CardUtente from "./src/es3/CardUtente";
+import MenuRistorante from "./src/es3/MenuRistorante";
+import Termostato from "./src/es3/Termostato";
+import CampoRicerca from "./src/es3/CampoRicerca";
+import MessaggioSegreto from "./src/es3/MessaggioSegreto";
 
-export default function App() {
-  const [products, setProducts] = useState([]);
-
-  const PRODUCTS = [
-    { id: "p1", name: "Olio Motore 5W-30", price: 19.9 },
-    { id: "p2", name: "Additivo Pulizia Iniettori", price: 14.5 },
-    { id: "p3", name: "Liquido Freni DOT4", price: 8.99 },
-    { id: "p4", name: "Filtro Aria", price: 12.0 },
-    { id: "p5", name: "Trattamento Antiattrito", price: 24.9 },
-    { id: "p6", name: "Additivo Pulizia FAP/DPF", price: 21.5 },
-    { id: "p7", name: "Olio Cambio Automatico ATF", price: 16.9 },
-    { id: "p8", name: "Spray Detergente Freni", price: 6.5 },
-  ];
-
-  function handleCarrels(id) {
-    if (products.includes(id)) {
-      setProducts(products.filter((item) => item !== id));
-    } else {
-      setProducts([...products, id]);
-    }
-  }
-
-  const totale = PRODUCTS.reduce((acc, item) => {
-    return products.includes(item.id) ? acc + item.price : acc;
-  }, 0);
-
+const App = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Carrello Ricambi</Text>
+      <Saluto />
 
-      <FlatList
-        data={PRODUCTS}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <ProductItem
-            item={item}
-            isSelected={products.includes(item.id)}
-            onSelect={() => handleCarrels(item.id)}
-          />
-        )}
-      />
+      <ScrollView style={{ flexGrow: 0 }}>
+        <CardUtente
+          nome="Davide Rossi"
+          email="davide@test.it"
+          imgUrl="https://i.pravatar.cc/150?u=davide"
+        />
+        <CardUtente
+          nome="Mario Neri"
+          email="mario@test.it"
+          imgUrl="https://i.pravatar.cc/150?u=mario"
+        />
 
-      <View style={styles.footer}>
-        <Text style={styles.totalLabel}>Totale Selezione:</Text>
-        <Text style={styles.totalValue}>{totale.toFixed(2)} €</Text>
+        <MenuRistorante />
+        
+        <View style={styles.termostato}>
+          <Termostato />
+        </View>
 
-        {products.length > 0 && (
-          <Pressable style={styles.clearButton} onPress={() => setProducts([])}>
-            <Text style={styles.clearButtonText}>Svuota Selezione</Text>
-          </Pressable>
-        )}
-      </View>
+        <View style={styles.ricerca}>
+          <CampoRicerca></CampoRicerca>
+        </View>
+
+        <MessaggioSegreto></MessaggioSegreto>
+      </ScrollView>
     </View>
   );
-}
+};
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
@@ -64,41 +48,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
     paddingTop: 60,
     paddingHorizontal: 20,
+    marginBottom: 30,
   },
-  title: {
-    fontSize: 26,
-    fontWeight: "bold",
-    marginBottom: 20,
-    color: "#333",
-    textAlign: "center",
+  termostato: {
+    marginTop: 16,
+    borderWidth: 1,
+    borderColor: "#000000",
+    backgroundColor: "#fff",
+    borderRadius: 10,
   },
-  list: {
-    flex: 1,
-  },
-  footer: {
-    borderTopWidth: 1,
-    borderTopColor: "#ddd",
-    paddingVertical: 20,
-    alignItems: "center",
-    backgroundColor: "#f5f5f5",
-  },
-  totalLabel: {
-    fontSize: 16,
-    color: "#666",
-  },
-  totalValue: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#333",
-    marginVertical: 5,
-  },
-  clearButton: {
-    marginTop: 10,
-    padding: 10,
-  },
-  clearButtonText: {
-    color: "#d32f2f",
-    fontWeight: "600",
-    textDecorationLine: "underline",
+  ricerca: {
+    marginTop: 16,
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 12,
   },
 });
