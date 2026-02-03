@@ -1,4 +1,5 @@
 import "react-native-gesture-handler";
+
 import { StyleSheet } from "react-native";
 import React from "react";
 
@@ -6,7 +7,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 
-// Schermate principali
+//Stack Home
+import Home from "./src/es4/src/screens/home/Home";
+
+// Stack Aggiunte
 import AggiungiLibro from "./src/es4/src/screens/AggiungiLibro";
 import AggiungiUtente from "./src/es4/src/screens/AggiungiUtente";
 
@@ -18,16 +22,25 @@ import ListaUtentiAffitto from "./src/es4/src/screens/affitto/ListaUtentiAffitto
 import ListaNoleggiAttivi from "./src/es4/src/screens/restituzione/ListaNoleggiAttivi";
 import DettaglioRestituzione from "./src/es4/src/screens/restituzione/DettaglioRestituzione";
 
+// Stack Modifica Libri
+import ListaLibriMod from "./src/es4/src/screens/modifica/libri/ListaLibriMod";
+import FormLibriMod from "./src/es4/src/screens/modifica/libri/FormLibriMod";
+
+// Stack Modifica Utenti
+import ListaUtentiMod from "./src/es4/src/screens/modifica/utenti/ListaUtentiMod";
+import FormUtentiMod from "./src/es4/src/screens/modifica/utenti/FormUtentiMod";
+
 // Stack Elimina
 import EliminaLibro from "./src/es4/src/screens/elimina/EliminaLibro";
 import EliminaUtente from "./src/es4/src/screens/elimina/EliminaUtente";
 
-//Stack Home
-import Home from "./src/es4/src/screens/home/Home";
-
 const Drawer = createDrawerNavigator();
+
 const StackAffitto = createNativeStackNavigator();
 const StackRestituzione = createNativeStackNavigator();
+
+const StackLibMod = createNativeStackNavigator();
+const StackUsrMod = createNativeStackNavigator();
 
 function AffittoStack() {
   return (
@@ -59,6 +72,24 @@ function RestituzioneStack() {
   );
 }
 
+function ModLib() {
+  return (
+    <StackLibMod.Navigator>
+      <StackLibMod.Screen name="SelezionaLibro" component={ListaLibriMod} />
+      <StackLibMod.Screen name="ModificaParametri" component={FormLibriMod} />
+    </StackLibMod.Navigator>
+  );
+}
+
+function ModUsr() {
+  return (
+    <StackUsrMod.Navigator>
+      <StackUsrMod.Screen name="SelezionaUtene" component={ListaUtentiMod} />
+      <StackUsrMod.Screen name="ModificaParametri" component={FormUtentiMod} />
+    </StackUsrMod.Navigator>
+  );
+}
+
 const App = () => {
   return (
     <NavigationContainer>
@@ -76,6 +107,24 @@ const App = () => {
         <Drawer.Screen name="Aggiungi Utente" component={AggiungiUtente} />
         <Drawer.Screen name="Affitta Libro" component={AffittoStack} />
         <Drawer.Screen name="Restituisci Libro" component={RestituzioneStack} />
+        <Drawer.Screen
+          name="Modifica Libro"
+          component={ModLib}
+          options={{
+            drawerActiveTintColor: "#E65100", // Arancione scuro
+            drawerActiveBackgroundColor: "#FFF3E0", // Arancione chiarissimo
+            drawerInactiveTintColor: "gray",
+          }}
+        />
+        <Drawer.Screen
+          name="Modifica Utente"
+          component={ModUsr}
+          options={{
+            drawerActiveTintColor: "#E65100",
+            drawerActiveBackgroundColor: "#FFF3E0",
+            drawerInactiveTintColor: "gray",
+          }}
+        />
         <Drawer.Screen
           name="Elimina Libro"
           component={EliminaLibro}
