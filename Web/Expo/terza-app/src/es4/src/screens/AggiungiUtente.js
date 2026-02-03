@@ -14,9 +14,16 @@ const AggiungiUtente = () => {
   const [cognome, setCognome] = useState("");
   const [mail, setMail] = useState("");
 
+  const reg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
   async function gestisciSalvataggio() {
     if (!nome || !cognome || !mail) {
       Alert.alert("Errore", "Compilare tutti i campi.");
+      return;
+    }
+
+    if (reg.test(mail) === false) {
+      Alert.alert("Errore", "Sintassi email errata.");
       return;
     }
 
@@ -68,6 +75,7 @@ const AggiungiUtente = () => {
         style={styles.input}
         placeholder="Email"
         value={mail}
+        keyboardType="email-address"
         onChangeText={(text) => setMail(text)}
       ></TextInput>
 
