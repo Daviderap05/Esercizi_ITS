@@ -7,8 +7,12 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import {
+  useRoute,
+  useNavigation,
+  useIsFocused,
+} from "@react-navigation/native";
 import { FIREBASE_ENDPOINTS } from "../../../../firebase/firebase";
 
 const FormLibriMod = () => {
@@ -16,6 +20,8 @@ const FormLibriMod = () => {
   const route = useRoute();
 
   const { libro } = route.params;
+
+  const isFocused = useIsFocused();
 
   const [titolo, setTitolo] = useState(libro.titolo);
   const [autore, setAutore] = useState(libro.autore);
@@ -51,6 +57,12 @@ const FormLibriMod = () => {
       Alert.alert("Errore", "Impossibile salvare le modifiche.");
     }
   }
+
+  useEffect(() => {
+    if (!isFocused) {
+      navigation.popToTop();
+    }
+  }, [isFocused]);
 
   return (
     <ScrollView style={styles.container}>

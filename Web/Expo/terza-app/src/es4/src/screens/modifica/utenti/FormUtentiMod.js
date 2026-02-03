@@ -7,8 +7,15 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
-import { useRoute, useNavigation } from "@react-navigation/native";
+
+import React, { useState, useEffect } from "react";
+
+import {
+  useRoute,
+  useNavigation,
+  useIsFocused,
+} from "@react-navigation/native";
+
 import { FIREBASE_ENDPOINTS } from "../../../../firebase/firebase";
 
 const FormUtentiMod = () => {
@@ -16,6 +23,8 @@ const FormUtentiMod = () => {
   const route = useRoute();
 
   const { utente } = route.params;
+
+  const isFocused = useIsFocused();
 
   const [nome, setNome] = useState(utente.nome);
   const [cognome, setCognome] = useState(utente.cognome);
@@ -57,7 +66,13 @@ const FormUtentiMod = () => {
       console.error(error);
       Alert.alert("Errore", "Impossibile salvare le modifiche.");
     }
-  }
+    }
+    
+    useEffect(() => {
+      if (!isFocused) {
+        navigation.popToTop();
+      }
+    }, [isFocused]);
 
   return (
     <ScrollView style={styles.container}>

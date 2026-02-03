@@ -9,13 +9,19 @@ import {
   FlatList,
 } from "react-native";
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+} from "@react-navigation/native";
+
 import {
   useRoute,
   useFocusEffect,
   useNavigation,
   useIsFocused,
 } from "@react-navigation/native";
+
 import { FIREBASE_ENDPOINTS } from "../../../firebase/firebase";
 
 const ListaUtentiAffitto = () => {
