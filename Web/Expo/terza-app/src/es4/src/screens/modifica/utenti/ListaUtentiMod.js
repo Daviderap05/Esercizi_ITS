@@ -7,6 +7,7 @@ import {
   Pressable,
   Modal,
 } from "react-native";
+
 import React, { useState, useCallback } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { FIREBASE_ENDPOINTS } from "../../../../firebase/firebase";

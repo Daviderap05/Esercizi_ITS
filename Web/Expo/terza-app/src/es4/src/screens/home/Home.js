@@ -7,6 +7,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
+
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { FIREBASE_ENDPOINTS } from "../../../firebase/firebase";
 

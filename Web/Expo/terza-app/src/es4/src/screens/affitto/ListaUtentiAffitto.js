@@ -13,7 +13,7 @@ import React, {
   useState,
   useCallback,
   useEffect,
-} from "@react-navigation/native";
+} from "react";
 
 import {
   useRoute,
