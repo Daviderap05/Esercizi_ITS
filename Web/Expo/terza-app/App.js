@@ -64,8 +64,26 @@ const App = () => {
         <Drawer.Screen name="Aggiungi Utente" component={AggiungiUtente} />
         <Drawer.Screen name="Affitta Libro" component={AffittoStack} />
         <Drawer.Screen name="Restituisci Libro" component={RestituzioneStack} />
-        <Drawer.Screen name="Elimina Libro" component={EliminaLibro} />
-        <Drawer.Screen name="Elimina Utente" component={EliminaUtente} />
+        <Drawer.Screen
+          name="Elimina Libro"
+          component={EliminaLibro}
+          options={{
+            drawerActiveTintColor: "red",
+            drawerActiveBackgroundColor: "#ffebee",
+            drawerInactiveTintColor: "gray",
+            unmountOnBlur: true,
+          }}
+        />
+        <Drawer.Screen
+          name="Elimina Utente"
+          component={EliminaUtente}
+          options={{
+            drawerActiveTintColor: "red",
+            drawerActiveBackgroundColor: "#ffebee",
+            drawerInactiveTintColor: "gray",
+            unmountOnBlur: true,
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
