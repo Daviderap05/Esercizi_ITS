@@ -22,6 +22,9 @@ import DettaglioRestituzione from "./src/es4/src/screens/restituzione/DettaglioR
 import EliminaLibro from "./src/es4/src/screens/elimina/EliminaLibro";
 import EliminaUtente from "./src/es4/src/screens/elimina/EliminaUtente";
 
+//Stack Home
+import Home from "./src/es4/src/screens/home/Home";
+
 const Drawer = createDrawerNavigator();
 const StackAffitto = createNativeStackNavigator();
 const StackRestituzione = createNativeStackNavigator();
@@ -60,12 +63,37 @@ const App = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator screenOptions={{ unmountOnBlur: true }}>
+        <Drawer.Screen
+          name="Home"
+          component={Home}
+          options={{
+            drawerActiveTintColor: "green",
+            drawerActiveBackgroundColor: "#ffebee",
+            drawerInactiveTintColor: "gray",
+          }}
+        />
         <Drawer.Screen name="Aggiungi Libro" component={AggiungiLibro} />
         <Drawer.Screen name="Aggiungi Utente" component={AggiungiUtente} />
         <Drawer.Screen name="Affitta Libro" component={AffittoStack} />
         <Drawer.Screen name="Restituisci Libro" component={RestituzioneStack} />
-        <Drawer.Screen name="Elimina Libro" component={EliminaLibro} />
-        <Drawer.Screen name="Elimina Utente" component={EliminaUtente} />
+        <Drawer.Screen
+          name="Elimina Libro"
+          component={EliminaLibro}
+          options={{
+            drawerActiveTintColor: "red",
+            drawerActiveBackgroundColor: "#ffebee",
+            drawerInactiveTintColor: "gray",
+          }}
+        />
+        <Drawer.Screen
+          name="Elimina Utente"
+          component={EliminaUtente}
+          options={{
+            drawerActiveTintColor: "red",
+            drawerActiveBackgroundColor: "#ffebee",
+            drawerInactiveTintColor: "gray",
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
