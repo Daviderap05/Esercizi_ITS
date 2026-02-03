@@ -94,6 +94,17 @@ const EliminaUtente = () => {
     setModalVisible(true);
   }
 
+  const selezionaTutto = () => {
+    if (utentiDaEliminare.length === utenti.length) {
+      // Se sono già tutti selezionati, svuota l'array
+      setUtentiDaEliminare([]);
+    } else {
+      // Altrimenti, crea un array con tutti gli ID presenti nella lista
+      const tuttiId = utenti.map((item) => item.id);
+      setUtentiDaEliminare(tuttiId);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Modal
@@ -127,6 +138,19 @@ const EliminaUtente = () => {
           </View>
         </View>
       </Modal>
+
+      {utenti.length > 0 && (
+        <TouchableOpacity
+          style={styles.selectAllButton}
+          onPress={selezionaTutto}
+        >
+          <Text style={styles.selectAllText}>
+            {utentiDaEliminare.length === utenti.length
+              ? "DESELEZIONA TUTTO"
+              : "SELEZIONA TUTTO"}
+          </Text>
+        </TouchableOpacity>
+      )}
 
       <FlatList
         data={utenti}
@@ -264,5 +288,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 15,
     color: "#333",
+  },
+  selectAllButton: {
+    padding: 10,
+    backgroundColor: "white",
+    alignItems: "flex-end",
+    paddingRight: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  selectAllText: {
+    color: "#d32f2f",
+    fontWeight: "bold",
+    fontSize: 13,
   },
 });

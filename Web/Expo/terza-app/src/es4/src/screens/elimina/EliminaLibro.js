@@ -93,6 +93,17 @@ const EliminaLibro = () => {
     setModalVisible(true); // Mostro la finestra
   }
 
+  const selezionaTutto = () => {
+    if (libriDaEliminare.length === libri.length) {
+      // Se sono già tutti selezionati, svuota l'array
+      setlibriDaEliminare([]);
+    } else {
+      // Altrimenti, crea un array con tutti gli ID presenti nella lista
+      const tuttiId = libri.map((item) => item.id);
+      setlibriDaEliminare(tuttiId);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Modal
@@ -126,6 +137,19 @@ const EliminaLibro = () => {
           </View>
         </View>
       </Modal>
+
+      {libri.length > 0 && (
+        <TouchableOpacity
+          style={styles.selectAllButton}
+          onPress={selezionaTutto}
+        >
+          <Text style={styles.selectAllText}>
+            {libriDaEliminare.length === libri.length
+              ? "DESELEZIONA TUTTO"
+              : "SELEZIONA TUTTO"}
+          </Text>
+        </TouchableOpacity>
+      )}
 
       <FlatList
         data={libri}
@@ -265,5 +289,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 15,
     color: "#333",
+  },
+  selectAllButton: {
+    padding: 10,
+    backgroundColor: "white",
+    alignItems: "flex-end",
+    paddingRight: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  selectAllText: {
+    color: "#d32f2f",
+    fontWeight: "bold",
+    fontSize: 13,
   },
 });
