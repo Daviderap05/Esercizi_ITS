@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#d32f2f",
   },
   textStyle: {
     color: "white",

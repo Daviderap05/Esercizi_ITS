@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#d32f2f", // Rosso eliminazione
   },
   textStyle: {
     color: "white",

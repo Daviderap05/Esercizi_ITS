@@ -13,7 +13,7 @@ import { FIREBASE_ENDPOINTS } from "../../../firebase/firebase";
 const Home = () => {
   const navigation = useNavigation();
 
-  // Stati per memorizzare i conteggi reali
+  // Stati per le statistiche
   const [stats, setStats] = useState({
     totaleLibri: 0,
     disponibili: 0,
@@ -21,11 +21,10 @@ const Home = () => {
   });
   const [loading, setLoading] = useState(true);
 
-  // Funzione per scaricare e calcolare i dati in tempo reale
+  // Scaricamento dati
   async function fetchStats() {
     setLoading(true);
     try {
-      // Scarichiamo Libri e Noleggi in parallelo per velocità
       const [resLibri, resNoleggi] = await Promise.all([
         fetch(FIREBASE_ENDPOINTS.libri),
         fetch(FIREBASE_ENDPOINTS.noleggi),
@@ -39,19 +38,16 @@ const Home = () => {
 
       setStats({
         totaleLibri: arrayLibri.length,
-        // Filtriamo i libri con la proprietà disponibile
         disponibili: arrayLibri.filter((l) => l.disponibile === true).length,
-        // Filtriamo i noleggi con stato attivo
         noleggiAttivi: arrayNoleggi.filter((n) => n.stato === "attivo").length,
       });
     } catch (error) {
-      console.error("Errore nel caricamento statistiche:", error);
+      console.error("Errore statistiche:", error);
     } finally {
       setLoading(false);
     }
   }
 
-  // Aggiorna i dati ogni volta che torni sulla Home
   useFocusEffect(
     useCallback(() => {
       fetchStats();
@@ -74,7 +70,9 @@ const Home = () => {
         <Text style={styles.subtitle}>Gestione Prestiti e Catalogo</Text>
       </View>
 
+      {/* GRIGLIA PULSANTI */}
       <View style={styles.grid}>
+        {/* 1. Operazioni Quotidiane (Affitti) */}
         <DashboardButton
           title="Affitta un Libro"
           screen="Affitta Libro"
@@ -85,6 +83,8 @@ const Home = () => {
           screen="Restituisci Libro"
           color="#28a745"
         />
+
+        {/* 2. Inserimento Dati */}
         <DashboardButton
           title="Aggiungi Libro"
           screen="Aggiungi Libro"
@@ -95,18 +95,33 @@ const Home = () => {
           screen="Aggiungi Utente"
           color="#6610f2"
         />
+
+        {/* 3. Modifica (Colore Arancione per leggibilità) */}
+        <DashboardButton
+          title="Modifica Libro"
+          screen="Modifica Libro"
+          color="#fd7e14"
+        />
+        <DashboardButton
+          title="Modifica Utente"
+          screen="Modifica Utente"
+          color="#fd7e14"
+        />
+
+        {/* 4. Eliminazione (Zona Pericolo - Rosso) */}
         <DashboardButton
           title="Elimina Libri"
           screen="Elimina Libro"
-          color="green"
+          color="#dc3545"
         />
         <DashboardButton
           title="Elimina Utenti"
           screen="Elimina Utente"
-          color="red"
+          color="#dc3545"
         />
       </View>
 
+      {/* STATISTICHE */}
       <View style={styles.infoCard}>
         <Text style={styles.infoTitle}>Statistiche Rapide</Text>
 
