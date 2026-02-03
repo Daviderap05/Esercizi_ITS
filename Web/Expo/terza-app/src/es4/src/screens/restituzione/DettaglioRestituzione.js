@@ -9,11 +9,12 @@ import {
   FlatList,
 } from "react-native";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   useRoute,
   useFocusEffect,
   useNavigation,
+  useIsFocused,
 } from "@react-navigation/native";
 import { FIREBASE_ENDPOINTS } from "../../../firebase/firebase";
 
@@ -26,6 +27,8 @@ const DettaglioRestituzione = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [libroSelezionato, setLibroSelezionato] = useState(null);
+
+  const isFocused = useIsFocused();
 
   async function getLibri() {
     try {
@@ -152,6 +155,12 @@ const DettaglioRestituzione = () => {
       { text: "Conferma", onPress: () => eseguiRestituzione(libro.id) },
     ]);
   };
+
+  useEffect(() => {
+    if (!isFocused) {
+      navigation.popToTop();
+    }
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>

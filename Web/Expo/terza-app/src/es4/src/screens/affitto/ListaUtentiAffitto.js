@@ -9,11 +9,12 @@ import {
   FlatList,
 } from "react-native";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   useRoute,
   useFocusEffect,
   useNavigation,
+  useIsFocused,
 } from "@react-navigation/native";
 import { FIREBASE_ENDPOINTS } from "../../../firebase/firebase";
 
@@ -26,6 +27,8 @@ const ListaUtentiAffitto = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [utenteSelezionato, setUtenteSelezionato] = useState(null);
+
+  const isFocused = useIsFocused();
 
   async function getUtenti() {
     try {
@@ -118,6 +121,12 @@ const ListaUtentiAffitto = () => {
       ],
     );
   };
+
+  useEffect(() => {
+    if (!isFocused) {
+      navigation.popToTop();
+    }
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
