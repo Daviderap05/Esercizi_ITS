@@ -9,7 +9,7 @@ const AggiungiLibro = () => {
   const [categoria, setCategoria] = useState("");
 
   async function gestisciSalvataggio() {
-    if (!titolo || !autore || !categoria) {
+    if (!titolo?.trim() || !autore?.trim() || !categoria?.trim()) {
       Alert.alert("Errore", "Compilare tutti i campi.");
       return;
     }
@@ -47,6 +47,8 @@ const AggiungiLibro = () => {
       <TextInput
         style={styles.input}
         placeholder="Titolo"
+        autoCapitalize="words"
+        autoCorrect={false}
         value={titolo}
         onChangeText={(text) => setTitolo(text)}
       ></TextInput>
@@ -54,6 +56,8 @@ const AggiungiLibro = () => {
       <TextInput
         style={styles.input}
         placeholder="Autore"
+        autoCapitalize="words"
+        autoCorrect={false}
         value={autore}
         onChangeText={(text) => setAutore(text)}
       ></TextInput>
@@ -61,6 +65,8 @@ const AggiungiLibro = () => {
       <TextInput
         style={styles.input}
         placeholder="Categoria"
+        autoCapitalize="words"
+        autoCorrect={false}
         value={categoria}
         onChangeText={(text) => setCategoria(text)}
       ></TextInput>
