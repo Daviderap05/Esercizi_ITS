@@ -42,10 +42,10 @@ const ListaLibriAffitto = () => {
     }, []),
   );
 
-  function gestisciLongPress (libro) {
+  function gestisciLongPress(libro) {
     setLibroSelezionato(libro); // Salvo i dati del libro premuto
     setModalVisible(true); // Mostro la finestra
-  };
+  }
 
   return (
     <View style={styles.container}>
@@ -93,8 +93,12 @@ const ListaLibriAffitto = () => {
             style={styles.card}
             delayLongPress={500}
           >
-            <Text style={styles.titolo}>{item.titolo}</Text>
-            <Text>{item.autore}</Text>
+            <View>
+              <Text style={styles.titolo}>{item.titolo}</Text>
+              <Text style={styles.autore}>{item.autore}</Text>
+            </View>
+
+            <Text style={{ color: "#ccc" }}>›</Text>
           </TouchableOpacity>
         )}
       />
@@ -114,6 +118,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
     backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   titolo: {
     fontSize: 18,

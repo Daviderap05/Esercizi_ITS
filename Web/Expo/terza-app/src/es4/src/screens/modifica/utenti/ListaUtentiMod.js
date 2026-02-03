@@ -30,7 +30,6 @@ const ListaUtentiMod = () => {
         ...dati[key],
       }));
 
-      // Per la modifica mostriamo tutti gli utenti, non serve filtrare
       setUtenti(arrayUtenti);
     } catch (error) {
       console.log("Errore: " + error);
@@ -88,11 +87,10 @@ const ListaUtentiMod = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
-              // Navighiamo al form di modifica passando l'utente intero
               navigation.navigate("ModificaParametri", { utente: item })
             }
             onLongPress={() => gestisciLongPress(item)}
-            style={styles.card} // Stile semplice, senza logica di selezione
+            style={styles.card}
           >
             <View>
               <Text style={styles.titolo}>
@@ -100,8 +98,8 @@ const ListaUtentiMod = () => {
               </Text>
               <Text style={styles.sottotitolo}>{item.mail}</Text>
             </View>
-            {/* Freccina per indicare che è cliccabile */}
-            <Text style={{ color: "#ccc" }}>›</Text>
+
+                <Text style={{ color: "#ccc" }}>›</Text>
           </TouchableOpacity>
         )}
       />

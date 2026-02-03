@@ -30,7 +30,6 @@ const ListaLibriMod = () => {
         ...dati[key],
       }));
 
-      // Non filtriamo per "disponibile": vogliamo poter modificare TUTTI i libri
       setLibri(arrayLibri);
     } catch (error) {
       console.log("Errore: " + error);
@@ -92,18 +91,17 @@ const ListaLibriMod = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
-              // Navighiamo al form di modifica passando il libro
               navigation.navigate("ModificaParametri", { libro: item })
             }
             onLongPress={() => gestisciLongPress(item)}
             style={styles.card}
+            delayLongPress={500}
           >
             <View>
               <Text style={styles.titolo}>{item.titolo}</Text>
               <Text style={styles.autore}>{item.autore}</Text>
             </View>
 
-            {/* Indicatore visivo se cliccabile */}
             <Text style={{ color: "#ccc" }}>›</Text>
           </TouchableOpacity>
         )}
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "white",
     borderBottomWidth: 1,
-    borderBottomColor: "#eee",
+    borderBottomColor: "#ccc",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -142,7 +140,6 @@ const styles = StyleSheet.create({
   autore: {
     fontSize: 14,
     color: "#666",
-    fontStyle: "italic",
   },
   modalView: {
     margin: 20,
@@ -167,7 +164,7 @@ const styles = StyleSheet.create({
     minWidth: 100,
   },
   buttonClose: {
-    backgroundColor: "#fd7e14", // Arancione (Modifica)
+    backgroundColor: "#fd7e14",
   },
   textStyle: {
     color: "white",

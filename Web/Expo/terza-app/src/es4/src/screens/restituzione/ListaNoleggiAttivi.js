@@ -8,10 +8,7 @@ import {
   FlatList,
 } from "react-native";
 import React, { useState, useCallback } from "react";
-import {
-  useFocusEffect,
-  useNavigation,
-} from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { FIREBASE_ENDPOINTS } from "../../../firebase/firebase";
 
 const ListaNoleggiAttivi = () => {
@@ -109,10 +106,15 @@ const ListaNoleggiAttivi = () => {
             style={styles.card}
             activeOpacity={0.7}
           >
-            <Text style={styles.titolo}>
-              {item.nome} {item.cognome}
-            </Text>
-            <Text>{item.mail}</Text>
+            <View>
+              <Text style={styles.titolo}>
+                {item.nome} {item.cognome}
+              </Text>
+
+              <Text>{item.mail}</Text>
+            </View>
+
+            <Text style={{ color: "#ccc" }}>›</Text>
           </TouchableOpacity>
         )}
       />
@@ -129,6 +131,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
     backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   titolo: {
     fontSize: 18,
