@@ -68,7 +68,7 @@ const App = () => {
           component={Home}
           options={{
             drawerActiveTintColor: "green",
-            drawerActiveBackgroundColor: "#ffebee",
+            drawerActiveBackgroundColor: "#e8f5e9",
             drawerInactiveTintColor: "gray",
           }}
         />
