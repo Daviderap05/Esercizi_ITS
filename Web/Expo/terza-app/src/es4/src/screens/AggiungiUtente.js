@@ -17,12 +17,12 @@ const AggiungiUtente = () => {
   const reg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
   async function gestisciSalvataggio() {
-    if (!nome || !cognome || !mail) {
+    if (!nome?.trim() || !cognome?.trim() || !mail?.trim()) {
       Alert.alert("Errore", "Compilare tutti i campi.");
       return;
     }
 
-    if (reg.test(mail) === false) {
+    if (!reg.test(mail?.trim())) {
       Alert.alert("Errore", "Sintassi email errata.");
       return;
     }
@@ -61,6 +61,8 @@ const AggiungiUtente = () => {
         style={styles.input}
         placeholder="Nome"
         value={nome}
+        autoCapitalize="words"
+        autoCorrect={false}
         onChangeText={(text) => setNome(text)}
       ></TextInput>
 
@@ -68,6 +70,8 @@ const AggiungiUtente = () => {
         style={styles.input}
         placeholder="Cognome"
         value={cognome}
+        autoCapitalize="words"
+        autoCorrect={false}
         onChangeText={(text) => setCognome(text)}
       ></TextInput>
 
@@ -76,6 +80,7 @@ const AggiungiUtente = () => {
         placeholder="Email"
         value={mail}
         keyboardType="email-address"
+        autoCorrect={false}
         onChangeText={(text) => setMail(text)}
       ></TextInput>
 
