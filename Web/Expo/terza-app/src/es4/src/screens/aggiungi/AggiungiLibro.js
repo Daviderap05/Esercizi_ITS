@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Pressable, Alert } from "react-native";
 import React, { useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
-import { FIREBASE_ENDPOINTS } from "../../firebase/firebase";
+import { FIREBASE_ENDPOINTS } from "../../../firebase/firebase";
 
 const AggiungiLibro = () => {
   const [titolo, setTitolo] = useState("");

@@ -11,8 +11,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "./src/es4/src/screens/home/Home";
 
 // Stack Aggiunte
-import AggiungiLibro from "./src/es4/src/screens/AggiungiLibro";
-import AggiungiUtente from "./src/es4/src/screens/AggiungiUtente";
+import AggiungiLibro from "./src/es4/src/screens/aggiungi/AggiungiLibro";
+import AggiungiUtente from "./src/es4/src/screens/aggiungi/AggiungiUtente";
 
 // Stack Affitto
 import ListaLibriAffitto from "./src/es4/src/screens/affitto/ListaLibriAffitto";

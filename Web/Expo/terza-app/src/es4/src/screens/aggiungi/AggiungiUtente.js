@@ -7,7 +7,7 @@ import {
   TextInput,
 } from "react-native";
 import React, { useState } from "react";
-import { FIREBASE_ENDPOINTS } from "../../firebase/firebase";
+import { FIREBASE_ENDPOINTS } from "../../../firebase/firebase";
 
 const AggiungiUtente = () => {
   const [nome, setNome] = useState("");
