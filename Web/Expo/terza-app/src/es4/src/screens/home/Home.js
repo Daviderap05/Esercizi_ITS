@@ -73,19 +73,7 @@ const Home = () => {
 
       {/* GRIGLIA PULSANTI */}
       <View style={styles.grid}>
-        {/* 1. Operazioni Quotidiane (Affitti) */}
-        <DashboardButton
-          title="Affitta un Libro"
-          screen="Affitta Libro"
-          color="#007bff"
-        />
-        <DashboardButton
-          title="Restituisci Libro"
-          screen="Restituisci Libro"
-          color="#28a745"
-        />
-
-        {/* 2. Inserimento Dati */}
+        {/* 1. Inserimento Dati */}
         <DashboardButton
           title="Aggiungi Libro"
           screen="Aggiungi Libro"
@@ -95,6 +83,18 @@ const Home = () => {
           title="Aggiungi Utente"
           screen="Aggiungi Utente"
           color="#6610f2"
+        />
+        
+        {/* 2. Operazioni Quotidiane (Affitti) */}
+        <DashboardButton
+          title="Affitta un Libro"
+          screen="Affitta Libro"
+          color="#007bff"
+        />
+        <DashboardButton
+          title="Restituisci Libro"
+          screen="Restituisci Libro"
+          color="#28a745"
         />
 
         {/* 3. Modifica (Colore Arancione per leggibilità) */}
