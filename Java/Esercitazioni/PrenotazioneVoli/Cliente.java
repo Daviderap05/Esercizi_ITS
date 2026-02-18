@@ -16,11 +16,10 @@ public class Cliente extends Thread {
     @Override
     public void run() {
         try {
-            // Il cliente prova a prenotare
-            assegnatore.assegnaPosti(nome, postiRichiesti);
-            System.out.println("SUCCESSO: " + nome + " ha acquistato " + postiRichiesti + " posti.");
+            assegnatore.assegnaPosti(this.nome, this.postiRichiesti);
+            System.out.println("SUCCESSO: " + this.nome + " ha acquistato " + this.postiRichiesti + " posti.");
         } catch (PostiNonDispException e) {
-            System.out.println("FALLIMENTO: " + nome + " non ha potuto acquistare " + postiRichiesti + " posti. ("
+            System.out.println("FALLIMENTO: " + this.nome + " non ha potuto acquistare " + this.postiRichiesti + " posti. ("
                     + e.getMessage() + ")");
         }
     }
