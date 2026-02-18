@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class esercizio3 {
+    @SuppressWarnings("ConvertToTryWithResources")
     public static void main(String[] args) {
 
         Random rand = new Random();

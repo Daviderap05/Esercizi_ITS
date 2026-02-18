@@ -3,6 +3,7 @@ package Lezioni.lezione1;
 import java.util.Scanner;
 
 public class esercizio2 {
+    @SuppressWarnings("ConvertToTryWithResources")
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
