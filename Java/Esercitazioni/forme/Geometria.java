@@ -1,4 +1,4 @@
-package Esercitazioni.forme;
+package Esercitazioni.Forme;
 
 import java.util.Scanner;
 

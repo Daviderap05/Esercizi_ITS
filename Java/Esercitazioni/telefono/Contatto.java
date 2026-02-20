@@ -1,4 +1,4 @@
-package Esercitazioni.telefono;
+package Esercitazioni.Telefono;
 
 public class Contatto {
 

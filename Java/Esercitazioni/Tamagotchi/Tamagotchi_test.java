@@ -1,4 +1,4 @@
-package Esercitazioni.gioco;
+package Esercitazioni.Tamagotchi;
 
 public class Tamagotchi_test {
 

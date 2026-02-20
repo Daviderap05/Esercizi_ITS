@@ -1,4 +1,4 @@
-package Esercitazioni.forme;
+package Esercitazioni.Forme;
 
 public class Rettangolo {
 
