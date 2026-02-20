@@ -43,6 +43,7 @@ public class App {
                             "ID: " + id + ", Titolo: " + titolo + ", Autore: " + autore + ", Prezzo: " + prezzo);
                 }
             }
+
         } catch (SQLException e) {
             System.out.println("Errore JDBC: " + e.getMessage());
             e.printStackTrace();
