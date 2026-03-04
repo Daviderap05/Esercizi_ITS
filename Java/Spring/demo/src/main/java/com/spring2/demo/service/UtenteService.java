@@ -1,6 +1,8 @@
 package com.spring2.demo.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.spring2.demo.dao.DAOUtenteMappa;
 import com.spring2.demo.entity.Utente;
@@ -34,5 +36,18 @@ public class UtenteService {
         
         utente.setMail(mail);
         return utente;
+    }
+    public List<Utente> ordinaPerNome() {
+        List<Utente> utenti = dao.selectAll();
+        utenti.sort(Comparator.comparing(u -> u.getNome()));
+        return utenti;
+    }
+
+    public List<String> visualizzaNomi() {
+        List<Utente> utenti = dao.selectAll();
+        List<String> utentiNomi = utenti.stream()
+        .map(u -> u.getNome())
+        .collect(Collectors.toList());
+        return utentiNomi;
     }
 }

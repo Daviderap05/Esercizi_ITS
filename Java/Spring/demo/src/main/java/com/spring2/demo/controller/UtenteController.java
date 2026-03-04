@@ -19,31 +19,39 @@ public class UtenteController {
 
     private final UtenteService service = new UtenteService();
 
-    @GetMapping(path = "/registra", consumes = "application/json")
+    @GetMapping(path="/registra", consumes = "application/json")
     public boolean registra(@RequestBody Utente utente) {
-        System.out.println("Ho registrato l'utente: " + utente.getNome());
         return service.registra(utente);
     }
 
-    @GetMapping(path = "/cerca/{idUtente}", produces = "application/json")
+    @GetMapping(path="/cerca/{idUtente}", produces = "application/json")
     public Utente cercaPerId(@PathVariable int idUtente) {
-        return new Utente(idUtente, "Mario", "Rossi", "mail", "333222222");
+        return service.cercaPerId(idUtente);
     }
 
-    @GetMapping(path = "/cercaTutti", produces = "application/json")
+    @GetMapping(path="/cercaTutti", produces = "application/json")
     public List<Utente> cercaTutti() {
         return service.selectAll();
     }
 
-    @DeleteMapping(path = "/cancella/{idUtente}", produces = "application/json")
+    @DeleteMapping(path="/cancella/{idUtente}", produces = "application/json")
     public Utente cancellaUtente(@PathVariable int idUtente) {
         Utente utenteCancellato = service.cancella(idUtente);
         return utenteCancellato;
     }
 
-    @PatchMapping(path = "/aggiorna/{idUtente}", produces = "application/json")
+    @PatchMapping(path="/aggiorna/{idUtente}", produces = "application/json")
     public Utente aggiornaUtente(@PathVariable int idUtente, String email) {
         return service.aggiorna(idUtente, email);
     }
 
+    @GetMapping(path="/cercaTuttiPerNome", produces = "application/json")
+    public List<Utente> cercaTuttiPerNome() {
+        return service.ordinaPerNome();
+    }
+
+    @GetMapping(path="/visualizzaNomi", produces = "application/json")
+    public List<String> visualizzaNomi() {
+        return service.visualizzaNomi();
+    }
 }
