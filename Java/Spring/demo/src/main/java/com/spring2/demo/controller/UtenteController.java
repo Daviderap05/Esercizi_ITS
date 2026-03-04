@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring2.demo.entity.Utente;
+import com.spring2.demo.dto.UtenteDTO;
 import com.spring2.demo.service.UtenteService;
 
 @RestController
@@ -20,33 +20,33 @@ public class UtenteController {
     private final UtenteService service = new UtenteService();
 
     @GetMapping(path="/registra", consumes = "application/json")
-    public boolean registra(@RequestBody Utente utente) {
+    public boolean registra(@RequestBody UtenteDTO utente) {
         return service.registra(utente);
     }
 
     @GetMapping(path="/cerca/{idUtente}", produces = "application/json")
-    public Utente cercaPerId(@PathVariable int idUtente) {
+    public UtenteDTO cercaPerId(@PathVariable int idUtente) {
         return service.cercaPerId(idUtente);
     }
 
     @GetMapping(path="/cercaTutti", produces = "application/json")
-    public List<Utente> cercaTutti() {
+    public List<UtenteDTO> cercaTutti() {
         return service.selectAll();
     }
 
     @DeleteMapping(path="/cancella/{idUtente}", produces = "application/json")
-    public Utente cancellaUtente(@PathVariable int idUtente) {
-        Utente utenteCancellato = service.cancella(idUtente);
+    public UtenteDTO cancellaUtente(@PathVariable int idUtente) {
+        UtenteDTO utenteCancellato = service.cancella(idUtente);
         return utenteCancellato;
     }
 
     @PatchMapping(path="/aggiorna/{idUtente}", produces = "application/json")
-    public Utente aggiornaUtente(@PathVariable int idUtente, String email) {
+    public UtenteDTO aggiornaUtente(@PathVariable int idUtente, String email) {
         return service.aggiorna(idUtente, email);
     }
 
     @GetMapping(path="/cercaTuttiPerNome", produces = "application/json")
-    public List<Utente> cercaTuttiPerNome() {
+    public List<UtenteDTO> cercaTuttiPerNome() {
         return service.ordinaPerNome();
     }
 

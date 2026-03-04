@@ -5,30 +5,65 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.spring2.demo.dao.DAOUtenteMappa;
+import com.spring2.demo.dto.NomeCognomeDTO;
+import com.spring2.demo.dto.UtenteDTO;
 import com.spring2.demo.entity.Utente;
+import com.spring2.demo.mapper.Mapper;
 
 public class UtenteService {
 
     private final DAOUtenteMappa dao = new DAOUtenteMappa();
 
-    public boolean registra(Utente utente) {
+    public boolean registra(UtenteDTO dto) {
+        // trasforma il dto in entity
+        // chiama il dao
+        Utente utente = Mapper.daUtenteDTOAUtente(dto);
         return dao.insert(utente);
     }
 
-    public Utente cercaPerId(int id) {
-        return dao.selectById(id);
+    public UtenteDTO cercaPerId(int id) {
+        // chiama il dao
+        Utente utente = dao.selectById(id);
+
+        if (utente != null) {
+            // trasforma da entity a dto
+            UtenteDTO dto =  Mapper.daUtenteAUtenteDTO(utente);
+            return dto;
+        } else {
+            return null;
+        }
     }
 
-    public Utente cancella(int id) {
-        return dao.delete(id);
+    public UtenteDTO cancella(int id) {
+        Utente utente = dao.delete(id);
+
+        if (utente != null) {
+            return Mapper.daUtenteAUtenteDTO(utente);
+        } else {
+            return null;
+        }
     }
 
-    public List<Utente> selectAll() {
-        return dao.selectAll();
+    public List<UtenteDTO> selectAll() {
+        List<Utente> listaUtenti = dao.selectAll();
+
+        // metodo 1
+        // ArrayList<UtenteDTO> listaDTO = new ArrayList<>();
+        // for (Utente utente : listaUtenti) {
+            // UtenteDTO dto = Mapper.daUtenteAUtenteDTO(utente);
+            // listaDTO.add(dto);
+        // }
+
+        //return listaDTO;
+
+        // metodo 2
+        return listaUtenti.stream()
+            .map(u -> Mapper.daUtenteAUtenteDTO(u))
+            .collect(Collectors.toList());
     }
 
-    public Utente aggiorna(int id, String mail) {
-        Utente utente = cercaPerId(id);
+    public UtenteDTO aggiorna(int id, String mail) {
+        UtenteDTO utente = cercaPerId(id);
 
         if (utente == null) {
             return null;
@@ -37,17 +72,32 @@ public class UtenteService {
         utente.setMail(mail);
         return utente;
     }
-    public List<Utente> ordinaPerNome() {
-        List<Utente> utenti = dao.selectAll();
+    
+    public List<UtenteDTO> ordinaPerNome() {
+        // Richiamiamo il metodo selectAll() di questa classe (Service)
+        // che restituisce correttamente una List<UtenteDTO>
+        List<UtenteDTO> utenti = selectAll();
+
         utenti.sort(Comparator.comparing(u -> u.getNome()));
         return utenti;
     }
 
     public List<String> visualizzaNomi() {
-        List<Utente> utenti = dao.selectAll();
+        // Richiamiamo il metodo selectAll() di questa classe (Service)
+        // che restituisce correttamente una List<UtenteDTO>
+        List<UtenteDTO> utenti = selectAll();
+
         List<String> utentiNomi = utenti.stream()
-        .map(u -> u.getNome())
-        .collect(Collectors.toList());
+            .map(u -> u.getNome())
+            .collect(Collectors.toList());
         return utentiNomi;
+    }
+
+    public List<NomeCognomeDTO> getNomiCognomi() {
+        List<Utente> lista = dao.selectAll();
+
+        return lista.stream()
+            .map(u -> new NomeCognomeDTO(u.getNome(), u.getCognome()))
+            .collect(Collectors.toList());
     }
 }
