@@ -1,7 +1,7 @@
 package com.its.prodotti2.entity;
 
 public class Prodotto {
-    
+
     private String id, marca, modello, descrizione, categoria;
     private Double prezzoCons, prezzoMax;
     private int qtaDisp;

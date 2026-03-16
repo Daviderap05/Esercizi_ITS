@@ -32,14 +32,14 @@ public class ServiceProdottiImpl implements ServiceProdotti {
     public ProdottoDTO selectById(String id) {
         Prodotto p = daoProdotti.selectById(id);
         return (p != null) ? Mapper.daProdottoAProdottoDTO(p) : null;
-    }       
+    }
 
     @Override
     public List<ProdottoNoIdDTO> selectAll() {
         // Trasforma ogni Prodotto della lista in un ProdottoNoIdDTO
         return daoProdotti.selectAll().stream()
-                    .map(p -> Mapper.daProdottoAProdottoNoIdDTO(p))
-                    .toList();  
+                .map(p -> Mapper.daProdottoAProdottoNoIdDTO(p))
+                .toList();
     }
 
     @Override

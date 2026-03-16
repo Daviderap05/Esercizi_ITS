@@ -9,24 +9,28 @@ import com.its.prodotti2.dto.ReportDTO;
 import com.its.prodotti2.entity.Prodotto;
 
 public class Mapper {
-    
-    public static Prodotto daProdottoDTOAProdotto (ProdottoDTO pDto) {
-        return new Prodotto(pDto.getId(), pDto.getMarca(), pDto.getModello(), pDto.getDescrizione(), pDto.getCategoria(), pDto.getPrezzoCons(), pDto.getPrezzoMax(), pDto.getQtaDisp());
+
+    public static Prodotto daProdottoDTOAProdotto(ProdottoDTO pDto) {
+        return new Prodotto(pDto.getId(), pDto.getMarca(), pDto.getModello(), pDto.getDescrizione(),
+                pDto.getCategoria(), pDto.getPrezzoCons(), pDto.getPrezzoMax(), pDto.getQtaDisp());
     }
 
-    public static ProdottoDTO daProdottoAProdottoDTO (Prodotto p) {
-        return new ProdottoDTO(p.getId(), p.getMarca(), p.getModello(), p.getDescrizione(), p.getCategoria(), p.getPrezzoCons(), p.getPrezzoMax(), p.getQtaDisp());
+    public static ProdottoDTO daProdottoAProdottoDTO(Prodotto p) {
+        return new ProdottoDTO(p.getId(), p.getMarca(), p.getModello(), p.getDescrizione(), p.getCategoria(),
+                p.getPrezzoCons(), p.getPrezzoMax(), p.getQtaDisp());
     }
 
-    public static Prodotto daProdottoNoIdDTOAProdotto (ProdottoNoIdDTO pDto) {
-        return new Prodotto(null, pDto.getMarca(), pDto.getModello(), pDto.getDescrizione(), pDto.getCategoria(), pDto.getPrezzoCons(), pDto.getPrezzoMax(), pDto.getQtaDisp());
+    public static Prodotto daProdottoNoIdDTOAProdotto(ProdottoNoIdDTO pDto) {
+        return new Prodotto(null, pDto.getMarca(), pDto.getModello(), pDto.getDescrizione(), pDto.getCategoria(),
+                pDto.getPrezzoCons(), pDto.getPrezzoMax(), pDto.getQtaDisp());
     }
 
-    public static ProdottoNoIdDTO daProdottoAProdottoNoIdDTO (Prodotto p) {
-        return new ProdottoNoIdDTO(p.getMarca(), p.getModello(), p.getDescrizione(), p.getCategoria(), p.getPrezzoCons(), p.getPrezzoMax(), p.getQtaDisp());
+    public static ProdottoNoIdDTO daProdottoAProdottoNoIdDTO(Prodotto p) {
+        return new ProdottoNoIdDTO(p.getMarca(), p.getModello(), p.getDescrizione(), p.getCategoria(),
+                p.getPrezzoCons(), p.getPrezzoMax(), p.getQtaDisp());
     }
 
-    public static ReportDTO generaReportDaProdotti (Collection<Prodotto> prodotti) {
+    public static ReportDTO generaReportDaProdotti(Collection<Prodotto> prodotti) {
 
         ReportDTO report = new ReportDTO();
 
@@ -69,7 +73,7 @@ public class Mapper {
                 listaId.add(idProdCorrente);
                 report.getElencoIdProdPerCat().put(categoriaCorrente, listaId);
             }
-            
+
             // --------------------------------------------------------------------------------
 
         }
@@ -77,7 +81,7 @@ public class Mapper {
         report.setsommaPezziInMagaz(sommaPezziInMagaz);
         report.setProdNonDisp(prodNonDisp);
         report.setMediaPrezziCons(sommaPrezzoCons / prodotti.size());
-        
+
         return report;
     }
 }

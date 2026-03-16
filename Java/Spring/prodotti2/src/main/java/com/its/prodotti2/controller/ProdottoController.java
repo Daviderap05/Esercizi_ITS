@@ -18,7 +18,7 @@ import com.its.prodotti2.service.ServiceProdotti;
 @RestController
 @RequestMapping("/prodotti")
 public class ProdottoController {
-    
+
     @Autowired
     private ServiceProdotti serviceProdotti;
 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ReportDTO {
-    
+
     private Map<String, List<String>> elencoIdProdPerCat = new HashMap<>();
     private List<String> listaDescr = new ArrayList<>();
     private List<String> modProdNonDisp = new ArrayList<>();

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.its.prodotti2.entity.Prodotto;
 
 @Repository
-public class DAOProdottiImpl implements DAOProdotti{
+public class DAOProdottiImpl implements DAOProdotti {
 
     private final Map<String, Prodotto> database = new HashMap<>();
 
