@@ -27,7 +27,7 @@ public class UtenteService {
 
         if (utente != null) {
             // trasforma da entity a dto
-            UtenteDTO dto =  Mapper.daUtenteAUtenteDTO(utente);
+            UtenteDTO dto = Mapper.daUtenteAUtenteDTO(utente);
             return dto;
         } else {
             return null;
@@ -50,16 +50,16 @@ public class UtenteService {
         // metodo 1
         // ArrayList<UtenteDTO> listaDTO = new ArrayList<>();
         // for (Utente utente : listaUtenti) {
-            // UtenteDTO dto = Mapper.daUtenteAUtenteDTO(utente);
-            // listaDTO.add(dto);
+        // UtenteDTO dto = Mapper.daUtenteAUtenteDTO(utente);
+        // listaDTO.add(dto);
         // }
 
-        //return listaDTO;
+        // return listaDTO;
 
         // metodo 2
         return listaUtenti.stream()
-            .map(u -> Mapper.daUtenteAUtenteDTO(u))
-            .collect(Collectors.toList());
+                .map(u -> Mapper.daUtenteAUtenteDTO(u))
+                .collect(Collectors.toList());
     }
 
     public UtenteDTO aggiorna(int id, String mail) {
@@ -68,11 +68,11 @@ public class UtenteService {
         if (utente == null) {
             return null;
         }
-        
+
         utente.setMail(mail);
         return utente;
     }
-    
+
     public List<UtenteDTO> ordinaPerNome() {
         // Richiamiamo il metodo selectAll() di questa classe (Service)
         // che restituisce correttamente una List<UtenteDTO>
@@ -88,8 +88,8 @@ public class UtenteService {
         List<UtenteDTO> utenti = selectAll();
 
         List<String> utentiNomi = utenti.stream()
-            .map(u -> u.getNome())
-            .collect(Collectors.toList());
+                .map(u -> u.getNome())
+                .collect(Collectors.toList());
         return utentiNomi;
     }
 
@@ -97,7 +97,7 @@ public class UtenteService {
         List<Utente> lista = dao.selectAll();
 
         return lista.stream()
-            .map(u -> new NomeCognomeDTO(u.getNome(), u.getCognome()))
-            .collect(Collectors.toList());
+                .map(u -> new NomeCognomeDTO(u.getNome(), u.getCognome()))
+                .collect(Collectors.toList());
     }
 }

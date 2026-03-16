@@ -53,5 +53,5 @@ public class UtenteDTO {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }    
+    }
 }
