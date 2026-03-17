@@ -1,16 +1,16 @@
-package com.its.universita.dto;
+package com.its.universita.dto.studenti;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class StudenteDTO {
     private String matricola, nome, cognome, indirizzo;
-    private Date annoNascita, annoImmatricolazione;
+    private LocalDate annoNascita, annoImmatricolazione;
 
     public StudenteDTO() {
     }
 
-    public StudenteDTO(String matricola, String nome, String cognome, String indirizzo, Date annoNascita,
-            Date annoImmatricolazione) {
+    public StudenteDTO(String matricola, String nome, String cognome, String indirizzo, LocalDate annoNascita,
+            LocalDate annoImmatricolazione) {
         this.matricola = matricola;
         this.nome = nome;
         this.cognome = cognome;
@@ -51,19 +51,19 @@ public class StudenteDTO {
         this.indirizzo = indirizzo;
     }
 
-    public Date getAnnoNascita() {
+    public LocalDate getAnnoNascita() {
         return annoNascita;
     }
 
-    public void setAnnoNascita(Date annoNascita) {
+    public void setAnnoNascita(LocalDate annoNascita) {
         this.annoNascita = annoNascita;
     }
 
-    public Date getAnnoImmatricolazione() {
+    public LocalDate getAnnoImmatricolazione() {
         return annoImmatricolazione;
     }
 
-    public void setAnnoImmatricolazione(Date annoImmatricolazione) {
+    public void setAnnoImmatricolazione(LocalDate annoImmatricolazione) {
         this.annoImmatricolazione = annoImmatricolazione;
     }
 }

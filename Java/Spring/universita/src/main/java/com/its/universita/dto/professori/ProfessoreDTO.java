@@ -1,4 +1,4 @@
-package com.its.universita.dto;
+package com.its.universita.dto.professori;
 
 public class ProfessoreDTO {
     private String id, nome, cognome, materia;
