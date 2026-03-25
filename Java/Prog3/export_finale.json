@@ -1,0 +1,34 @@
+[
+  {
+    "ID_Categoria": "1",
+    "Descrizione": "Caffè"
+  },
+  {
+    "ID_Categoria": "2",
+    "Descrizione": "Zucchero"
+  },
+  {
+    "ID_Categoria": "3",
+    "Descrizione": "Caffè"
+  },
+  {
+    "ID_Categoria": "4",
+    "Descrizione": "Zucchero"
+  },
+  {
+    "ID_Categoria": "5",
+    "Descrizione": "Cioccolato"
+  },
+  {
+    "Città": "Roma",
+    "Regione": "Lazio"
+  },
+  {
+    "Città": "Torino",
+    "Regione": "Piemonte"
+  },
+  {
+    "Città": "Napoli",
+    "Regione": "Campania"
+  }
+]
