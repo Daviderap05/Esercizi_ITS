@@ -20,7 +20,7 @@ public class LoggingAndStatsAspect {
         this.statisticsService = statisticsService;
     }
 
-    @Around("execution(* com.example.demo.service.CalculatorService.*(..))")
+    @Around("execution(* its.calcolostatistiche.calcolostatistiche.service.CalculatorService.*(..))")
     public Object tracciaEStatistiche(ProceedingJoinPoint joinPoint) throws Throwable {
         String methodName = joinPoint.getSignature().getName();
 
