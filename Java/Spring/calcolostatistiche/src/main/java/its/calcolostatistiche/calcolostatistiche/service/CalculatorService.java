@@ -20,8 +20,9 @@ public class CalculatorService {
 
     public double divisione(double a, double b) {
         if (b == 0) {
-            throw new ArithmeticException("Impossibile dividere per zero"); //
+            throw new ArithmeticException("Impossibile dividere per zero");
         }
+
         return a / b;
     }
 }
